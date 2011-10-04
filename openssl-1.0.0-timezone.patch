@@ -1,0 +1,20 @@
+--- a/Makefile.org
++++ b/Makefile.org
+@@ -605,7 +605,7 @@ install_docs:
+ 		sec=`$(PERL) util/extract-section.pl 1 < $$i`; \
+ 		echo "installing man$$sec/$$fn.$${sec}$(MANSUFFIX)"; \
+ 		(cd `$(PERL) util/dirname.pl $$i`; \
+-		sh -c "$$pod2man \
++		sh -c "TZ=UTC $$pod2man \
+ 			--section=$$sec --center=OpenSSL \
+ 			--release=$(VERSION) `basename $$i`") \
+ 			>  $(INSTALL_PREFIX)$(MANDIR)/man$$sec/$$fn.$${sec}$(MANSUFFIX); \
+@@ -622,7 +622,7 @@ install_docs:
+ 		sec=`$(PERL) util/extract-section.pl 3 < $$i`; \
+ 		echo "installing man$$sec/$$fn.$${sec}$(MANSUFFIX)"; \
+ 		(cd `$(PERL) util/dirname.pl $$i`; \
+-		sh -c "$$pod2man \
++		sh -c "TZ=UTC $$pod2man \
+ 			--section=$$sec --center=OpenSSL \
+ 			--release=$(VERSION) `basename $$i`") \
+ 			>  $(INSTALL_PREFIX)$(MANDIR)/man$$sec/$$fn.$${sec}$(MANSUFFIX); \

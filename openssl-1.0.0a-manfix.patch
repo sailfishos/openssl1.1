@@ -1,0 +1,20 @@
+--- a/doc/apps/openssl.pod
++++ b/doc/apps/openssl.pod
+@@ -287,8 +287,6 @@ SHA Digest
+ 
+ SHA-1 Digest
+ 
+-=back
+-
+ =item B<sha224>
+ 
+ SHA-224 Digest
+@@ -305,6 +303,8 @@ SHA-384 Digest
+ 
+ SHA-512 Digest
+ 
++=back
++
+ =head2 ENCODING AND CIPHER COMMANDS
+ 
+ =over 10

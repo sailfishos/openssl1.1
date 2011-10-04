@@ -1,0 +1,26 @@
+--- openssl-0.9.8m/ssl/t1_lib.c.orig	2010-02-18 02:37:47.000000000 +0800
++++ openssl-0.9.8m/ssl/t1_lib.c	2010-03-09 17:46:10.000000000 +0800
+@@ -138,6 +138,11 @@ unsigned char *ssl_add_clienthello_tlsex
+ 					&& !s->s3->send_connection_binding)
+ 		return p;
+ 
++	if (s->client_version != TLS1_VERSION && s->client_version != DTLS1_VERSION)
++		{
++		return ret;
++		}
++
+ 	ret+=2;
+ 
+ 	if (ret>=limit) return NULL; /* this really never occurs, but ... */
+@@ -286,6 +291,11 @@ unsigned char *ssl_add_serverhello_tlsex
+ 	/* don't add extensions for SSLv3, unless doing secure renegotiation */
+ 	if (s->version == SSL3_VERSION && !s->s3->send_connection_binding)
+ 		return p;
++
++ 	if (s->version != TLS1_VERSION && s->version != DTLS1_VERSION)
++ 		{
++ 		return ret;
++ 		}
+ 	
+ 	ret+=2;
+ 	if (ret>=limit) return NULL; /* this really never occurs, but ... */
