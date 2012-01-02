@@ -1,3 +1,6 @@
+* Mon Jan 02 2012 Martin Brook <martin.brook100@googlemail.com> - 1.0.0c
+- Add openssl-1.0.0c-remove-date-string.patch to fix https://bugs.merproject.org/show_bug.cgi?id=23
+
 * Fri Apr 15 2011 Passion Zhao <passion.zhao@intel.com> - 1.0.0c
 - Address CVE-2011-0014 (BMC#13867):OCSP stapling vulnerability in OpenSSL 
   http://www.openssl.org/news/secadv_20110208.txt
