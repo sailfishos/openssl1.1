@@ -64,6 +64,7 @@ Patch52: openssl-1.0.0b-aesni.patch
 Patch53: openssl-1.0.0-name-hash.patch
 # Backported fixes including security fixes
 Patch101: openssl-1.0.0c-CVE-2011-0014.patch
+Patch200: openssl-linux-mips.patch
 
 License: OpenSSL
 Group: System/Libraries
@@ -138,7 +139,7 @@ chmod +x %{SOURCE1}
 %patch53 -p1 -b .name-hash
 
 %patch101 -p0 -b .CVE-2011-0014
-
+%patch200 -p0 -b .mips
 # Modify the various perl scripts to reference perl in the right location.
 perl util/perlpath.pl `dirname %{__perl}`
 
@@ -175,6 +176,9 @@ sslarch="linux-s390x"
 %endif
 %ifarch %{arm} sh3 sh4
 sslarch=linux-generic32
+%endif
+%ifarch mips mipsel
+sslarch=linux-mips
 %endif
 # ia64, x86_64, ppc, ppc64 are OK by default
 # Configure the build tree.  Override OpenSSL defaults with known-good defaults

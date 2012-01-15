@@ -1,0 +1,10 @@
+--- Configure.n32	2010-03-03 09:21:16.750055243 +0800
++++ Configure	2010-03-03 09:25:25.166046728 +0800
+@@ -348,6 +348,7 @@
+ "linux-ia64-icc","icc:-DL_ENDIAN -DTERMIO -O2 -Wall -no_cpprt::-D_REENTRANT::-ldl:SIXTY_FOUR_BIT_LONG RC4_CHUNK DES_RISC1 DES_INT:${ia64_asm}:dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
+ "linux-x86_64",	"gcc:-m64 -DL_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS) -DMD32_REG_T=int::-D_REENTRANT::-ldl:SIXTY_FOUR_BIT_LONG RC4_CHUNK DES_INT DES_UNROLL:${x86_64_asm}:elf:dlfcn:linux-shared:-fPIC:-m64 \$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
+ "linux-s390x",	"gcc:-m64 -DB_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-ldl:SIXTY_FOUR_BIT_LONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL:${s390x_asm}:dlfcn:linux-shared:-fPIC:-m64 \$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
++"linux-mips",	"gcc:-DL_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-ldl:BN_LLONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL BF_PTR:${no_asm}:dlfcn:linux-shared:-fPIC:\$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
+ #### SPARC Linux setups
+ # Ray Miller <ray.miller@computing-services.oxford.ac.uk> has patiently
+ # assisted with debugging of following two configs.

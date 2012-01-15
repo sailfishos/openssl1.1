@@ -1,3 +1,6 @@
+* Sun Jan 15 2012 Carsten Munk <carsten.munk@gmail.com> - 1.0.0c
+- Add openssl-linux-mips.patch for MIPS support
+
 * Mon Jan 02 2012 Martin Brook <martin.brook100@googlemail.com> - 1.0.0c
 - Add openssl-1.0.0c-remove-date-string.patch to fix https://bugs.merproject.org/show_bug.cgi?id=23
 
