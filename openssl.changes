@@ -1,3 +1,8 @@
+* Mon Feb 27 2012 Marko Saukko <marko.saukko@gmail.com> - 1.0.0g
+- Fixes MER#157: Update to 1.0.0g
+- Dropped part of openssl-1.0.0-beta3-defaults.patch that was in upstream.
+- Dropped upstreamed patch openssl-1.0.0c-CVE-2011-0014.patch
+
 * Sun Jan 15 2012 Carsten Munk <carsten.munk@gmail.com> - 1.0.0c
 - Add openssl-linux-mips.patch for MIPS support
 

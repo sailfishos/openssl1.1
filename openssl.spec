@@ -20,7 +20,7 @@
 
 Summary: A general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.0c
+Version: 1.0.0g
 Release: 1
 # We remove certain patented algorithms from the openssl source tarball
 # with the hobble-openssl script which is included below.
@@ -59,11 +59,9 @@ Patch45: openssl-0.9.8j-env-nozlib.patch
 Patch47: openssl-1.0.0-beta5-readme-warning.patch
 Patch49: openssl-1.0.0-beta4-algo-doc.patch
 Patch50: openssl-1.0.0-beta4-dtls1-abi.patch
-Patch51: openssl-1.0.0c-version.patch
+Patch51: openssl-1.0.0g-version.patch
 Patch52: openssl-1.0.0b-aesni.patch
 Patch53: openssl-1.0.0-name-hash.patch
-# Backported fixes including security fixes
-Patch101: openssl-1.0.0c-CVE-2011-0014.patch
 Patch200: openssl-linux-mips.patch
 
 License: OpenSSL
@@ -138,7 +136,6 @@ chmod +x %{SOURCE1}
 %patch52 -p1 -b .aesni
 %patch53 -p1 -b .name-hash
 
-%patch101 -p0 -b .CVE-2011-0014
 %patch200 -p0 -b .mips
 # Modify the various perl scripts to reference perl in the right location.
 perl util/perlpath.pl `dirname %{__perl}`
