@@ -1,6 +1,7 @@
---- a/apps/s_client.c
-+++ b/apps/s_client.c
-@@ -899,12 +899,13 @@ bad:
+diff -up openssl-1.0.0-beta4/apps/s_client.c.default-paths openssl-1.0.0-beta4/apps/s_client.c
+--- openssl-1.0.0-beta4/apps/s_client.c.default-paths	2009-08-12 15:21:26.000000000 +0200
++++ openssl-1.0.0-beta4/apps/s_client.c	2009-11-12 12:26:32.000000000 +0100
+@@ -889,12 +889,13 @@ bad:
  	if (!set_cert_key_stuff(ctx,cert,key))
  		goto end;
  
@@ -18,9 +19,10 @@
  		}
  
  #ifndef OPENSSL_NO_TLSEXT
---- a/apps/s_server.c
-+++ b/apps/s_server.c
-@@ -1411,12 +1411,13 @@ bad:
+diff -up openssl-1.0.0-beta4/apps/s_server.c.default-paths openssl-1.0.0-beta4/apps/s_server.c
+--- openssl-1.0.0-beta4/apps/s_server.c.default-paths	2009-10-28 18:49:37.000000000 +0100
++++ openssl-1.0.0-beta4/apps/s_server.c	2009-11-12 12:31:23.000000000 +0100
+@@ -1408,12 +1408,13 @@ bad:
  		}
  #endif
  
@@ -38,7 +40,7 @@
  		}
  	if (vpm)
  		SSL_CTX_set1_param(ctx, vpm);
-@@ -1468,8 +1469,11 @@ bad:
+@@ -1465,8 +1466,11 @@ bad:
  		else
  			SSL_CTX_sess_set_cache_size(ctx2,128);
  
@@ -52,8 +54,9 @@
  			{
  			ERR_print_errors(bio_err);
  			}
---- a/apps/s_time.c
-+++ b/apps/s_time.c
+diff -up openssl-1.0.0-beta4/apps/s_time.c.default-paths openssl-1.0.0-beta4/apps/s_time.c
+--- openssl-1.0.0-beta4/apps/s_time.c.default-paths	2006-04-17 14:22:13.000000000 +0200
++++ openssl-1.0.0-beta4/apps/s_time.c	2009-11-12 12:26:32.000000000 +0100
 @@ -373,12 +373,13 @@ int MAIN(int argc, char **argv)
  
  	SSL_load_error_strings();

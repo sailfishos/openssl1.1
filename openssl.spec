@@ -18,23 +18,25 @@
 # also be handled in opensslconf-new.h.
 %define multilib_arches %{ix86} ia64 ppc ppc64 s390 s390x sparcv9 sparc64 x86_64
 
-Summary: A general purpose cryptography library with TLS implementation
+Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.0g
-Release: 1
-# We remove certain patented algorithms from the openssl source tarball
-# with the hobble-openssl script which is included below.
-Source: openssl-%{version}-usa.tar.bz2
+Version: 1.0.1b
+# Do not forget to bump SHLIB_VERSION on version upgrades
+Release: 1%{?dist}
+# We have to remove certain patented algorithms from the openssl source
+# tarball with the hobble-openssl script which is included below.
+# The original openssl upstream tarball cannot be shipped in the .src.rpm.
+Source: openssl-%{version}-usa.tar.xz
 Source1: hobble-openssl
 Source2: Makefile.certificate
 Source6: make-dummy-cert
 Source8: openssl-thread-test.c
 Source9: opensslconf-new.h
 Source10: opensslconf-new-warning.h
+Source11: README.FIPS
 # Build changes
-Patch0: openssl-1.0.0-beta4-redhat.patch
-Patch1: openssl-1.0.0-beta3-defaults.patch
-Patch3: openssl-1.0.0-beta3-soversion.patch
+Patch1: openssl-1.0.1-beta2-rpmbuild.patch
+Patch2: openssl-1.0.0f-defaults.patch
 Patch4: openssl-1.0.0-beta5-enginesdir.patch
 Patch5: openssl-0.9.8a-no-rpath.patch
 Patch6: openssl-0.9.8b-test-use-localhost.patch
@@ -42,35 +44,42 @@ Patch7: openssl-1.0.0-timezone.patch
 Patch8: openssl-1.0.0c-remove-date-string.patch
 # Bug fixes
 Patch23: openssl-1.0.0-beta4-default-paths.patch
-Patch24: openssl-0.9.8j-bad-mime.patch
-Patch25: openssl-1.0.0a-manfix.patch
 # Functionality changes
-Patch32: openssl-0.9.8g-ia64.patch
 Patch33: openssl-1.0.0-beta4-ca-dir.patch
 Patch34: openssl-0.9.6-x509.patch
 Patch35: openssl-0.9.8j-version-add-engines.patch
-Patch38: openssl-1.0.0-beta5-cipher-change.patch
-Patch39: openssl-1.0.0b-ipv6-apps.patch
-Patch40: openssl-1.0.0a-fips.patch
-Patch41: openssl-1.0.0-beta3-fipscheck.patch
-Patch43: openssl-1.0.0a-fipsmode.patch
-Patch44: openssl-1.0.0-beta3-fipsrng.patch
+Patch36: openssl-1.0.0e-doc-noeof.patch
+Patch38: openssl-1.0.1-beta2-ssl-op-all.patch
+Patch39: openssl-1.0.1-beta2-ipv6-apps.patch
+Patch40: openssl-1.0.1b-fips.patch
 Patch45: openssl-0.9.8j-env-nozlib.patch
 Patch47: openssl-1.0.0-beta5-readme-warning.patch
-Patch49: openssl-1.0.0-beta4-algo-doc.patch
-Patch50: openssl-1.0.0-beta4-dtls1-abi.patch
-Patch51: openssl-1.0.0g-version.patch
-Patch52: openssl-1.0.0b-aesni.patch
-Patch53: openssl-1.0.0-name-hash.patch
+Patch49: openssl-1.0.1a-algo-doc.patch
+Patch50: openssl-1.0.1-beta2-dtls1-abi.patch
+Patch51: openssl-1.0.1-version.patch
+Patch56: openssl-1.0.0c-rsa-x931.patch
+Patch58: openssl-1.0.1-beta2-fips-md5-allow.patch
+Patch60: openssl-1.0.0d-apps-dgst.patch
+Patch63: openssl-1.0.0d-xmpp-starttls.patch
+Patch65: openssl-1.0.0e-chil-fixes.patch
+Patch66: openssl-1.0.1-pkgconfig-krb5.patch
+Patch67: openssl-1.0.0-fips-pkcs8.patch
+# Backported fixes including security fixes
+Patch81: openssl-1.0.1-beta2-padlock64.patch
+
 Patch200: openssl-linux-mips.patch
 
 License: OpenSSL
-Group: System/Libraries
+Group: System Environment/Libraries
 URL: http://www.openssl.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: mktemp,  perl, sed, zlib-devel, diffutils, util-linux
-Requires: mktemp
-#Requires: ca-certificates >= 2008-5
+BuildRequires: coreutils, perl, sed, zlib-devel 
+# /usr/bin/cmp
+BuildRequires: diffutils
+# /usr/bin/rename
+BuildRequires: util-linux
+Requires: coreutils, make
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 The OpenSSL toolkit provides support for secure communications between
@@ -78,10 +87,23 @@ machines. OpenSSL includes a certificate management tool and shared
 libraries which provide various cryptographic algorithms and
 protocols.
 
+%package libs
+Summary: A general purpose cryptography library with TLS implementation
+Group: System Environment/Libraries
+Requires: ca-certificates >= 2008-5
+# Needed obsoletes due to the base/lib subpackage split
+Obsoletes: openssl < 1:1.0.1-0.3.beta3
+
+%description libs
+OpenSSL is a toolkit for supporting cryptography. The openssl-libs
+package contains the libraries that are used by various applications which
+support cryptographic algorithms and protocols.
+
 %package devel
 Summary: Files for development of applications which will use OpenSSL
 Group: Development/Libraries
-Requires: %{name} = %{version}-%{release},  zlib-devel
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: zlib-devel%{?_isa}
 Requires: pkgconfig
 
 %description devel
@@ -89,11 +111,22 @@ OpenSSL is a toolkit for supporting cryptography. The openssl-devel
 package contains include files needed to develop applications which
 support various cryptographic algorithms and protocols.
 
+%package static
+Summary:  Libraries for static linking of applications which will use OpenSSL
+Group: Development/Libraries
+Requires: %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description static
+OpenSSL is a toolkit for supporting cryptography. The openssl-static
+package contains static libraries needed for static linking of
+applications which support various cryptographic algorithms and
+protocols.
+
 %package perl
 Summary: Perl scripts provided with OpenSSL
 Group: Applications/Internet
 Requires: perl
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description perl
 OpenSSL is a toolkit for supporting cryptography. The openssl-perl
@@ -101,42 +134,44 @@ package provides Perl scripts for converting certificates and keys
 from other formats to the formats used by the OpenSSL toolkit.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}
 
-chmod +x %{SOURCE1}
-%{SOURCE1} > /dev/null
-%patch0 -p1 -b .redhat
-%patch1 -p1 -b .defaults
-%patch3 -p1 -b .soversion
-%patch4 -p1 -b .enginesdir
+# The hobble_openssl is called here redundantly, just to be sure.
+# The tarball has already the sources removed.
+# %{SOURCE1} > /dev/null
+%patch1 -p1 -b .rpmbuild
+%patch2 -p1 -b .defaults
+%patch4 -p1 -b .enginesdir %{?_rawbuild}
 %patch5 -p1 -b .no-rpath
 %patch6 -p1 -b .use-localhost
 %patch7 -p1 -b .timezone
 %patch8 -p1 -b .remove-date-string
 
 %patch23 -p1 -b .default-paths
-%patch24 -p1 -b .bad-mime
-%patch25 -p1 -b .manfix
 
-%patch32 -p1 -b .ia64
 %patch33 -p1 -b .ca-dir
 %patch34 -p1 -b .x509
 %patch35 -p1 -b .version-add-engines
-%patch38 -p1 -b .cipher-change
+%patch36 -p1 -b .doc-noeof
+%patch38 -p1 -b .op-all
 %patch39 -p1 -b .ipv6-apps
 %patch40 -p1 -b .fips
-%patch41 -p1 -b .fipscheck
-%patch43 -p1 -b .fipsmode
-%patch44 -p1 -b .fipsrng
 %patch45 -p1 -b .env-nozlib
 %patch47 -p1 -b .warning
 %patch49 -p1 -b .algo-doc
 %patch50 -p1 -b .dtls1-abi
 %patch51 -p1 -b .version
-%patch52 -p1 -b .aesni
-%patch53 -p1 -b .name-hash
+%patch56 -p1 -b .x931
+%patch58 -p1 -b .md5-allow
+%patch60 -p1 -b .dgst
+%patch63 -p1 -b .starttls
+%patch65 -p1 -b .chil
+%patch66 -p1 -b .krb5
+%patch67 -p1 -b .pkcs8
 
-%patch200 -p0 -b .mips
+%patch81 -p1 -b .padlock64
+
+%patch200 -p1 -b .mips
 # Modify the various perl scripts to reference perl in the right location.
 perl util/perlpath.pl `dirname %{__perl}`
 
@@ -144,10 +179,10 @@ perl util/perlpath.pl `dirname %{__perl}`
 touch Makefile
 make TABLE PERL=%{__perl}
 
-%build 
+%build
 # Figure out which flags we want to use.
 # default
-sslarch=%{_os}-%{_arch}
+sslarch=%{_os}-%{_target_cpu}
 %ifarch %ix86
 sslarch=linux-elf
 if ! echo %{_target} | grep -q i686 ; then
@@ -169,7 +204,7 @@ sslarch=linux-alpha-gcc
 sslarch="linux-generic32 -DB_ENDIAN"
 %endif
 %ifarch s390x
-sslarch="linux-s390x"
+sslarch="linux64-s390x"
 %endif
 %ifarch %{arm} sh3 sh4
 sslarch=linux-generic32
@@ -182,22 +217,29 @@ sslarch=linux-mips
 # usable on all platforms.  The Configure script already knows to use -fPIC and
 # RPM_OPT_FLAGS, so we can skip specifiying them here.
 ./Configure \
-	--prefix=%{_prefix} --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
+	--prefix=/usr --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
 	zlib enable-camellia enable-seed enable-tlsext enable-rfc3779 \
-	enable-cms enable-md2 no-idea no-mdc2 no-rc5 no-ec no-ecdh no-ecdsa \
+	enable-cms enable-md2 no-mdc2 no-rc5 no-ec no-ec2m no-ecdh no-ecdsa no-srp \
 	--enginesdir=%{_libdir}/openssl/engines \
-	shared ${sslarch} fips
+	shared  ${sslarch} %{?!nofips:fips}
 
 # Add -Wa,--noexecstack here so that libcrypto's assembler modules will be
 # marked as not requiring an executable stack.
-RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack"
+# Also add -DPURIFY to make using valgrind with openssl easier as we do not
+# want to depend on the uninitialized memory as a source of entropy anyway.
+RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack -DPURIFY"
 make depend
 make all
 
 # Generate hashes for the included certs.
 make rehash
 
+# Overwrite FIPS README
+cp -f %{SOURCE11} .
+
+%check
 # Verify that what was compiled actually works.
+
 # We must revert patch33 before tests otherwise they will fail
 patch -p1 -R < %{PATCH33}
 
@@ -218,11 +260,13 @@ make -C test apps tests
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
     %{__os_install_post} \
-    crypto/fips/fips_standalone_sha1 $RPM_BUILD_ROOT/%{_lib}/libcrypto.so.%{version} >$RPM_BUILD_ROOT/%{_lib}/.libcrypto.so.%{version}.hmac \
+    crypto/fips/fips_standalone_hmac $RPM_BUILD_ROOT/%{_lib}/libcrypto.so.%{version} >$RPM_BUILD_ROOT/%{_lib}/.libcrypto.so.%{version}.hmac \
     ln -sf .libcrypto.so.%{version}.hmac $RPM_BUILD_ROOT/%{_lib}/.libcrypto.so.%{soversion}.hmac \
-    crypto/fips/fips_standalone_sha1 $RPM_BUILD_ROOT%{_libdir}/libssl.so.%{version} >$RPM_BUILD_ROOT%{_libdir}/.libssl.so.%{version}.hmac \
+    crypto/fips/fips_standalone_hmac $RPM_BUILD_ROOT%{_libdir}/libssl.so.%{version} >$RPM_BUILD_ROOT%{_libdir}/.libssl.so.%{version}.hmac \
     ln -sf .libssl.so.%{version}.hmac $RPM_BUILD_ROOT%{_libdir}/.libssl.so.%{soversion}.hmac \
 %{nil}
+
+%define __provides_exclude_from %{_libdir}/openssl
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -323,17 +367,15 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-%files 
+%files
 %defattr(-,root,root)
 %doc FAQ LICENSE CHANGES NEWS INSTALL README
 %doc doc/c-indentation.el doc/openssl.txt
 %doc doc/openssl_button.html doc/openssl_button.gif
 %doc doc/ssleay.txt
-%dir %{_sysconfdir}/pki/tls
-%dir %{_sysconfdir}/pki/tls/certs
+%doc README.FIPS
 %{_sysconfdir}/pki/tls/certs/make-dummy-cert
 %{_sysconfdir}/pki/tls/certs/Makefile
-%dir %{_sysconfdir}/pki/tls/misc
 %{_sysconfdir}/pki/tls/misc/CA
 %dir %{_sysconfdir}/pki/CA
 %dir %{_sysconfdir}/pki/CA/private
@@ -341,11 +383,19 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %dir %{_sysconfdir}/pki/CA/crl
 %dir %{_sysconfdir}/pki/CA/newcerts
 %{_sysconfdir}/pki/tls/misc/c_*
-%{_sysconfdir}/pki/tls/private
-
-%config(noreplace) %{_sysconfdir}/pki/tls/openssl.cnf
-
 %attr(0755,root,root) %{_bindir}/openssl
+%attr(0644,root,root) %{_mandir}/man1*/[ABD-Zabcd-z]*
+%attr(0644,root,root) %{_mandir}/man5*/*
+%attr(0644,root,root) %{_mandir}/man7*/*
+
+%files libs
+%defattr(-,root,root)
+%doc LICENSE
+%dir %{_sysconfdir}/pki/tls
+%dir %{_sysconfdir}/pki/tls/certs
+%dir %{_sysconfdir}/pki/tls/misc
+%dir %{_sysconfdir}/pki/tls/private
+%config(noreplace) %{_sysconfdir}/pki/tls/openssl.cnf
 %attr(0755,root,root) /%{_lib}/libcrypto.so.%{version}
 %attr(0755,root,root) /%{_lib}/libcrypto.so.%{soversion}
 %attr(0755,root,root) %{_libdir}/libssl.so.%{version}
@@ -353,17 +403,17 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %attr(0644,root,root) /%{_lib}/.libcrypto.so.*.hmac
 %attr(0644,root,root) %{_libdir}/.libssl.so.*.hmac
 %attr(0755,root,root) %{_libdir}/openssl
-%attr(0644,root,root) %{_mandir}/man1*/[ABD-Zabcd-z]*
-%attr(0644,root,root) %{_mandir}/man5*/*
-%attr(0644,root,root) %{_mandir}/man7*/*
 
 %files devel
 %defattr(-,root,root)
 %{_prefix}/include/openssl
-%attr(0644,root,root) %{_libdir}/*.a
 %attr(0755,root,root) %{_libdir}/*.so
 %attr(0644,root,root) %{_mandir}/man3*/*
 %attr(0644,root,root) %{_libdir}/pkgconfig/*.pc
+
+%files static
+%defattr(-,root,root)
+%attr(0644,root,root) %{_libdir}/*.a
 
 %files perl
 %defattr(-,root,root)
@@ -372,7 +422,6 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %{_sysconfdir}/pki/tls/misc/*.pl
 %{_sysconfdir}/pki/tls/misc/tsget
 
-%post -p /sbin/ldconfig
+%post libs -p /sbin/ldconfig
 
-%postun -p /sbin/ldconfig
-
+%postun libs -p /sbin/ldconfig

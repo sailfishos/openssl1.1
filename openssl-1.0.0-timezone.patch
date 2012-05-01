@@ -1,6 +1,7 @@
---- a/Makefile.org
-+++ b/Makefile.org
-@@ -605,7 +605,7 @@ install_docs:
+diff -up openssl-1.0.0/Makefile.org.timezone openssl-1.0.0/Makefile.org
+--- openssl-1.0.0/Makefile.org.timezone	2010-03-30 11:08:40.000000000 +0200
++++ openssl-1.0.0/Makefile.org	2010-04-06 12:49:21.000000000 +0200
+@@ -609,7 +609,7 @@ install_docs:
  		sec=`$(PERL) util/extract-section.pl 1 < $$i`; \
  		echo "installing man$$sec/$$fn.$${sec}$(MANSUFFIX)"; \
  		(cd `$(PERL) util/dirname.pl $$i`; \
@@ -9,7 +10,7 @@
  			--section=$$sec --center=OpenSSL \
  			--release=$(VERSION) `basename $$i`") \
  			>  $(INSTALL_PREFIX)$(MANDIR)/man$$sec/$$fn.$${sec}$(MANSUFFIX); \
-@@ -622,7 +622,7 @@ install_docs:
+@@ -626,7 +626,7 @@ install_docs:
  		sec=`$(PERL) util/extract-section.pl 3 < $$i`; \
  		echo "installing man$$sec/$$fn.$${sec}$(MANSUFFIX)"; \
  		(cd `$(PERL) util/dirname.pl $$i`; \
