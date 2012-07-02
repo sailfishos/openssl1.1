@@ -1,3 +1,7 @@
+* Mon Jul 02 2012 Marko Saukko <sage@merproject.org> - 1.0.1c
+- Fixes MER#336: update openssl to 1.0.0j (or 1.0.1c) [CVE-2012-2333]
+- Fixes MER#412: openssl is not installable on all architectures
+
 * Mon Apr 30 2012 Marko Saukko <sage@merproject.org> - 1.0.1b
 - Fixes MER#284: upgrade openssl to current version (bug fixes, minor security issue)
 - Sync with fedora packaging and patches.

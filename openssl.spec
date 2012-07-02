@@ -20,7 +20,7 @@
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.1b
+Version: 1.0.1c
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1%{?dist}
 # We have to remove certain patented algorithms from the openssl source
@@ -66,14 +66,13 @@ Patch66: openssl-1.0.1-pkgconfig-krb5.patch
 Patch67: openssl-1.0.0-fips-pkcs8.patch
 # Backported fixes including security fixes
 Patch81: openssl-1.0.1-beta2-padlock64.patch
-
+Patch82: openssl-1.0.1c-backports.patch
 Patch200: openssl-linux-mips.patch
 
 License: OpenSSL
 Group: System Environment/Libraries
 URL: http://www.openssl.org/
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: coreutils, perl, sed, zlib-devel 
+BuildRequires: coreutils, perl, sed, zlib-devel
 # /usr/bin/cmp
 BuildRequires: diffutils
 # /usr/bin/rename
@@ -92,7 +91,7 @@ Summary: A general purpose cryptography library with TLS implementation
 Group: System Environment/Libraries
 Requires: ca-certificates >= 2008-5
 # Needed obsoletes due to the base/lib subpackage split
-Obsoletes: openssl < 1:1.0.1-0.3.beta3
+Obsoletes: openssl < 1.0.1b
 
 %description libs
 OpenSSL is a toolkit for supporting cryptography. The openssl-libs
@@ -138,7 +137,7 @@ from other formats to the formats used by the OpenSSL toolkit.
 
 # The hobble_openssl is called here redundantly, just to be sure.
 # The tarball has already the sources removed.
-# %{SOURCE1} > /dev/null
+#%{SOURCE1} > /dev/null
 %patch1 -p1 -b .rpmbuild
 %patch2 -p1 -b .defaults
 %patch4 -p1 -b .enginesdir %{?_rawbuild}
@@ -170,8 +169,10 @@ from other formats to the formats used by the OpenSSL toolkit.
 %patch67 -p1 -b .pkcs8
 
 %patch81 -p1 -b .padlock64
+%patch82 -p1 -b .backports
 
 %patch200 -p1 -b .mips
+
 # Modify the various perl scripts to reference perl in the right location.
 perl util/perlpath.pl `dirname %{__perl}`
 
@@ -425,3 +426,4 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %post libs -p /sbin/ldconfig
 
 %postun libs -p /sbin/ldconfig
+
