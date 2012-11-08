@@ -1,3 +1,6 @@
+* Thu Nov 08 2012 Carsten Munk <carsten.munk@jollamobile.com> - 1.0.1c
+- Remove multilib support.  
+
 * Tue Aug 07 2012 Vasily Gurevich <vas.gurevich@gmail.com> - 1.0.1c
 - Fixes MER#520: Openssl uses obsolete find.pl
 

@@ -14,10 +14,6 @@
 # Number of threads to spawn when testing some threading fixes.
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 
-# Arches on which we need to prevent arch conflicts on opensslconf.h, must
-# also be handled in opensslconf-new.h.
-%define multilib_arches %{ix86} ia64 ppc ppc64 s390 s390x sparcv9 sparc64 x86_64
-
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 1.0.1c
@@ -31,8 +27,6 @@ Source1: hobble-openssl
 Source2: Makefile.certificate
 Source6: make-dummy-cert
 Source8: openssl-thread-test.c
-Source9: opensslconf-new.h
-Source10: opensslconf-new-warning.h
 Source11: README.FIPS
 # Build changes
 Patch1: openssl-1.0.1-beta2-rpmbuild.patch
@@ -337,30 +331,6 @@ mkdir -m755 $RPM_BUILD_ROOT%{_sysconfdir}/pki/CA/newcerts
 # Ensure the openssl.cnf timestamp is identical across builds to avoid
 # mulitlib conflicts and unnecessary renames on upgrade
 touch -r %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.cnf
-
-# Determine which arch opensslconf.h is going to try to #include.
-basearch=%{_arch}
-%ifarch %{ix86}
-basearch=i386
-%endif
-%ifarch sparcv9
-basearch=sparc
-%endif
-%ifarch sparc64
-basearch=sparc64
-%endif
-
-%ifarch %{multilib_arches}
-# Do an opensslconf.h switcheroo to avoid file conflicts on systems where you
-# can have both a 32- and 64-bit version of the library, and they each need
-# their own correct-but-different versions of opensslconf.h to be usable.
-install -m644 %{SOURCE10} \
-	$RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf-${basearch}.h
-cat $RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf.h >> \
-	$RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf-${basearch}.h
-install -m644 %{SOURCE9} \
-	$RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf.h
-%endif
 
 # Remove unused files from upstream fips support
 rm -rf $RPM_BUILD_ROOT/%{_bindir}/openssl_fips_fingerprint
