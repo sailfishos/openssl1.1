@@ -63,6 +63,7 @@ Patch67: openssl-1.0.0-fips-pkcs8.patch
 Patch81: openssl-1.0.1-beta2-padlock64.patch
 Patch82: openssl-1.0.1c-backports.patch
 Patch200: openssl-linux-mips.patch
+Patch201: openssl-aarch64.patch
 
 License: OpenSSL
 Group: System Environment/Libraries
@@ -168,6 +169,7 @@ from other formats to the formats used by the OpenSSL toolkit.
 %patch82 -p1 -b .backports
 
 %patch200 -p1 -b .mips
+%patch201 -p1 -b .aarch64
 
 # Modify the various perl scripts to reference perl in the right location.
 perl util/perlpath.pl `dirname %{__perl}`
