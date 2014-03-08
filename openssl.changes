@@ -1,3 +1,7 @@
+* Sun Mar 09 2014 Islam Amer <islam.amer@jollamobile.com> - 1.0.1f
+- Update to 1.0.1f which fixes multiple CVEs
+- Refresh patches and packaging from fedora
+
 * Sun Mar 03 2013 Carsten Munk <carsten.munk@jollamobile.com> - 1.0.1c
 - Change to utilize new dependency routines in RPM
 

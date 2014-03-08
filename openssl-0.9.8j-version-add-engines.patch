@@ -1,6 +1,7 @@
-diff -up openssl-0.9.8j/apps/version.c.version-add-engines openssl-0.9.8j/apps/version.c
---- openssl-0.9.8j/apps/version.c.version-add-engines	2008-10-20 14:53:33.000000000 +0200
-+++ openssl-0.9.8j/apps/version.c	2009-01-13 23:22:03.000000000 +0100
+Index: openssl-1.0.1f/apps/version.c
+===================================================================
+--- openssl-1.0.1f.orig/apps/version.c
++++ openssl-1.0.1f/apps/version.c
 @@ -131,6 +131,7 @@
  #ifndef OPENSSL_NO_BF
  # include <openssl/blowfish.h>

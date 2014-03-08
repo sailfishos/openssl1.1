@@ -1,6 +1,7 @@
-diff -up openssl-1.0.0e/doc/apps/s_client.pod.doc-noeof openssl-1.0.0e/doc/apps/s_client.pod
---- openssl-1.0.0e/doc/apps/s_client.pod.doc-noeof	2009-06-26 13:28:51.000000000 +0200
-+++ openssl-1.0.0e/doc/apps/s_client.pod	2011-11-03 08:30:35.000000000 +0100
+Index: openssl-1.0.1f/doc/apps/s_client.pod
+===================================================================
+--- openssl-1.0.1f.orig/doc/apps/s_client.pod
++++ openssl-1.0.1f/doc/apps/s_client.pod
 @@ -27,6 +27,7 @@ B<openssl> B<s_client>
  [B<-nbio>]
  [B<-crlf>]

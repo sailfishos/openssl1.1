@@ -16,18 +16,21 @@
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.1c
+Version: 1.0.1f
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source: openssl-%{version}-usa.tar.xz
+Source: openssl-%{version}-hobbled.tar.gz
 Source1: hobble-openssl
 Source2: Makefile.certificate
 Source6: make-dummy-cert
+Source7: renew-dummy-cert
 Source8: openssl-thread-test.c
 Source11: README.FIPS
+Source12: ec_curve.c
+Source13: ectest.c
 # Build changes
 Patch1: openssl-1.0.1-beta2-rpmbuild.patch
 Patch2: openssl-1.0.0f-defaults.patch
@@ -35,35 +38,50 @@ Patch4: openssl-1.0.0-beta5-enginesdir.patch
 Patch5: openssl-0.9.8a-no-rpath.patch
 Patch6: openssl-0.9.8b-test-use-localhost.patch
 Patch7: openssl-1.0.0-timezone.patch
-Patch8: openssl-1.0.0c-remove-date-string.patch
-Patch9: openssl-1.0.1c-perlfind.patch
+Patch8: openssl-1.0.1c-perlfind.patch
+Patch9: openssl-1.0.1c-aliasing.patch
 # Bug fixes
-Patch23: openssl-1.0.0-beta4-default-paths.patch
+Patch23: openssl-1.0.1c-default-paths.patch
+Patch24: openssl-1.0.1e-issuer-hash.patch
 # Functionality changes
 Patch33: openssl-1.0.0-beta4-ca-dir.patch
 Patch34: openssl-0.9.6-x509.patch
 Patch35: openssl-0.9.8j-version-add-engines.patch
 Patch36: openssl-1.0.0e-doc-noeof.patch
 Patch38: openssl-1.0.1-beta2-ssl-op-all.patch
-Patch39: openssl-1.0.1-beta2-ipv6-apps.patch
-Patch40: openssl-1.0.1b-fips.patch
-Patch45: openssl-0.9.8j-env-nozlib.patch
+Patch39: openssl-1.0.1c-ipv6-apps.patch
+Patch40: openssl-1.0.1e-fips.patch
+#Patch45: openssl-1.0.1e-env-zlib.patch
 Patch47: openssl-1.0.0-beta5-readme-warning.patch
 Patch49: openssl-1.0.1a-algo-doc.patch
 Patch50: openssl-1.0.1-beta2-dtls1-abi.patch
-Patch51: openssl-1.0.1-version.patch
+Patch51: openssl-1.0.1e-version.patch
 Patch56: openssl-1.0.0c-rsa-x931.patch
 Patch58: openssl-1.0.1-beta2-fips-md5-allow.patch
 Patch60: openssl-1.0.0d-apps-dgst.patch
 Patch63: openssl-1.0.0d-xmpp-starttls.patch
 Patch65: openssl-1.0.0e-chil-fixes.patch
 Patch66: openssl-1.0.1-pkgconfig-krb5.patch
-Patch67: openssl-1.0.0-fips-pkcs8.patch
+#Patch68: openssl-1.0.1e-secure-getenv.patch
+Patch69: openssl-1.0.1c-dh-1024.patch
+#Patch70: openssl-1.0.1e-fips-ec.patch
+Patch71: openssl-1.0.1e-manfix.patch
+Patch72: openssl-1.0.1e-fips-ctor.patch
+Patch73: openssl-1.0.1e-ecc-suiteb.patch
+Patch74: openssl-1.0.1e-no-md5-verify.patch
+Patch75: openssl-1.0.1e-compat-symbols.patch
+Patch76: openssl-1.0.1e-new-fips-reqs.patch
+Patch77: openssl-1.0.1e-weak-ciphers.patch
 # Backported fixes including security fixes
 Patch81: openssl-1.0.1-beta2-padlock64.patch
-Patch82: openssl-1.0.1c-backports.patch
+Patch84: openssl-1.0.1e-trusted-first.patch
+Patch85: openssl-1.0.1e-arm-use-elf-auxv-caps.patch
+# Mer patches
 Patch200: openssl-linux-mips.patch
 Patch201: openssl-aarch64.patch
+Patch202: openssl-1.0.0c-remove-date-string.patch
+#Patch203: openssl-old-glibc-use-__secure__getenv.patch
+Patch204: openssl-0.9.8j-env-nozlib.patch
 
 License: OpenSSL
 Group: System Environment/Libraries
@@ -134,16 +152,20 @@ from other formats to the formats used by the OpenSSL toolkit.
 # The hobble_openssl is called here redundantly, just to be sure.
 # The tarball has already the sources removed.
 #%{SOURCE1} > /dev/null
+
+cp %{SOURCE12} %{SOURCE13} crypto/ec/
+
 %patch1 -p1 -b .rpmbuild
 %patch2 -p1 -b .defaults
 %patch4 -p1 -b .enginesdir %{?_rawbuild}
 %patch5 -p1 -b .no-rpath
 %patch6 -p1 -b .use-localhost
 %patch7 -p1 -b .timezone
-%patch8 -p1 -b .remove-date-string
-%patch9 -p1 -b .perlfind
+%patch8 -p1 -b .perlfind %{?_rawbuild}
+%patch9 -p1 -b .aliasing
 
 %patch23 -p1 -b .default-paths
+%patch24 -p1 -b .issuer-hash
 
 %patch33 -p1 -b .ca-dir
 %patch34 -p1 -b .x509
@@ -152,7 +174,7 @@ from other formats to the formats used by the OpenSSL toolkit.
 %patch38 -p1 -b .op-all
 %patch39 -p1 -b .ipv6-apps
 %patch40 -p1 -b .fips
-%patch45 -p1 -b .env-nozlib
+#%patch45 -p1 -b .env-zlib
 %patch47 -p1 -b .warning
 %patch49 -p1 -b .algo-doc
 %patch50 -p1 -b .dtls1-abi
@@ -163,13 +185,26 @@ from other formats to the formats used by the OpenSSL toolkit.
 %patch63 -p1 -b .starttls
 %patch65 -p1 -b .chil
 %patch66 -p1 -b .krb5
-%patch67 -p1 -b .pkcs8
+#%patch68 -p1 -b .secure-getenv
+%patch69 -p1 -b .dh1024
+#%patch70 -p1 -b .fips-ec
+%patch72 -p1 -b .fips-ctor
+%patch73 -p1 -b .suiteb
+#%patch74 -p1 -b .no-md5-verify
+%patch75 -p1 -b .compat
+%patch76 -p1 -b .fips-reqs
+%patch77 -p1 -b .weak-ciphers
 
 %patch81 -p1 -b .padlock64
-%patch82 -p1 -b .backports
+%patch71 -p1 -b .manfix
+%patch84 -p1 -b .trusted-first
+%patch85 -p1 -b .armcap
 
 %patch200 -p1 -b .mips
 %patch201 -p1 -b .aarch64
+%patch202 -p1 -b .date
+#%patch203 -p1 -b .old-glibc
+%patch204 -p1 -b .zlib
 
 # Modify the various perl scripts to reference perl in the right location.
 perl util/perlpath.pl `dirname %{__perl}`
@@ -218,9 +253,9 @@ sslarch=linux-mips
 ./Configure \
 	--prefix=/usr --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
 	zlib enable-camellia enable-seed enable-tlsext enable-rfc3779 \
-	enable-cms enable-md2 no-mdc2 no-rc5 no-ec no-ec2m no-ecdh no-ecdsa no-srp \
-	--enginesdir=%{_libdir}/openssl/engines \
-	shared  ${sslarch} %{?!nofips:fips}
+       enable-cms enable-md2 no-mdc2 no-rc5 no-ec no-ec2m no-ecdh no-ecdsa no-srp \
+       --enginesdir=%{_libdir}/openssl/engines \
+       shared  ${sslarch} %{?!nofips:fips}
 
 # Add -Wa,--noexecstack here so that libcrypto's assembler modules will be
 # marked as not requiring an executable stack.
@@ -293,6 +328,7 @@ done
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs
 install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs/Makefile
 install -m755 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs/make-dummy-cert
+install -m755 %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs/renew-dummy-cert
 
 # Make sure we actually include the headers we built against.
 for header in $RPM_BUILD_ROOT%{_includedir}/openssl/* ; do
@@ -348,6 +384,7 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %doc doc/ssleay.txt
 %doc README.FIPS
 %{_sysconfdir}/pki/tls/certs/make-dummy-cert
+%{_sysconfdir}/pki/tls/certs/renew-dummy-cert
 %{_sysconfdir}/pki/tls/certs/Makefile
 %{_sysconfdir}/pki/tls/misc/CA
 %dir %{_sysconfdir}/pki/CA

@@ -13,15 +13,15 @@ set -e
 # Remove assembler portions of IDEA, MDC2, and RC5.
 (find crypto/rc5/asm -type f | xargs -r rm -fv)
 
-# RC5, EC, SRP.
-for a in rc5 ec ecdh ecdsa srp; do
+# RC5, SRP.
+for a in rc5 srp; do
   for c in `find crypto/$a -name "*.c" -a \! -name "*test*" -type f` ; do
 	echo Destroying $c
 	> $c
   done
 done
 
-for c in `find crypto/evp -name "*_rc5.c" -o -name "*_ecdsa.c"`; do
+for c in `find crypto/evp -name "*_rc5.c"`; do
 	echo Destroying $c
 	> $c
 done
@@ -31,15 +31,18 @@ for c in `find crypto/bn -name "*gf2m.c"`; do
 	> $c
 done
 
+for c in `find crypto/ec -name "ec2*.c" -o -name "ec_curve.c" -o -name "ecp_nistp?2?.c" -o -name "ectest.c"`; do
+	echo Destroying $c
+	> $c
+done
+
 for h in `find crypto ssl apps test -name "*.h"` ; do
-	echo Removing RC5, SRP and EC references from $h
+	echo Removing RC5, SRP and EC2M references from $h
 	cat $h | \
 	awk    'BEGIN {ech=1;} \
 		/^#[ \t]*ifndef.*NO_SRP/ {ech--; next;} \
 		/^#[ \t]*ifndef.*NO_RC5/ {ech--; next;} \
-		/^#[ \t]*ifndef.*NO_EC/ {ech--; next;} \
-		/^#[ \t]*ifndef.*NO_ECDH/ {ech--; next;} \
-		/^#[ \t]*ifndef.*NO_ECDSA/ {ech--; next;} \
+		/^#[ \t]*ifndef.*NO_EC2M/ {ech--; next;} \
                 /^#[ \t]*if/ {if(ech < 1) ech--;} \
 		{if(ech>0) {;print $0};} \
 		/^#[ \t]*endif/ {if(ech < 1) ech++;}' > $h.hobbled && \

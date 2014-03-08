@@ -1,6 +1,7 @@
-diff -up openssl-1.0.0d/apps/ca.c.dgst openssl-1.0.0d/apps/ca.c
---- openssl-1.0.0d/apps/ca.c.dgst	2009-12-02 15:41:24.000000000 +0100
-+++ openssl-1.0.0d/apps/ca.c	2011-04-05 21:09:42.000000000 +0200
+Index: openssl-1.0.1f/apps/ca.c
+===================================================================
+--- openssl-1.0.1f.orig/apps/ca.c
++++ openssl-1.0.1f/apps/ca.c
 @@ -157,7 +157,7 @@ static const char *ca_usage[]={
  " -startdate YYMMDDHHMMSSZ  - certificate validity notBefore\n",
  " -enddate YYMMDDHHMMSSZ    - certificate validity notAfter (overrides -days)\n",
@@ -10,10 +11,11 @@ diff -up openssl-1.0.0d/apps/ca.c.dgst openssl-1.0.0d/apps/ca.c
  " -policy arg     - The CA 'policy' to support\n",
  " -keyfile arg    - private key file\n",
  " -keyform arg    - private key file format (PEM or ENGINE)\n",
-diff -up openssl-1.0.0d/apps/enc.c.dgst openssl-1.0.0d/apps/enc.c
---- openssl-1.0.0d/apps/enc.c.dgst	2010-06-15 19:25:02.000000000 +0200
-+++ openssl-1.0.0d/apps/enc.c	2011-04-05 21:11:54.000000000 +0200
-@@ -302,7 +302,7 @@ bad:
+Index: openssl-1.0.1f/apps/enc.c
+===================================================================
+--- openssl-1.0.1f.orig/apps/enc.c
++++ openssl-1.0.1f/apps/enc.c
+@@ -305,7 +305,7 @@ bad:
  			BIO_printf(bio_err,"%-14s passphrase is the next argument\n","-k");
  			BIO_printf(bio_err,"%-14s passphrase is the first line of the file argument\n","-kfile");
  			BIO_printf(bio_err,"%-14s the next argument is the md to use to create a key\n","-md");
@@ -22,10 +24,11 @@ diff -up openssl-1.0.0d/apps/enc.c.dgst openssl-1.0.0d/apps/enc.c
  			BIO_printf(bio_err,"%-14s salt in hex is the next argument\n","-S");
  			BIO_printf(bio_err,"%-14s key/iv in hex is the next argument\n","-K/-iv");
  			BIO_printf(bio_err,"%-14s print the iv/key (then exit if -P)\n","-[pP]");
-diff -up openssl-1.0.0d/apps/req.c.dgst openssl-1.0.0d/apps/req.c
---- openssl-1.0.0d/apps/req.c.dgst	2010-03-10 14:48:21.000000000 +0100
-+++ openssl-1.0.0d/apps/req.c	2011-04-05 21:12:33.000000000 +0200
-@@ -421,7 +421,7 @@ bad:
+Index: openssl-1.0.1f/apps/req.c
+===================================================================
+--- openssl-1.0.1f.orig/apps/req.c
++++ openssl-1.0.1f/apps/req.c
+@@ -430,7 +430,7 @@ bad:
  #ifndef OPENSSL_NO_ECDSA
  		BIO_printf(bio_err," -newkey ec:file generate a new EC key, parameters taken from CA in 'file'\n");
  #endif
@@ -34,9 +37,10 @@ diff -up openssl-1.0.0d/apps/req.c.dgst openssl-1.0.0d/apps/req.c
  		BIO_printf(bio_err," -config file   request template file.\n");
  		BIO_printf(bio_err," -subj arg      set or modify request subject\n");
  		BIO_printf(bio_err," -multivalue-rdn enable support for multivalued RDNs\n");
-diff -up openssl-1.0.0d/apps/ts.c.dgst openssl-1.0.0d/apps/ts.c
---- openssl-1.0.0d/apps/ts.c.dgst	2009-10-18 16:42:26.000000000 +0200
-+++ openssl-1.0.0d/apps/ts.c	2011-04-05 21:16:07.000000000 +0200
+Index: openssl-1.0.1f/apps/ts.c
+===================================================================
+--- openssl-1.0.1f.orig/apps/ts.c
++++ openssl-1.0.1f/apps/ts.c
 @@ -368,7 +368,7 @@ int MAIN(int argc, char **argv)
  	BIO_printf(bio_err, "usage:\n"
  		   "ts -query [-rand file%cfile%c...] [-config configfile] "
@@ -46,9 +50,10 @@ diff -up openssl-1.0.0d/apps/ts.c.dgst openssl-1.0.0d/apps/ts.c
  		   "[-policy object_id] [-no_nonce] [-cert] "
  		   "[-in request.tsq] [-out request.tsq] [-text]\n",
  		   LIST_SEPARATOR_CHAR, LIST_SEPARATOR_CHAR);
-diff -up openssl-1.0.0d/apps/x509.c.dgst openssl-1.0.0d/apps/x509.c
---- openssl-1.0.0d/apps/x509.c.dgst	2011-04-05 21:13:42.000000000 +0200
-+++ openssl-1.0.0d/apps/x509.c	2011-04-05 21:13:17.000000000 +0200
+Index: openssl-1.0.1f/apps/x509.c
+===================================================================
+--- openssl-1.0.1f.orig/apps/x509.c
++++ openssl-1.0.1f/apps/x509.c
 @@ -141,7 +141,7 @@ static const char *x509_usage[]={
  " -set_serial     - serial number to use\n",
  " -text           - print the certificate in text form\n",
@@ -58,9 +63,10 @@ diff -up openssl-1.0.0d/apps/x509.c.dgst openssl-1.0.0d/apps/x509.c
  " -extfile        - configuration file with X509V3 extensions to add\n",
  " -extensions     - section from config file with X509V3 extensions to add\n",
  " -clrext         - delete extensions before signing and input certificate\n",
-diff -up openssl-1.0.0d/doc/apps/ca.pod.dgst openssl-1.0.0d/doc/apps/ca.pod
---- openssl-1.0.0d/doc/apps/ca.pod.dgst	2009-04-10 13:25:53.000000000 +0200
-+++ openssl-1.0.0d/doc/apps/ca.pod	2011-04-05 21:16:39.000000000 +0200
+Index: openssl-1.0.1f/doc/apps/ca.pod
+===================================================================
+--- openssl-1.0.1f.orig/doc/apps/ca.pod
++++ openssl-1.0.1f/doc/apps/ca.pod
 @@ -160,7 +160,8 @@ the number of days to certify the certif
  =item B<-md alg>
  
@@ -71,9 +77,10 @@ diff -up openssl-1.0.0d/doc/apps/ca.pod.dgst openssl-1.0.0d/doc/apps/ca.pod
  
  =item B<-policy arg>
  
-diff -up openssl-1.0.0d/doc/apps/ocsp.pod.dgst openssl-1.0.0d/doc/apps/ocsp.pod
---- openssl-1.0.0d/doc/apps/ocsp.pod.dgst	2008-02-25 19:11:47.000000000 +0100
-+++ openssl-1.0.0d/doc/apps/ocsp.pod	2011-04-05 21:18:17.000000000 +0200
+Index: openssl-1.0.1f/doc/apps/ocsp.pod
+===================================================================
+--- openssl-1.0.1f.orig/doc/apps/ocsp.pod
++++ openssl-1.0.1f/doc/apps/ocsp.pod
 @@ -210,7 +210,8 @@ check is not performed.
  =item B<-md5|-sha1|-sha256|-ripemod160|...>
  
@@ -84,9 +91,10 @@ diff -up openssl-1.0.0d/doc/apps/ocsp.pod.dgst openssl-1.0.0d/doc/apps/ocsp.pod
  
  =back
  
-diff -up openssl-1.0.0d/doc/apps/req.pod.dgst openssl-1.0.0d/doc/apps/req.pod
---- openssl-1.0.0d/doc/apps/req.pod.dgst	2009-04-10 18:42:28.000000000 +0200
-+++ openssl-1.0.0d/doc/apps/req.pod	2011-04-05 21:20:47.000000000 +0200
+Index: openssl-1.0.1f/doc/apps/req.pod
+===================================================================
+--- openssl-1.0.1f.orig/doc/apps/req.pod
++++ openssl-1.0.1f/doc/apps/req.pod
 @@ -201,7 +201,8 @@ will not be encrypted.
  
  this specifies the message digest to sign the request with (such as
@@ -97,10 +105,11 @@ diff -up openssl-1.0.0d/doc/apps/req.pod.dgst openssl-1.0.0d/doc/apps/req.pod
  
  Some public key algorithms may override this choice. For instance, DSA
  signatures always use SHA1, GOST R 34.10 signatures always use
-diff -up openssl-1.0.0d/doc/apps/x509.pod.dgst openssl-1.0.0d/doc/apps/x509.pod
---- openssl-1.0.0d/doc/apps/x509.pod.dgst	2010-01-12 18:27:11.000000000 +0100
-+++ openssl-1.0.0d/doc/apps/x509.pod	2011-04-05 21:19:56.000000000 +0200
-@@ -101,6 +101,7 @@ the digest to use. This affects any sign
+Index: openssl-1.0.1f/doc/apps/x509.pod
+===================================================================
+--- openssl-1.0.1f.orig/doc/apps/x509.pod
++++ openssl-1.0.1f/doc/apps/x509.pod
+@@ -102,6 +102,7 @@ the digest to use. This affects any sign
  digest, such as the B<-fingerprint>, B<-signkey> and B<-CA> options. If not
  specified then SHA1 is used. If the key being used to sign with is a DSA key
  then this option has no effect: SHA1 is always used with DSA keys.
