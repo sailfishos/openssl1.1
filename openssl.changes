@@ -1,3 +1,8 @@
+* Thu Jun 05 2014 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1h
+- Update to version 1.0.1h [CVE-2014-0224,CVE-2014-0221,CVE-2014-0195,
+  CVE-2014-0198,CVE-2010-5298,CVE-2014-3470]
+  https://www.openssl.org/news/secadv_20140605.txt  
+
 * Thu Apr 08 2014 Islam Amer <islam.amer@jollamobile.com> - 1.0.1g
 - Update to version 1.0.1g [CVE-2014-0160]
 
