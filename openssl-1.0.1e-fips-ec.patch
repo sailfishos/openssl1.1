@@ -241,7 +241,7 @@ diff -up openssl-1.0.1e/crypto/ec/ec_key.c.fips-ec openssl-1.0.1e/crypto/ec/ec_k
 +
 +	EVP_PKEY_set1_EC_KEY(pk, key);
 +
-+	if (fips_pkey_signature_test(pk, tbs, 0, NULL, 0, NULL, 0, NULL))
++	if (fips_pkey_signature_test(pk, tbs, -1, NULL, 0, NULL, 0, NULL))
 +		ret = 1;
 +
 +	err:

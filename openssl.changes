@@ -1,7 +1,12 @@
+* Mon Aug 11 2014 Davide Bettio <davide.bettio@ispirata.com> - 1.0.1i
+- Update to openssl 1.0.1i with Fedora patches
+- Fixes: CVE-2014-3505, CVE-2014-3506, CVE-2014-3507, CVE-2014-3508, CVE-2014-3509,
+  CVE-2014-3510, CVE-2014-3511, CVE-2014-3512, CVE-2014-5139.
+
 * Thu Jun 05 2014 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1h
 - Update to version 1.0.1h [CVE-2014-0224,CVE-2014-0221,CVE-2014-0195,
   CVE-2014-0198,CVE-2010-5298,CVE-2014-3470]
-  https://www.openssl.org/news/secadv_20140605.txt  
+  https://www.openssl.org/news/secadv_20140605.txt
 
 * Thu Apr 08 2014 Islam Amer <islam.amer@jollamobile.com> - 1.0.1g
 - Update to version 1.0.1g [CVE-2014-0160]

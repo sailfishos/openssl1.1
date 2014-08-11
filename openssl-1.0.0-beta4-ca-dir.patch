@@ -1,7 +1,6 @@
-Index: openssl-1.0.1f/apps/CA.pl.in
-===================================================================
---- openssl-1.0.1f.orig/apps/CA.pl.in
-+++ openssl-1.0.1f/apps/CA.pl.in
+diff -up openssl-1.0.0-beta4/apps/CA.pl.in.ca-dir openssl-1.0.0-beta4/apps/CA.pl.in
+--- openssl-1.0.0-beta4/apps/CA.pl.in.ca-dir	2006-04-28 02:30:49.000000000 +0200
++++ openssl-1.0.0-beta4/apps/CA.pl.in	2009-11-12 12:33:13.000000000 +0100
 @@ -53,7 +53,7 @@ $VERIFY="$openssl verify";
  $X509="$openssl x509";
  $PKCS12="$openssl pkcs12";
@@ -11,10 +10,9 @@ Index: openssl-1.0.1f/apps/CA.pl.in
  $CAKEY="cakey.pem";
  $CAREQ="careq.pem";
  $CACERT="cacert.pem";
-Index: openssl-1.0.1f/apps/CA.sh
-===================================================================
---- openssl-1.0.1f.orig/apps/CA.sh
-+++ openssl-1.0.1f/apps/CA.sh
+diff -up openssl-1.0.0-beta4/apps/CA.sh.ca-dir openssl-1.0.0-beta4/apps/CA.sh
+--- openssl-1.0.0-beta4/apps/CA.sh.ca-dir	2009-10-15 19:27:47.000000000 +0200
++++ openssl-1.0.0-beta4/apps/CA.sh	2009-11-12 12:35:14.000000000 +0100
 @@ -68,7 +68,7 @@ VERIFY="$OPENSSL verify"
  X509="$OPENSSL x509"
  PKCS12="openssl pkcs12"
@@ -24,10 +22,9 @@ Index: openssl-1.0.1f/apps/CA.sh
  CAKEY=./cakey.pem
  CAREQ=./careq.pem
  CACERT=./cacert.pem
-Index: openssl-1.0.1f/apps/openssl.cnf
-===================================================================
---- openssl-1.0.1f.orig/apps/openssl.cnf
-+++ openssl-1.0.1f/apps/openssl.cnf
+diff -up openssl-1.0.0-beta4/apps/openssl.cnf.ca-dir openssl-1.0.0-beta4/apps/openssl.cnf
+--- openssl-1.0.0-beta4/apps/openssl.cnf.ca-dir	2009-11-12 12:33:13.000000000 +0100
++++ openssl-1.0.0-beta4/apps/openssl.cnf	2009-11-12 12:33:13.000000000 +0100
 @@ -39,7 +39,7 @@ default_ca	= CA_default		# The default c
  ####################################################################
  [ CA_default ]

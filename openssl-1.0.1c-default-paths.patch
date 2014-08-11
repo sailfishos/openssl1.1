@@ -1,8 +1,7 @@
-Index: openssl-1.0.1f/apps/s_client.c
-===================================================================
---- openssl-1.0.1f.orig/apps/s_client.c
-+++ openssl-1.0.1f/apps/s_client.c
-@@ -1174,12 +1174,19 @@ bad:
+diff -up openssl-1.0.1c/apps/s_client.c.default-paths openssl-1.0.1c/apps/s_client.c
+--- openssl-1.0.1c/apps/s_client.c.default-paths	2012-03-18 19:16:05.000000000 +0100
++++ openssl-1.0.1c/apps/s_client.c	2012-12-06 18:24:06.425933203 +0100
+@@ -1166,12 +1166,19 @@ bad:
  	if (!set_cert_key_stuff(ctx,cert,key))
  		goto end;
  
@@ -27,11 +26,10 @@ Index: openssl-1.0.1f/apps/s_client.c
  		}
  
  #ifndef OPENSSL_NO_TLSEXT
-Index: openssl-1.0.1f/apps/s_server.c
-===================================================================
---- openssl-1.0.1f.orig/apps/s_server.c
-+++ openssl-1.0.1f/apps/s_server.c
-@@ -1572,13 +1572,21 @@ bad:
+diff -up openssl-1.0.1c/apps/s_server.c.default-paths openssl-1.0.1c/apps/s_server.c
+--- openssl-1.0.1c/apps/s_server.c.default-paths	2012-03-18 19:16:05.000000000 +0100
++++ openssl-1.0.1c/apps/s_server.c	2012-12-06 18:25:11.199329611 +0100
+@@ -1565,13 +1565,21 @@ bad:
  		}
  #endif
  
@@ -58,7 +56,7 @@ Index: openssl-1.0.1f/apps/s_server.c
  	if (vpm)
  		SSL_CTX_set1_param(ctx, vpm);
  
-@@ -1629,8 +1637,11 @@ bad:
+@@ -1622,8 +1630,11 @@ bad:
  		else
  			SSL_CTX_sess_set_cache_size(ctx2,128);
  
@@ -72,10 +70,9 @@ Index: openssl-1.0.1f/apps/s_server.c
  			{
  			ERR_print_errors(bio_err);
  			}
-Index: openssl-1.0.1f/apps/s_time.c
-===================================================================
---- openssl-1.0.1f.orig/apps/s_time.c
-+++ openssl-1.0.1f/apps/s_time.c
+diff -up openssl-1.0.1c/apps/s_time.c.default-paths openssl-1.0.1c/apps/s_time.c
+--- openssl-1.0.1c/apps/s_time.c.default-paths	2006-04-17 14:22:13.000000000 +0200
++++ openssl-1.0.1c/apps/s_time.c	2012-12-06 18:27:41.694574044 +0100
 @@ -373,12 +373,19 @@ int MAIN(int argc, char **argv)
  
  	SSL_load_error_strings();

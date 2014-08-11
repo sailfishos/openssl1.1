@@ -1,11 +1,10 @@
-Index: openssl-1.0.1f/Configure
-===================================================================
---- openssl-1.0.1f.orig/Configure
-+++ openssl-1.0.1f/Configure
-@@ -362,6 +362,7 @@ my %table=(
+diff -Naur a/openssl-1.0.1h/Configure b/openssl-1.0.1h/Configure
+--- a/openssl-1.0.1h/Configure	2014-06-16 13:47:41.915569097 +0200
++++ b/openssl-1.0.1h/Configure	2014-06-16 13:48:54.055926814 +0200
+@@ -366,6 +366,7 @@
  "linux-ia64-icc","icc:-DL_ENDIAN -DTERMIO -O2 -Wall -no_cpprt::-D_REENTRANT::-ldl:SIXTY_FOUR_BIT_LONG RC4_CHUNK DES_RISC1 DES_INT:${ia64_asm}:dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
- "linux-x86_64",	"gcc:-m64 -DL_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-ldl:SIXTY_FOUR_BIT_LONG RC4_CHUNK DES_INT DES_UNROLL:${x86_64_asm}:elf:dlfcn:linux-shared:-fPIC:-m64 \$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
- "linux64-s390x",	"gcc:-m64 -DB_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-ldl:SIXTY_FOUR_BIT_LONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL:${s390x_asm}:64:dlfcn:linux-shared:-fPIC:-m64 \$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
+ "linux-x86_64",	"gcc:-m64 -DL_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-Wl,-z,relro -ldl:SIXTY_FOUR_BIT_LONG RC4_CHUNK DES_INT DES_UNROLL:${x86_64_asm}:elf:dlfcn:linux-shared:-fPIC:-m64 \$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
+ "linux64-s390x",	"gcc:-m64 -DB_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-Wl,-z,relro -ldl:SIXTY_FOUR_BIT_LONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL:${s390x_asm}:64:dlfcn:linux-shared:-fPIC:-m64 \$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
 +"linux-mips",	"gcc:-DL_ENDIAN -DTERMIO -Wall \$(RPM_OPT_FLAGS)::-D_REENTRANT::-ldl:BN_LLONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL BF_PTR:${no_asm}:dlfcn:linux-shared:-fPIC:\$(RPM_OPT_FLAGS):.so.\$(SHLIB_SONAMEVER):::64",
  #### So called "highgprs" target for z/Architecture CPUs
  # "Highgprs" is kernel feature first implemented in Linux 2.6.32, see

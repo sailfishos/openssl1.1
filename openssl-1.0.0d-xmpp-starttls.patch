@@ -1,8 +1,7 @@
-Index: openssl-1.0.1f/apps/s_client.c
-===================================================================
---- openssl-1.0.1f.orig/apps/s_client.c
-+++ openssl-1.0.1f/apps/s_client.c
-@@ -1486,7 +1486,7 @@ SSL_set_tlsext_status_ids(con, ids);
+diff -ru openssl-1.0.0d.old/apps/s_client.c openssl-1.0.0d/apps/s_client.c
+--- openssl-1.0.0d.old/apps/s_client.c	2011-07-17 21:05:19.934181169 +0200
++++ openssl-1.0.0d/apps/s_client.c	2011-07-17 21:11:42.747824990 +0200
+@@ -1186,7 +1186,7 @@
  		    "xmlns='jabber:client' to='%s' version='1.0'>", host);
  		seen = BIO_read(sbio,mbuf,BUFSIZZ);
  		mbuf[seen] = 0;

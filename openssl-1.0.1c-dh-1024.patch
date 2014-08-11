@@ -1,7 +1,6 @@
-Index: openssl-1.0.1f/apps/s_server.c
-===================================================================
---- openssl-1.0.1f.orig/apps/s_server.c
-+++ openssl-1.0.1f/apps/s_server.c
+diff -up openssl-1.0.1c/apps/s_server.c.dh1024 openssl-1.0.1c/apps/s_server.c
+--- openssl-1.0.1c/apps/s_server.c.dh1024	2012-11-14 20:27:50.000000000 +0100
++++ openssl-1.0.1c/apps/s_server.c	2012-11-15 20:56:15.247774465 +0100
 @@ -222,27 +222,31 @@ static void s_server_init(void);
  #endif
  
@@ -51,7 +50,7 @@ Index: openssl-1.0.1f/apps/s_server.c
  	return(dh);
  	}
  #endif
-@@ -1671,7 +1675,7 @@ bad:
+@@ -1657,7 +1661,7 @@ bad:
  		else
  			{
  			BIO_printf(bio_s_out,"Using default temp DH parameters\n");
