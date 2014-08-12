@@ -1,3 +1,6 @@
+* Tue Aug 12 2014 Carsten Munk <carsten.munk@jolla.com> - 1.0.1i
+- Make it able to detect __secure_getenv vs not and update patch, for older glibc
+
 * Mon Aug 11 2014 Davide Bettio <davide.bettio@ispirata.com> - 1.0.1i
 - Update to openssl 1.0.1i with Fedora patches
 - Fixes: CVE-2014-3505, CVE-2014-3506, CVE-2014-3507, CVE-2014-3508, CVE-2014-3509,

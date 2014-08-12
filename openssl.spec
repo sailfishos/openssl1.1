@@ -13,13 +13,11 @@
 
 # Number of threads to spawn when testing some threading fixes.
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
-
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 1.0.1i
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1%{?dist}
-Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
@@ -84,6 +82,7 @@ Patch89: openssl-1.0.1e-ephemeral-key-size.patch
 Patch200: openssl-linux-mips.patch
 Patch201: openssl-aarch64.patch
 Patch202: openssl-1.0.0c-remove-date-string.patch
+Patch203: openssl-old-glibc-use-__secure__getenv.patch 
 
 License: OpenSSL
 Group: System Environment/Libraries
@@ -208,6 +207,10 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch200 -p2 -b .mips
 %patch201 -p1 -b .aarch64
 %patch202 -p1 -b .date
+%if %(echo `nm -D /lib/libc.so.6` | grep -q "W secure_getenv" && echo 0 || echo 1)
+%patch203 -p1 -b .securegetenv
+%endif
+
 sed -i 's/SHLIB_VERSION_NUMBER "1.0.0"/SHLIB_VERSION_NUMBER "%{version}"/' crypto/opensslv.h
 
 # Modify the various perl scripts to reference perl in the right location.
