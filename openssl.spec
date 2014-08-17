@@ -17,7 +17,7 @@ Summary: Utilities from the general purpose cryptography library with TLS implem
 Name: openssl
 Version: 1.0.1i
 # Do not forget to bump SHLIB_VERSION on version upgrades
-Release: 1%{?dist}
+Release: 2%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
@@ -191,7 +191,8 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch71 -p1 -b .manfix
 %patch72 -p1 -b .fips-ctor
 %patch73 -p1 -b .suiteb
-%patch74 -p1 -b .no-md5-verify
+#This breaks openvpn tests if enabled (up until 2.3.4 (2014-08-14, latest))
+#%patch74 -p1 -b .no-md5-verify
 %patch75 -p1 -b .compat
 %patch76 -p1 -b .fips-reqs
 %patch77 -p1 -b .weak-ciphers
