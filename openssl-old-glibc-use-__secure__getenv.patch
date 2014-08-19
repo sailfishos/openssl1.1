@@ -267,24 +267,3 @@ Index: openssl-1.0.1f/ssl/ssl_ciph.c
  				{
  				comp=(SSL_COMP *)OPENSSL_malloc(sizeof(SSL_COMP));
  				if (comp != NULL)
-diff -ru openssl-1.0.1i/crypto/asn1/a_verify.c openssl-1.0.1i-diff/crypto/asn1/a_verify.c
---- openssl-1.0.1i/crypto/asn1/a_verify.c	2014-08-12 08:55:07.280713313 +0000
-+++ openssl-1.0.1i-diff/crypto/asn1/a_verify.c	2014-08-12 09:03:36.943309209 +0000
-@@ -56,7 +56,7 @@
-  * [including the GNU Public Licence.]
-  */
- 
--/* for secure_getenv */
-+/* for __secure_getenv */
- #define _GNU_SOURCE
- 
- #include <stdio.h>
-@@ -174,7 +174,7 @@
- 			goto err;
- 		ret = -1;
- 		}
--	else if (mdnid == NID_md5 && secure_getenv("OPENSSL_ENABLE_MD5_VERIFY") == NULL)
-+	else if (mdnid == NID_md5 && __secure_getenv("OPENSSL_ENABLE_MD5_VERIFY") == NULL)
- 		{
- 		ASN1err(ASN1_F_ASN1_ITEM_VERIFY, ASN1_R_UNKNOWN_MESSAGE_DIGEST_ALGORITHM);
- 		goto err;
