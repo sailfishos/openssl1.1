@@ -1,3 +1,7 @@
+* Thu Oct 16 2014 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1j
+- Update to version 1.0.1j [CVE-2014-3513, CVE-2014-3567, CVE-2014-3568]
+  https://www.openssl.org/news/secadv_20141015.txt
+
 * Mon Aug 18 2014 Pasi Sjöholm <pasi.sjoholm@jolla.com> - 1.0.1i
 - Unbreak openvpn build tests by disabling no-md5-verify-patch
 
