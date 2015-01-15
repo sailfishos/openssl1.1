@@ -1,6 +1,6 @@
 diff -up openssl-1.0.1i/crypto/bn/bn_rand.c.fips-reqs openssl-1.0.1i/crypto/bn/bn_rand.c
 --- openssl-1.0.1i/crypto/bn/bn_rand.c.fips-reqs	2014-07-22 21:43:11.000000000 +0200
-+++ openssl-1.0.1i/crypto/bn/bn_rand.c	2014-08-07 11:25:28.835889145 +0200
++++ openssl-1.0.1i/crypto/bn/bn_rand.c	2014-08-13 19:58:06.818832577 +0200
 @@ -138,9 +138,12 @@ static int bnrand(int pseudorand, BIGNUM
  		goto err;
  		}
@@ -18,8 +18,8 @@ diff -up openssl-1.0.1i/crypto/bn/bn_rand.c.fips-reqs openssl-1.0.1i/crypto/bn/b
  	if (pseudorand)
  		{
 diff -up openssl-1.0.1i/crypto/dh/dh_gen.c.fips-reqs openssl-1.0.1i/crypto/dh/dh_gen.c
---- openssl-1.0.1i/crypto/dh/dh_gen.c.fips-reqs	2014-08-07 11:25:28.586887965 +0200
-+++ openssl-1.0.1i/crypto/dh/dh_gen.c	2014-08-07 11:25:28.835889145 +0200
+--- openssl-1.0.1i/crypto/dh/dh_gen.c.fips-reqs	2014-08-13 19:58:06.765831356 +0200
++++ openssl-1.0.1i/crypto/dh/dh_gen.c	2014-08-13 19:58:06.818832577 +0200
 @@ -125,7 +125,7 @@ static int dh_builtin_genparams(DH *ret,
  		return 0;
  		}
@@ -30,8 +30,8 @@ diff -up openssl-1.0.1i/crypto/dh/dh_gen.c.fips-reqs openssl-1.0.1i/crypto/dh/dh
  		DHerr(DH_F_DH_BUILTIN_GENPARAMS, DH_R_KEY_SIZE_TOO_SMALL);
  		goto err;
 diff -up openssl-1.0.1i/crypto/dh/dh.h.fips-reqs openssl-1.0.1i/crypto/dh/dh.h
---- openssl-1.0.1i/crypto/dh/dh.h.fips-reqs	2014-08-07 11:25:28.586887965 +0200
-+++ openssl-1.0.1i/crypto/dh/dh.h	2014-08-07 11:25:28.836889150 +0200
+--- openssl-1.0.1i/crypto/dh/dh.h.fips-reqs	2014-08-13 19:58:06.765831356 +0200
++++ openssl-1.0.1i/crypto/dh/dh.h	2014-08-13 19:58:06.818832577 +0200
 @@ -78,6 +78,7 @@
  #endif
  
@@ -42,7 +42,7 @@ diff -up openssl-1.0.1i/crypto/dh/dh.h.fips-reqs openssl-1.0.1i/crypto/dh/dh.h
  #define DH_FLAG_NO_EXP_CONSTTIME 0x02 /* new with 0.9.7h; the built-in DH
 diff -up openssl-1.0.1i/crypto/dh/dh_check.c.fips-reqs openssl-1.0.1i/crypto/dh/dh_check.c
 --- openssl-1.0.1i/crypto/dh/dh_check.c.fips-reqs	2014-08-06 23:10:56.000000000 +0200
-+++ openssl-1.0.1i/crypto/dh/dh_check.c	2014-08-07 11:25:28.836889150 +0200
++++ openssl-1.0.1i/crypto/dh/dh_check.c	2014-08-13 19:58:06.818832577 +0200
 @@ -134,7 +134,33 @@ int DH_check_pub_key(const DH *dh, const
  	BN_sub_word(q,1);
  	if (BN_cmp(pub_key,q)>=0)
@@ -78,8 +78,8 @@ diff -up openssl-1.0.1i/crypto/dh/dh_check.c.fips-reqs openssl-1.0.1i/crypto/dh/
  err:
  	if (q != NULL) BN_free(q);
 diff -up openssl-1.0.1i/crypto/dsa/dsa_gen.c.fips-reqs openssl-1.0.1i/crypto/dsa/dsa_gen.c
---- openssl-1.0.1i/crypto/dsa/dsa_gen.c.fips-reqs	2014-08-07 11:25:28.587887969 +0200
-+++ openssl-1.0.1i/crypto/dsa/dsa_gen.c	2014-08-07 11:25:28.836889150 +0200
+--- openssl-1.0.1i/crypto/dsa/dsa_gen.c.fips-reqs	2014-08-13 19:58:06.766831380 +0200
++++ openssl-1.0.1i/crypto/dsa/dsa_gen.c	2014-08-13 19:58:06.818832577 +0200
 @@ -159,7 +159,7 @@ int dsa_builtin_paramgen(DSA *ret, size_
  	    }
  
@@ -90,8 +90,8 @@ diff -up openssl-1.0.1i/crypto/dsa/dsa_gen.c.fips-reqs openssl-1.0.1i/crypto/dsa
  	    (bits != 2048 || qbits != 256) &&
  	    (bits != 3072 || qbits != 256))
 diff -up openssl-1.0.1i/crypto/dsa/dsa.h.fips-reqs openssl-1.0.1i/crypto/dsa/dsa.h
---- openssl-1.0.1i/crypto/dsa/dsa.h.fips-reqs	2014-08-07 11:25:28.588887974 +0200
-+++ openssl-1.0.1i/crypto/dsa/dsa.h	2014-08-07 11:25:28.837889154 +0200
+--- openssl-1.0.1i/crypto/dsa/dsa.h.fips-reqs	2014-08-13 19:58:06.766831380 +0200
++++ openssl-1.0.1i/crypto/dsa/dsa.h	2014-08-13 19:58:06.818832577 +0200
 @@ -89,6 +89,7 @@
  #endif
  
@@ -114,8 +114,8 @@ diff -up openssl-1.0.1i/crypto/dsa/dsa.h.fips-reqs openssl-1.0.1i/crypto/dsa/dsa
  	BN_is_prime(n, DSS_prime_checks, callback, NULL, cb_arg)
  
 diff -up openssl-1.0.1i/crypto/dsa/dsa_key.c.fips-reqs openssl-1.0.1i/crypto/dsa/dsa_key.c
---- openssl-1.0.1i/crypto/dsa/dsa_key.c.fips-reqs	2014-08-07 11:25:28.833889135 +0200
-+++ openssl-1.0.1i/crypto/dsa/dsa_key.c	2014-08-07 11:25:28.837889154 +0200
+--- openssl-1.0.1i/crypto/dsa/dsa_key.c.fips-reqs	2014-08-13 19:58:06.816832531 +0200
++++ openssl-1.0.1i/crypto/dsa/dsa_key.c	2014-08-13 19:58:06.818832577 +0200
 @@ -127,7 +127,7 @@ static int dsa_builtin_keygen(DSA *dsa)
  
  #ifdef OPENSSL_FIPS
@@ -125,9 +125,45 @@ diff -up openssl-1.0.1i/crypto/dsa/dsa_key.c.fips-reqs openssl-1.0.1i/crypto/dsa
  		{
  		DSAerr(DSA_F_DSA_BUILTIN_KEYGEN, DSA_R_KEY_SIZE_TOO_SMALL);
  		goto err;
+diff -up openssl-1.0.1i/crypto/fips/fips.c.fips-reqs openssl-1.0.1e/crypto/fips/fips.c
+--- openssl-1.0.1i/crypto/fips/fips.c.fips-reqs	2014-09-24 16:38:43.000000000 +0200
++++ openssl-1.0.1i/crypto/fips/fips.c	2014-09-24 16:37:28.000000000 +0200
+@@ -427,27 +427,25 @@ int FIPS_module_mode_set(int onoff, cons
+ 	    ret = 0;
+ 	    goto end;
+ 	    }
+-	OPENSSL_ia32cap_P[0] |= (1<<28);	/* set "shared cache"	*/
+-	OPENSSL_ia32cap_P[1] &= ~(1<<(60-32));	/* clear AVX		*/
+ 	}
+ #endif
+ 
+-	if(!verify_checksums())
++	if(!FIPS_selftest())
+ 	    {
+-	    FIPSerr(FIPS_F_FIPS_MODULE_MODE_SET,FIPS_R_FINGERPRINT_DOES_NOT_MATCH);
+ 	    fips_selftest_fail = 1;
+ 	    ret = 0;
+ 	    goto end;
+ 	    }
+ 
+-	if(FIPS_selftest())
+-	    fips_set_mode(onoff);
+-	else
++	if(!verify_checksums())
+ 	    {
++	    FIPSerr(FIPS_F_FIPS_MODULE_MODE_SET,FIPS_R_FINGERPRINT_DOES_NOT_MATCH);
+ 	    fips_selftest_fail = 1;
+ 	    ret = 0;
+ 	    goto end;
+ 	    }
++
++	fips_set_mode(onoff);
+ 	ret = 1;
+ 	goto end;
+ 	}
 diff -up openssl-1.0.1i/crypto/fips/fips_dh_selftest.c.fips-reqs openssl-1.0.1i/crypto/fips/fips_dh_selftest.c
---- openssl-1.0.1i/crypto/fips/fips_dh_selftest.c.fips-reqs	2014-08-07 11:25:28.837889154 +0200
-+++ openssl-1.0.1i/crypto/fips/fips_dh_selftest.c	2014-08-07 11:25:28.837889154 +0200
+--- openssl-1.0.1i/crypto/fips/fips_dh_selftest.c.fips-reqs	2014-08-13 19:58:06.819832600 +0200
++++ openssl-1.0.1i/crypto/fips/fips_dh_selftest.c	2014-08-13 19:58:06.819832600 +0200
 @@ -0,0 +1,162 @@
 +/* ====================================================================
 + * Copyright (c) 2011 The OpenSSL Project.  All rights reserved.
@@ -292,8 +328,8 @@ diff -up openssl-1.0.1i/crypto/fips/fips_dh_selftest.c.fips-reqs openssl-1.0.1i/
 +	}
 +#endif
 diff -up openssl-1.0.1i/crypto/fips/fips.h.fips-reqs openssl-1.0.1i/crypto/fips/fips.h
---- openssl-1.0.1i/crypto/fips/fips.h.fips-reqs	2014-08-07 11:25:28.828889111 +0200
-+++ openssl-1.0.1i/crypto/fips/fips.h	2014-08-07 11:25:28.838889159 +0200
+--- openssl-1.0.1i/crypto/fips/fips.h.fips-reqs	2014-08-13 19:58:06.812832439 +0200
++++ openssl-1.0.1i/crypto/fips/fips.h	2014-08-13 19:58:06.819832600 +0200
 @@ -96,6 +96,7 @@ void FIPS_corrupt_dsa_keygen(void);
  int FIPS_selftest_dsa(void);
  int FIPS_selftest_ecdsa(void);
@@ -303,8 +339,8 @@ diff -up openssl-1.0.1i/crypto/fips/fips.h.fips-reqs openssl-1.0.1i/crypto/fips/
  void FIPS_rng_stick(void);
  void FIPS_x931_stick(int onoff);
 diff -up openssl-1.0.1i/crypto/fips/fips_post.c.fips-reqs openssl-1.0.1i/crypto/fips/fips_post.c
---- openssl-1.0.1i/crypto/fips/fips_post.c.fips-reqs	2014-08-07 11:25:28.822889083 +0200
-+++ openssl-1.0.1i/crypto/fips/fips_post.c	2014-08-07 11:25:28.838889159 +0200
+--- openssl-1.0.1i/crypto/fips/fips_post.c.fips-reqs	2014-08-13 19:58:06.809832370 +0200
++++ openssl-1.0.1i/crypto/fips/fips_post.c	2014-08-13 19:58:06.819832600 +0200
 @@ -99,6 +99,8 @@ int FIPS_selftest(void)
  		rv = 0;
  	if (!FIPS_selftest_dsa())
@@ -315,8 +351,8 @@ diff -up openssl-1.0.1i/crypto/fips/fips_post.c.fips-reqs openssl-1.0.1i/crypto/
  		rv = 0;
  	return rv;
 diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c
---- openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs	2014-08-07 11:25:28.783888898 +0200
-+++ openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c	2014-08-07 11:25:28.838889159 +0200
+--- openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs	2014-08-13 19:58:06.779831679 +0200
++++ openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c	2014-08-13 19:59:16.491437297 +0200
 @@ -60,69 +60,113 @@
  #ifdef OPENSSL_FIPS
  
@@ -475,7 +511,7 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
      key->e = BN_bin2bn(e, sizeof(e)-1, key->e);
      key->d = BN_bin2bn(d, sizeof(d)-1, key->d);
      key->p = BN_bin2bn(p, sizeof(p)-1, key->p);
-@@ -145,201 +189,391 @@ void FIPS_corrupt_rsa()
+@@ -145,201 +189,291 @@ void FIPS_corrupt_rsa()
  static const unsigned char kat_tbs[] = "OpenSSL FIPS 140-2 Public Key RSA KAT";
  
  static const unsigned char kat_RSA_PSS_SHA1[] = {
@@ -838,7 +874,7 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
 + 0x43, 0xA8, 0x34, 0x0A
  };
  
- static const unsigned char kat_RSA_X931_SHA1[] = {
+-static const unsigned char kat_RSA_X931_SHA1[] = {
 -  0x86, 0xB4, 0x18, 0xBA, 0xD1, 0x80, 0xB6, 0x7C, 0x42, 0x45, 0x4D, 0xDF,
 -  0xE9, 0x2D, 0xE1, 0x83, 0x5F, 0xB5, 0x2F, 0xC9, 0xCD, 0xC4, 0xB2, 0x75,
 -  0x80, 0xA4, 0xF1, 0x4A, 0xE7, 0x83, 0x12, 0x1E, 0x1E, 0x14, 0xB8, 0xAC,
@@ -850,31 +886,14 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
 -  0x48, 0xAF, 0x82, 0xFE, 0x32, 0x41, 0x9B, 0xB2, 0xDB, 0xEA, 0xED, 0x76,
 -  0x8E, 0x6E, 0xCA, 0x7E, 0x4E, 0x14, 0xBA, 0x30, 0x84, 0x1C, 0xB3, 0x67,
 -  0xA3, 0x29, 0x80, 0x70, 0x54, 0x68, 0x7D, 0x49
-+ 0xB1, 0x0E, 0x4F, 0xC6, 0xE0, 0x95, 0x85, 0x7B, 0xBE, 0xDE, 0xC4, 0xE6,
-+ 0x1F, 0x12, 0x2E, 0x9B, 0x3E, 0x11, 0xA3, 0xF0, 0xF0, 0xA8, 0x23, 0x1A,
-+ 0x96, 0x6E, 0x99, 0xB5, 0x5F, 0x82, 0xC5, 0x87, 0x75, 0xE9, 0xD4, 0xBF,
-+ 0x9F, 0xE0, 0xA4, 0xED, 0xC7, 0x01, 0x2A, 0x3F, 0x6F, 0x43, 0x1D, 0x4F,
-+ 0xE8, 0x05, 0x34, 0x32, 0x20, 0x36, 0x94, 0xA0, 0x6D, 0xCC, 0xF6, 0x41,
-+ 0x49, 0x56, 0x96, 0xEC, 0x9C, 0x7C, 0xD1, 0x0E, 0x9E, 0xD8, 0x1B, 0x48,
-+ 0xD9, 0xDF, 0x99, 0x9F, 0x92, 0x17, 0x96, 0xA4, 0xF1, 0x87, 0x64, 0x61,
-+ 0x3C, 0xAF, 0x00, 0x24, 0xB3, 0x64, 0x88, 0x8E, 0x41, 0xBF, 0x29, 0x1F,
-+ 0xA3, 0x28, 0xAD, 0x21, 0x1E, 0xA3, 0x96, 0x40, 0x0A, 0x0B, 0x82, 0xCD,
-+ 0x97, 0x58, 0x33, 0xB6, 0x52, 0xAC, 0xC5, 0x3B, 0x14, 0xE7, 0x1E, 0x5D,
-+ 0x09, 0xC9, 0x76, 0xB5, 0x89, 0xC6, 0x9B, 0x4C, 0xC2, 0xC2, 0x31, 0x0E,
-+ 0xBA, 0x1E, 0xB5, 0x11, 0xD0, 0xFD, 0xC1, 0xDA, 0x64, 0x17, 0xA8, 0xCB,
-+ 0xF0, 0x94, 0xF4, 0xDD, 0x84, 0xB7, 0xEF, 0x9C, 0x13, 0x4F, 0xDD, 0x06,
-+ 0x0C, 0xE4, 0xC7, 0xFD, 0x69, 0x10, 0x20, 0xD3, 0x93, 0x5E, 0xF8, 0xBA,
-+ 0x21, 0xFB, 0x62, 0xC4, 0x63, 0x76, 0x43, 0xAA, 0x7E, 0x3C, 0x56, 0x5E,
-+ 0xB4, 0x47, 0x3A, 0x05, 0x0D, 0xBB, 0x13, 0xC4, 0x93, 0xFB, 0x29, 0xA8,
-+ 0x3E, 0x76, 0x41, 0x54, 0x9E, 0x7B, 0xE2, 0xE0, 0x07, 0x1D, 0xA7, 0x9C,
-+ 0x85, 0x11, 0xB5, 0xA5, 0x88, 0x58, 0x02, 0xD8, 0xC0, 0x4B, 0x81, 0xBF,
-+ 0x2B, 0x38, 0xE2, 0x2F, 0x42, 0xCA, 0x63, 0x8A, 0x0A, 0x78, 0xBA, 0x50,
-+ 0xE5, 0x84, 0x35, 0xD3, 0x6A, 0x1E, 0x96, 0x0B, 0x91, 0xB1, 0x0E, 0x85,
-+ 0xA8, 0x5C, 0x6E, 0x46, 0x5C, 0x61, 0x8C, 0x4F, 0x5B, 0x61, 0xB6, 0x3C,
-+ 0xB7, 0x2C, 0xA5, 0x1A
- };
+-};
++static int fips_rsa_encrypt_test(RSA *rsa, const unsigned char *plaintext, int ptlen)
++	{
++	unsigned char *ctbuf = NULL, *ptbuf = NULL;
++	int ret = 0;
++	int len;
  
- static const unsigned char kat_RSA_X931_SHA256[] = {
+-static const unsigned char kat_RSA_X931_SHA256[] = {
 -  0x7E, 0xA2, 0x77, 0xFE, 0xB8, 0x54, 0x8A, 0xC7, 0x7F, 0x64, 0x54, 0x89,
 -  0xE5, 0x52, 0x15, 0x8E, 0x52, 0x96, 0x4E, 0xA6, 0x58, 0x92, 0x1C, 0xDD,
 -  0xEA, 0xA2, 0x2D, 0x5C, 0xD1, 0x62, 0x00, 0x49, 0x05, 0x95, 0x73, 0xCF,
@@ -886,31 +905,12 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
 -  0x33, 0x1D, 0x82, 0x8C, 0x03, 0xEA, 0x69, 0x88, 0x35, 0xA1, 0x42, 0xBD,
 -  0x21, 0xED, 0x8D, 0xBC, 0xBC, 0xDB, 0x30, 0xFF, 0x86, 0xF0, 0x5B, 0xDC,
 -  0xE3, 0xE2, 0xE8, 0x0A, 0x0A, 0x29, 0x94, 0x80
-+ 0xC6, 0x6C, 0x01, 0x7F, 0xB6, 0x8C, 0xD4, 0x61, 0x83, 0xC5, 0xBC, 0x75,
-+ 0x39, 0x22, 0xDD, 0x17, 0x5B, 0x95, 0x4B, 0x4C, 0x46, 0x39, 0x37, 0xA7,
-+ 0x54, 0x6C, 0x49, 0x5A, 0x67, 0x90, 0x47, 0xF6, 0x59, 0xAE, 0xFC, 0xDD,
-+ 0xDF, 0xDB, 0xC7, 0x91, 0xB9, 0xB6, 0xCE, 0xD8, 0xFA, 0x30, 0x01, 0x9F,
-+ 0xCA, 0xE5, 0x4A, 0x51, 0xB7, 0xBE, 0xBD, 0x4E, 0x56, 0x25, 0x0B, 0x49,
-+ 0xE0, 0x46, 0xBB, 0x81, 0x0E, 0x14, 0x47, 0xFF, 0xCB, 0xBB, 0xA1, 0x6D,
-+ 0x44, 0x9B, 0xF7, 0xEE, 0x81, 0xEB, 0xF6, 0x62, 0xEA, 0x0D, 0x76, 0x76,
-+ 0x4E, 0x25, 0xD7, 0x9A, 0x2B, 0xB1, 0x92, 0xED, 0x5C, 0x7F, 0x9D, 0x99,
-+ 0x07, 0x9E, 0xBF, 0x62, 0x83, 0x12, 0x61, 0x99, 0x3E, 0xF5, 0x6A, 0x4C,
-+ 0x58, 0xB0, 0x2A, 0x15, 0x1C, 0xA0, 0xD2, 0x91, 0x87, 0x9C, 0x7D, 0x4F,
-+ 0xEF, 0x3B, 0x0F, 0x60, 0xD7, 0x1E, 0xEF, 0x7C, 0xBE, 0x68, 0x95, 0xE6,
-+ 0xBA, 0xFA, 0xF6, 0xD1, 0x67, 0x3D, 0x9D, 0x39, 0xAE, 0xC2, 0x85, 0xD2,
-+ 0xDE, 0xA5, 0x85, 0x1E, 0x4D, 0x2B, 0x2C, 0x06, 0x44, 0x98, 0x17, 0x46,
-+ 0x89, 0x41, 0x13, 0xFC, 0x99, 0xD6, 0x6C, 0xCF, 0x26, 0xA2, 0x77, 0x8A,
-+ 0x3F, 0x10, 0xF8, 0xC5, 0xC9, 0x4A, 0xB6, 0x93, 0xF5, 0x38, 0x89, 0xBD,
-+ 0xFF, 0xAE, 0x42, 0x06, 0x2D, 0xCD, 0x1B, 0x3D, 0x5A, 0xCD, 0xF2, 0x8A,
-+ 0x65, 0xA4, 0xB7, 0xB6, 0xF6, 0x5B, 0xE8, 0xA4, 0x68, 0xB4, 0x27, 0xDA,
-+ 0xF1, 0x59, 0x37, 0x24, 0x18, 0xB5, 0x5B, 0x15, 0x62, 0x64, 0x6F, 0x78,
-+ 0xBB, 0x17, 0x94, 0x42, 0xAD, 0xB3, 0x0D, 0x18, 0xB0, 0x1B, 0x28, 0x29,
-+ 0x3B, 0x15, 0xBF, 0xD1, 0xC8, 0x28, 0x4F, 0xDF, 0x7F, 0x34, 0x49, 0x2A,
-+ 0x44, 0xD5, 0x4C, 0x59, 0x90, 0x83, 0x8D, 0xFC, 0x58, 0x7E, 0xEC, 0x4B,
-+ 0x54, 0xF0, 0xB5, 0xBD
- };
+-};
++	ctbuf = OPENSSL_malloc(RSA_size(rsa));
++	if (!ctbuf)
++		goto err;
  
- static const unsigned char kat_RSA_X931_SHA384[] = {
+-static const unsigned char kat_RSA_X931_SHA384[] = {
 -  0x5C, 0x7D, 0x96, 0x35, 0xEC, 0x7E, 0x11, 0x38, 0xBB, 0x7B, 0xEC, 0x7B,
 -  0xF2, 0x82, 0x8E, 0x99, 0xBD, 0xEF, 0xD8, 0xAE, 0xD7, 0x39, 0x37, 0xCB,
 -  0xE6, 0x4F, 0x5E, 0x0A, 0x13, 0xE4, 0x2E, 0x40, 0xB9, 0xBE, 0x2E, 0xE3,
@@ -922,31 +922,15 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
 -  0x0E, 0x09, 0xEE, 0x2E, 0xE2, 0x37, 0xB9, 0xDE, 0xC5, 0x12, 0x44, 0x35,
 -  0xEF, 0x01, 0xE6, 0x5E, 0x39, 0x31, 0x2D, 0x71, 0xA5, 0xDC, 0xC6, 0x6D,
 -  0xE2, 0xCD, 0x85, 0xDB, 0x73, 0x82, 0x65, 0x28
-+ 0x88, 0x85, 0xE1, 0xC1, 0xE2, 0xE5, 0x0B, 0x6C, 0x03, 0x27, 0xAC, 0xC8,
-+ 0x3A, 0x72, 0xB4, 0x9A, 0xF3, 0xAE, 0x9C, 0x88, 0x8C, 0xBE, 0x28, 0x0D,
-+ 0x89, 0x5F, 0x06, 0x0F, 0x5F, 0x08, 0xE3, 0x9C, 0xF9, 0x28, 0x4F, 0xBB,
-+ 0x24, 0xDD, 0x21, 0x4C, 0x44, 0x96, 0x50, 0xB5, 0xD4, 0x8E, 0x13, 0x60,
-+ 0x7C, 0xCB, 0xD9, 0x5E, 0x7C, 0xB6, 0xAD, 0xA5, 0x6A, 0x41, 0x04, 0xA7,
-+ 0x8E, 0xF0, 0x39, 0x08, 0x7E, 0x18, 0x91, 0xF9, 0x46, 0x97, 0xEF, 0xF2,
-+ 0x14, 0xB2, 0x01, 0xFD, 0xB2, 0x2B, 0x3A, 0xF8, 0x4A, 0x59, 0xD1, 0x36,
-+ 0x1A, 0x7D, 0x2D, 0xB9, 0xC6, 0x7F, 0xDE, 0x62, 0xB6, 0x56, 0xBA, 0xFA,
-+ 0x5A, 0xA1, 0x5B, 0x8C, 0x5F, 0x98, 0xEC, 0xF8, 0x93, 0x13, 0x11, 0x42,
-+ 0xEE, 0xC4, 0x6C, 0x4A, 0x87, 0x4E, 0x98, 0x22, 0xB6, 0xBB, 0xB0, 0x3A,
-+ 0x70, 0xA9, 0xCC, 0xBC, 0x31, 0x27, 0xE7, 0xBC, 0xCA, 0xEC, 0x52, 0x81,
-+ 0x76, 0x9A, 0x3F, 0x18, 0xC1, 0x1C, 0x4A, 0xC7, 0x56, 0xE3, 0xF0, 0x6F,
-+ 0x36, 0xBB, 0x9B, 0xF9, 0x43, 0x90, 0xBE, 0x79, 0x59, 0x63, 0x1C, 0xFE,
-+ 0xB6, 0x46, 0x8B, 0xBA, 0xBD, 0xAA, 0x28, 0x71, 0x9B, 0xD6, 0xDD, 0x05,
-+ 0x00, 0x3B, 0xBC, 0x2D, 0x48, 0xE7, 0x6E, 0x6E, 0x42, 0x95, 0x27, 0xAE,
-+ 0x93, 0x92, 0x6D, 0x59, 0x47, 0x10, 0x59, 0xAC, 0xDD, 0x95, 0x29, 0xC3,
-+ 0x1B, 0x86, 0x67, 0x12, 0x98, 0x48, 0x10, 0xA6, 0x90, 0xA3, 0x59, 0x9D,
-+ 0x10, 0x4E, 0xEA, 0xD8, 0xCB, 0xE3, 0x81, 0xBA, 0xA1, 0x52, 0x55, 0x78,
-+ 0xFF, 0x95, 0x40, 0xE0, 0xAE, 0x93, 0x38, 0x5D, 0x21, 0x13, 0x8A, 0xFC,
-+ 0x72, 0xC7, 0xFB, 0x70, 0x1C, 0xEE, 0x5D, 0xB0, 0xE5, 0xFA, 0x44, 0x86,
-+ 0x67, 0x97, 0x66, 0x64, 0xA4, 0x1E, 0xF8, 0x3A, 0x16, 0xF8, 0xC9, 0xE0,
-+ 0x09, 0xF3, 0x61, 0x4F
- };
+-};
++	len = RSA_public_encrypt(ptlen, plaintext, ctbuf, rsa, RSA_PKCS1_PADDING);
++	if (len <= 0)
++		goto err;
++	/* Check ciphertext doesn't match plaintext */
++	if (len >= ptlen && !memcmp(plaintext, ctbuf, ptlen))
++		goto err;
  
- static const unsigned char kat_RSA_X931_SHA512[] = {
+-static const unsigned char kat_RSA_X931_SHA512[] = {
 -  0xA6, 0x65, 0xA2, 0x77, 0x4F, 0xB3, 0x86, 0xCB, 0x64, 0x3A, 0xC1, 0x63,
 -  0xFC, 0xA1, 0xAA, 0xCB, 0x9B, 0x79, 0xDD, 0x4B, 0xE1, 0xD9, 0xDA, 0xAC,
 -  0xE7, 0x47, 0x09, 0xB2, 0x11, 0x4B, 0x8A, 0xAA, 0x05, 0x9E, 0x77, 0xD7,
@@ -958,47 +942,7 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
 -  0x9F, 0x09, 0xCA, 0x84, 0x15, 0x85, 0xE0, 0xED, 0x04, 0x2D, 0xFB, 0x7C,
 -  0x36, 0x35, 0x21, 0x31, 0xC3, 0xFD, 0x92, 0x42, 0x11, 0x30, 0x71, 0x1B,
 -  0x60, 0x83, 0x18, 0x88, 0xA3, 0xF5, 0x59, 0xC3
-+ 0xC9, 0x2B, 0x6D, 0x50, 0xBB, 0xD8, 0x0B, 0x35, 0xE8, 0x78, 0xF5, 0xFC,
-+ 0xBB, 0x6A, 0xB4, 0x32, 0x63, 0x9C, 0x75, 0x19, 0x1D, 0xFB, 0x68, 0xC0,
-+ 0xFC, 0x34, 0xCE, 0x09, 0xFD, 0xF4, 0x33, 0x42, 0x70, 0x24, 0x57, 0xBC,
-+ 0xB3, 0xBD, 0x24, 0x33, 0x9E, 0x4B, 0x00, 0xCE, 0x15, 0xB3, 0x27, 0xC6,
-+ 0x39, 0x7C, 0xC1, 0x28, 0x75, 0xFE, 0x7B, 0x76, 0x4F, 0xFB, 0x60, 0xA0,
-+ 0x30, 0xBF, 0x74, 0x2C, 0x9D, 0xE4, 0xC8, 0x03, 0xA8, 0xDE, 0xB9, 0x2A,
-+ 0xD9, 0x23, 0x24, 0xDC, 0xEE, 0xF0, 0xC1, 0x8B, 0x4D, 0x12, 0x4A, 0x41,
-+ 0x33, 0x3B, 0x23, 0xFE, 0xDD, 0xE9, 0xE8, 0x55, 0x2B, 0x3E, 0xA4, 0x1B,
-+ 0x95, 0x21, 0x2A, 0xEF, 0x84, 0x2E, 0x13, 0x3D, 0x97, 0x7C, 0x08, 0x86,
-+ 0xB1, 0x60, 0xA4, 0xB9, 0xC4, 0x5A, 0x5B, 0x2D, 0x3F, 0xD7, 0x0D, 0xB2,
-+ 0x41, 0x72, 0x7A, 0x7F, 0xA3, 0x12, 0xB0, 0xAD, 0x80, 0x2E, 0xD6, 0xD3,
-+ 0x8A, 0x71, 0x72, 0x67, 0x94, 0x6F, 0x51, 0x05, 0x39, 0xFD, 0xBE, 0x91,
-+ 0xDE, 0x1D, 0x65, 0xE4, 0xA7, 0xA6, 0x0F, 0xA5, 0x08, 0x1F, 0xFC, 0x53,
-+ 0x48, 0x7B, 0xB8, 0xCE, 0x79, 0xDA, 0xDC, 0x18, 0xD1, 0xD3, 0x8A, 0x73,
-+ 0xCE, 0x5A, 0x62, 0x1E, 0x33, 0xD0, 0x21, 0x9C, 0xF9, 0xDE, 0x9E, 0x7E,
-+ 0x4D, 0x0E, 0x24, 0x30, 0x94, 0xB8, 0xDC, 0x8B, 0x57, 0x7E, 0x3B, 0xC6,
-+ 0xD7, 0x0F, 0xFC, 0xA6, 0x1F, 0xEB, 0xAF, 0x19, 0xD0, 0xFF, 0x3D, 0x63,
-+ 0x03, 0x1D, 0xAB, 0x11, 0x0C, 0xAD, 0x45, 0x46, 0x67, 0x76, 0xC8, 0x26,
-+ 0xD4, 0xD4, 0x70, 0x1F, 0xDF, 0xEB, 0xE5, 0x7D, 0x75, 0xD8, 0x3B, 0x52,
-+ 0x6C, 0xE7, 0x23, 0xCB, 0xB9, 0x1B, 0xA4, 0x2E, 0x5B, 0xEC, 0xB4, 0xB6,
-+ 0xB6, 0x2D, 0x0B, 0x60, 0xE3, 0x7B, 0x05, 0xE8, 0x1E, 0xAD, 0xC7, 0xE7,
-+ 0xBE, 0xF4, 0x71, 0xAE
- };
- 
-+static int fips_rsa_encrypt_test(RSA *rsa, const unsigned char *plaintext, int ptlen)
-+	{
-+	unsigned char *ctbuf = NULL, *ptbuf = NULL;
-+	int ret = 0;
-+	int len;
-+
-+	ctbuf = OPENSSL_malloc(RSA_size(rsa));
-+	if (!ctbuf)
-+		goto err;
-+
-+	len = RSA_public_encrypt(ptlen, plaintext, ctbuf, rsa, RSA_PKCS1_PADDING);
-+	if (len <= 0)
-+		goto err;
-+	/* Check ciphertext doesn't match plaintext */
-+	if (len >= ptlen && !memcmp(plaintext, ctbuf, ptlen))
-+		goto err;
-+
+-};
 +	ptbuf = OPENSSL_malloc(RSA_size(rsa));
 +	if (!ptbuf)
 +		goto err;
@@ -1010,7 +954,7 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
 +		goto err;
 +
 +	ret = 1;
-+
+ 
 +	err:
 +	if (ctbuf)
 +		OPENSSL_free(ctbuf);
@@ -1021,7 +965,7 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
  
  int FIPS_selftest_rsa()
  	{
-@@ -353,7 +587,7 @@ int FIPS_selftest_rsa()
+@@ -353,7 +487,7 @@ int FIPS_selftest_rsa()
  	if ((pk=EVP_PKEY_new()) == NULL)
  		goto err;
  
@@ -1030,13 +974,35 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
  
  	if (!fips_pkey_signature_test(pk, kat_tbs, sizeof(kat_tbs) - 1,
  				kat_RSA_SHA1, sizeof(kat_RSA_SHA1),
-@@ -430,13 +664,15 @@ int FIPS_selftest_rsa()
- 			"RSA SHA512 X931"))
+@@ -407,36 +541,15 @@ int FIPS_selftest_rsa()
+ 				"RSA SHA512 PSS"))
  		goto err;
  
+-
+-	if (!fips_pkey_signature_test(pk, kat_tbs, sizeof(kat_tbs) - 1,
+-			kat_RSA_X931_SHA1, sizeof(kat_RSA_X931_SHA1),
+-			EVP_sha1(), EVP_MD_CTX_FLAG_PAD_X931,
+-			"RSA SHA1 X931"))
+-		goto err;
+-	/* NB: SHA224 not supported in X9.31 */
+-	if (!fips_pkey_signature_test(pk, kat_tbs, sizeof(kat_tbs) - 1,
+-			kat_RSA_X931_SHA256, sizeof(kat_RSA_X931_SHA256),
+-			EVP_sha256(), EVP_MD_CTX_FLAG_PAD_X931,
+-			"RSA SHA256 X931"))
+-		goto err;
+-	if (!fips_pkey_signature_test(pk, kat_tbs, sizeof(kat_tbs) - 1,
+-			kat_RSA_X931_SHA384, sizeof(kat_RSA_X931_SHA384),
+-			EVP_sha384(), EVP_MD_CTX_FLAG_PAD_X931,
+-			"RSA SHA384 X931"))
+-		goto err;
+-	if (!fips_pkey_signature_test(pk, kat_tbs, sizeof(kat_tbs) - 1,
+-			kat_RSA_X931_SHA512, sizeof(kat_RSA_X931_SHA512),
+-			EVP_sha512(), EVP_MD_CTX_FLAG_PAD_X931,
+-			"RSA SHA512 X931"))
 +	if (!fips_rsa_encrypt_test(key, kat_tbs, sizeof(kat_tbs) - 1))
-+		goto err;
+ 		goto err;
  
+-
  	ret = 1;
  
  	err:
@@ -1048,8 +1014,8 @@ diff -up openssl-1.0.1i/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.1i
  	return ret;
  	}
 diff -up openssl-1.0.1i/crypto/fips/Makefile.fips-reqs openssl-1.0.1i/crypto/fips/Makefile
---- openssl-1.0.1i/crypto/fips/Makefile.fips-reqs	2014-08-07 11:25:28.823889088 +0200
-+++ openssl-1.0.1i/crypto/fips/Makefile	2014-08-07 11:25:28.838889159 +0200
+--- openssl-1.0.1i/crypto/fips/Makefile.fips-reqs	2014-08-13 19:58:06.809832370 +0200
++++ openssl-1.0.1i/crypto/fips/Makefile	2014-08-13 19:58:06.820832624 +0200
 @@ -24,13 +24,15 @@ LIBSRC=fips_aes_selftest.c fips_des_self
      fips_rsa_selftest.c fips_sha_selftest.c fips.c fips_dsa_selftest.c  fips_rand.c \
      fips_rsa_x931g.c fips_post.c fips_drbg_ctr.c fips_drbg_hash.c fips_drbg_hmac.c \
@@ -1069,9 +1035,9 @@ diff -up openssl-1.0.1i/crypto/fips/Makefile.fips-reqs openssl-1.0.1i/crypto/fip
  LIBCRYPTO=-L.. -lcrypto
  
 diff -up openssl-1.0.1i/crypto/modes/gcm128.c.fips-reqs openssl-1.0.1i/crypto/modes/gcm128.c
---- openssl-1.0.1i/crypto/modes/gcm128.c.fips-reqs	2014-08-06 23:10:56.000000000 +0200
-+++ openssl-1.0.1i/crypto/modes/gcm128.c	2014-08-07 11:25:28.839889164 +0200
-@@ -906,6 +906,10 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT
+--- openssl-1.0.1i/crypto/modes/gcm128.c.fips-reqs	2014-08-13 19:58:06.740830781 +0200
++++ openssl-1.0.1i/crypto/modes/gcm128.c	2014-08-13 19:58:06.820832624 +0200
+@@ -931,6 +931,10 @@ int CRYPTO_gcm128_encrypt(GCM128_CONTEXT
  # endif
  #endif
  
@@ -1082,7 +1048,7 @@ diff -up openssl-1.0.1i/crypto/modes/gcm128.c.fips-reqs openssl-1.0.1i/crypto/mo
  #if 0
  	n = (unsigned int)mlen%16; /* alternative to ctx->mres */
  #endif
-@@ -1269,6 +1273,10 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_C
+@@ -1294,6 +1298,10 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_C
  # endif
  #endif
  
@@ -1094,8 +1060,8 @@ diff -up openssl-1.0.1i/crypto/modes/gcm128.c.fips-reqs openssl-1.0.1i/crypto/mo
  	if (mlen>((U64(1)<<36)-32) || (sizeof(len)==8 && mlen<len))
  		return -1;
 diff -up openssl-1.0.1i/crypto/modes/modes_lcl.h.fips-reqs openssl-1.0.1i/crypto/modes/modes_lcl.h
---- openssl-1.0.1i/crypto/modes/modes_lcl.h.fips-reqs	2014-08-07 11:25:28.365886918 +0200
-+++ openssl-1.0.1i/crypto/modes/modes_lcl.h	2014-08-07 11:25:28.839889164 +0200
+--- openssl-1.0.1i/crypto/modes/modes_lcl.h.fips-reqs	2014-08-13 19:58:06.410823180 +0200
++++ openssl-1.0.1i/crypto/modes/modes_lcl.h	2014-08-13 19:58:06.820832624 +0200
 @@ -112,6 +112,7 @@ struct gcm128_context {
  	unsigned int mres, ares;
  	block128_f block;
@@ -1105,8 +1071,8 @@ diff -up openssl-1.0.1i/crypto/modes/modes_lcl.h.fips-reqs openssl-1.0.1i/crypto
  
  struct xts128_context {
 diff -up openssl-1.0.1i/crypto/rand/rand_lcl.h.fips-reqs openssl-1.0.1i/crypto/rand/rand_lcl.h
---- openssl-1.0.1i/crypto/rand/rand_lcl.h.fips-reqs	2014-08-07 11:25:28.418887169 +0200
-+++ openssl-1.0.1i/crypto/rand/rand_lcl.h	2014-08-07 11:25:28.840889168 +0200
+--- openssl-1.0.1i/crypto/rand/rand_lcl.h.fips-reqs	2014-08-13 19:58:06.525825829 +0200
++++ openssl-1.0.1i/crypto/rand/rand_lcl.h	2014-08-13 19:58:06.820832624 +0200
 @@ -112,7 +112,7 @@
  #ifndef HEADER_RAND_LCL_H
  #define HEADER_RAND_LCL_H
@@ -1118,7 +1084,7 @@ diff -up openssl-1.0.1i/crypto/rand/rand_lcl.h.fips-reqs openssl-1.0.1i/crypto/r
  #if !defined(USE_MD5_RAND) && !defined(USE_SHA1_RAND) && !defined(USE_MDC2_RAND) && !defined(USE_MD2_RAND)
 diff -up openssl-1.0.1i/crypto/rand/rand_lib.c.fips-reqs openssl-1.0.1i/crypto/rand/rand_lib.c
 --- openssl-1.0.1i/crypto/rand/rand_lib.c.fips-reqs	2014-08-06 23:10:56.000000000 +0200
-+++ openssl-1.0.1i/crypto/rand/rand_lib.c	2014-08-07 13:45:51.240535446 +0200
++++ openssl-1.0.1i/crypto/rand/rand_lib.c	2014-08-13 19:58:06.820832624 +0200
 @@ -240,12 +240,24 @@ static int drbg_rand_add(DRBG_CTX *ctx,
  				double entropy)
  	{
@@ -1145,8 +1111,8 @@ diff -up openssl-1.0.1i/crypto/rand/rand_lib.c.fips-reqs openssl-1.0.1i/crypto/r
  	}
  
 diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa/rsa_gen.c
---- openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs	2014-08-07 11:25:28.788888922 +0200
-+++ openssl-1.0.1i/crypto/rsa/rsa_gen.c	2014-08-07 11:25:28.840889168 +0200
+--- openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs	2014-08-13 19:58:06.782831748 +0200
++++ openssl-1.0.1i/crypto/rsa/rsa_gen.c	2014-08-13 19:58:06.821832646 +0200
 @@ -1,5 +1,6 @@
  /* crypto/rsa/rsa_gen.c */
  /* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
@@ -1154,7 +1120,7 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
   * All rights reserved.
   *
   * This package is an SSL implementation written
-@@ -165,6 +166,222 @@ int RSA_generate_key_ex(RSA *rsa, int bi
+@@ -165,6 +166,236 @@ int RSA_generate_key_ex(RSA *rsa, int bi
  	return rsa_builtin_keygen(rsa, bits, e_value, cb);
  	}
  
@@ -1224,6 +1190,7 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
 +	if (!BN_is_zero(rsa->p) && !BN_is_zero(rsa->q))
 +		test = 1;
 +
++retry:
 +	/* generate p and q */
 +	for (i = 0; i < 5 * pbits; i++)
 +		{
@@ -1316,7 +1283,18 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
 +	/* calculate d */
 +	if (!BN_sub(r1,rsa->p,BN_value_one())) goto err;	/* p-1 */
 +	if (!BN_sub(r2,rsa->q,BN_value_one())) goto err;	/* q-1 */
-+	if (!BN_mul(r0,r1,r2,ctx)) goto err;	/* (p-1)(q-1) */
++	
++	if (!BN_gcd(r0, r1, r2, ctx)) goto err;
++	if (!(rsa->flags & RSA_FLAG_NO_CONSTTIME))
++		{
++		  pr0 = &local_r0;
++		  BN_with_flags(pr0, r0, BN_FLG_CONSTTIME);
++		}
++	else
++	  pr0 = r0;
++	if (!BN_div(r0, NULL, r1, pr0, ctx)) goto err;
++	if (!BN_mul(r0,r0,r2,ctx)) goto err;	/* lcm(p-1, q-1) */
++
 +	if (!(rsa->flags & RSA_FLAG_NO_CONSTTIME))
 +		{
 +		  pr0 = &local_r0;
@@ -1325,6 +1303,8 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
 +	else
 +	  pr0 = r0;
 +	if (!BN_mod_inverse(rsa->d,rsa->e,pr0,ctx)) goto err;	/* d */
++
++	if (BN_num_bits(rsa->d) < pbits) goto retry; /* d is too small */
 +
 +	/* set up d for correct BN_FLG_CONSTTIME flag */
 +	if (!(rsa->flags & RSA_FLAG_NO_CONSTTIME))
@@ -1377,7 +1357,7 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
  static int rsa_builtin_keygen(RSA *rsa, int bits, BIGNUM *e_value, BN_GENCB *cb)
  	{
  	BIGNUM *r0=NULL,*r1=NULL,*r2=NULL,*r3=NULL,*tmp;
-@@ -176,17 +393,12 @@ static int rsa_builtin_keygen(RSA *rsa,
+@@ -176,17 +407,12 @@ static int rsa_builtin_keygen(RSA *rsa,
  #ifdef OPENSSL_FIPS
  	if (FIPS_module_mode())
  		{
@@ -1396,7 +1376,7 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
  		}
  #endif
  
-@@ -301,17 +513,6 @@ static int rsa_builtin_keygen(RSA *rsa,
+@@ -301,17 +527,6 @@ static int rsa_builtin_keygen(RSA *rsa,
  		p = rsa->p;
  	if (!BN_mod_inverse(rsa->iqmp,rsa->q,p,ctx)) goto err;
  
@@ -1416,7 +1396,7 @@ diff -up openssl-1.0.1i/crypto/rsa/rsa_gen.c.fips-reqs openssl-1.0.1i/crypto/rsa
  	if (ok == -1)
 diff -up openssl-1.0.1i/ssl/t1_enc.c.fips-reqs openssl-1.0.1i/ssl/t1_enc.c
 --- openssl-1.0.1i/ssl/t1_enc.c.fips-reqs	2014-08-06 23:10:56.000000000 +0200
-+++ openssl-1.0.1i/ssl/t1_enc.c	2014-08-07 11:25:28.841889173 +0200
++++ openssl-1.0.1i/ssl/t1_enc.c	2014-08-13 19:58:06.821832646 +0200
 @@ -291,6 +291,27 @@ static int tls1_PRF(long digest_mask,
  err:
  	return ret;

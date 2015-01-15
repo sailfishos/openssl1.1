@@ -1,3 +1,8 @@
+* Thu Jan 15 2015 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1k
+- Update to version 1.0.1k [CVE-2014-3571, CVE-2015-0206, CVE-2014-3569, 
+  CVE-2014-3572, CVE-2015-0204, CVE-2015-0205, CVE-2014-8275, CVE-2014-3570]
+  https://www.openssl.org/news/secadv_20150108.txt
+
 * Thu Oct 16 2014 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1j
 - Update to version 1.0.1j [CVE-2014-3513, CVE-2014-3567, CVE-2014-3568]
   https://www.openssl.org/news/secadv_20141015.txt

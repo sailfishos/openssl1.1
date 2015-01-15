@@ -15,7 +15,7 @@
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.1j
+Version: 1.0.1k
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1%{?dist}
 # We have to remove certain patented algorithms from the openssl source
@@ -31,7 +31,7 @@ Source11: README.FIPS
 Source12: ec_curve.c
 Source13: ectest.c
 # Build changes
-Patch1: openssl-1.0.1-beta2-rpmbuild.patch
+Patch1: openssl-1.0.1e-rpmbuild.patch
 Patch2: openssl-1.0.1e-defaults.patch
 Patch4: openssl-1.0.0-beta5-enginesdir.patch
 Patch5: openssl-0.9.8a-no-rpath.patch
@@ -39,7 +39,8 @@ Patch6: openssl-0.9.8b-test-use-localhost.patch
 Patch7: openssl-1.0.0-timezone.patch
 Patch8: openssl-1.0.1c-perlfind.patch
 Patch9: openssl-1.0.1c-aliasing.patch
-Patch10: openssl-1.0.1e-ppc64le-target.patch
+# This patch must be applied first
+Patch10: openssl-1.0.1i-ppc-asm-update.patch
 # Bug fixes
 Patch23: openssl-1.0.1c-default-paths.patch
 Patch24: openssl-1.0.1e-issuer-hash.patch
@@ -48,11 +49,11 @@ Patch33: openssl-1.0.0-beta4-ca-dir.patch
 Patch34: openssl-0.9.6-x509.patch
 Patch35: openssl-0.9.8j-version-add-engines.patch
 Patch39: openssl-1.0.1h-ipv6-apps.patch
-Patch40: openssl-1.0.1g-fips.patch
+Patch40: openssl-1.0.1k-fips.patch
 Patch45: openssl-1.0.1e-env-zlib.patch
 Patch47: openssl-1.0.0-beta5-readme-warning.patch
 Patch49: openssl-1.0.1i-algo-doc.patch
-Patch50: openssl-1.0.1-beta2-dtls1-abi.patch
+Patch50: openssl-1.0.1k-dtls1-abi.patch
 Patch51: openssl-1.0.1e-version.patch
 Patch56: openssl-1.0.0c-rsa-x931.patch
 Patch58: openssl-1.0.1-beta2-fips-md5-allow.patch
@@ -62,10 +63,10 @@ Patch65: openssl-1.0.0e-chil-fixes.patch
 Patch66: openssl-1.0.1-pkgconfig-krb5.patch
 Patch68: openssl-1.0.1e-secure-getenv.patch
 Patch69: openssl-1.0.1c-dh-1024.patch
-Patch70: openssl-1.0.1e-fips-ec.patch
+Patch70: openssl-1.0.1j-fips-ec.patch
 Patch71: openssl-1.0.1i-manfix.patch
 Patch72: openssl-1.0.1e-fips-ctor.patch
-Patch73: openssl-1.0.1e-ecc-suiteb.patch
+Patch73: openssl-1.0.1k-ecc-suiteb.patch
 Patch74: openssl-1.0.1e-no-md5-verify.patch
 Patch75: openssl-1.0.1e-compat-symbols.patch
 Patch76: openssl-1.0.1i-new-fips-reqs.patch
@@ -74,13 +75,14 @@ Patch90: openssl-1.0.1e-enc-fail.patch
 Patch92: openssl-1.0.1h-system-cipherlist.patch
 Patch93: openssl-1.0.1h-disable-sslv2v3.patch
 # Backported fixes including security fixes
-Patch81: openssl-1.0.1-beta2-padlock64.patch
-Patch84: openssl-1.0.1i-trusted-first.patch
+Patch80: openssl-1.0.1j-evp-wrap.patch
+Patch81: openssl-1.0.1k-padlock64.patch
+Patch84: openssl-1.0.1k-trusted-first.patch
 Patch85: openssl-1.0.1e-arm-use-elf-auxv-caps.patch
-Patch89: openssl-1.0.1e-ephemeral-key-size.patch
+Patch89: openssl-1.0.1k-ephemeral-key-size.patch
 # Mer patches
 Patch200: openssl-linux-mips.patch
-Patch201: openssl-aarch64.patch
+#Patch201: openssl-aarch64.patch
 Patch202: openssl-1.0.0c-remove-date-string.patch
 Patch203: openssl-old-glibc-use-__secure__getenv.patch 
 
@@ -156,6 +158,7 @@ from other formats to the formats used by the OpenSSL toolkit.
 
 cp %{SOURCE12} %{SOURCE13} crypto/ec/
 
+%patch10 -p1 -b .ppc-asm
 %patch1 -p1 -b .rpmbuild
 %patch2 -p1 -b .defaults
 %patch4 -p1 -b .enginesdir %{?_rawbuild}
@@ -164,7 +167,6 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch7 -p1 -b .timezone
 %patch8 -p1 -b .perlfind %{?_rawbuild}
 %patch9 -p1 -b .aliasing
-%patch10 -p1 -b .ppc64le
 
 %patch23 -p1 -b .default-paths
 %patch24 -p1 -b .issuer-hash
@@ -191,8 +193,7 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch71 -p1 -b .manfix
 %patch72 -p1 -b .fips-ctor
 %patch73 -p1 -b .suiteb
-#This breaks openvpn tests if enabled (up until 2.3.4 (2014-08-14, latest))
-#%patch74 -p1 -b .no-md5-verify
+%patch74 -p1 -b .no-md5-verify
 %patch75 -p1 -b .compat
 %patch76 -p1 -b .fips-reqs
 %patch77 -p1 -b .weak-ciphers
@@ -200,13 +201,14 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch92 -p1 -b .system
 %patch93 -p1 -b .v2v3
 
+%patch80 -p1 -b .wrap
 %patch81 -p1 -b .padlock64
 %patch84 -p1 -b .trusted-first
 %patch85 -p1 -b .armcap
 %patch89 -p1 -b .ephemeral
 
 %patch200 -p2 -b .mips
-%patch201 -p1 -b .aarch64
+#%patch201 -p1 -b .aarch64
 %patch202 -p1 -b .date
 %if %(echo `nm -D /lib/libc.so.6` | grep -q "W secure_getenv" && echo 0 || echo 1)
 %patch203 -p1 -b .securegetenv
