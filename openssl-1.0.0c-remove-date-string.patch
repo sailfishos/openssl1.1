@@ -1,14 +1,13 @@
---- openssl-1.0.0c/crypto/cversion.c	2004-04-19 19:09:22.000000000 +0100
-+++ modified-openssl-1.0.0c/crypto/cversion.c	2012-01-02 17:40:09.676121959 +0000
-@@ -68,14 +68,7 @@ const char *SSLeay_version(int t)
+Index: openssl-1.0.1k/crypto/cversion.c
+===================================================================
+--- openssl-1.0.1k.orig/crypto/cversion.c
++++ openssl-1.0.1k/crypto/cversion.c
+@@ -68,11 +68,7 @@ const char *_current_SSLeay_version(int
  		return OPENSSL_VERSION_TEXT;
  	if (t == SSLEAY_BUILT_ON)
  		{
 -#ifdef DATE
--		static char buf[sizeof(DATE)+11];
--
--		BIO_snprintf(buf,sizeof buf,"built on: %s",DATE);
--		return(buf);
+-		return(DATE);
 -#else
  		return("built on: date not available");
 -#endif
