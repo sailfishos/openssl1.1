@@ -1,3 +1,6 @@
+* Thu Jan 22 2015 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1k
+- Revert openssl-1.0.1h-disable-sslv2v3.patch to support SSLv3
+
 * Thu Jan 15 2015 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1k
 - Update to version 1.0.1k [CVE-2014-3571, CVE-2015-0206, CVE-2014-3569, 
   CVE-2014-3572, CVE-2015-0204, CVE-2015-0205, CVE-2014-8275, CVE-2014-3570]
