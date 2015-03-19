@@ -1074,17 +1074,17 @@ diff -up openssl-1.0.1j/crypto/modes/wrap128.c.wrap openssl-1.0.1j/crypto/modes/
 +	unsigned char got_iv[8];
 +
 +	ret = crypto_128_unwrap_raw(key, got_iv, out, in, inlen, block);
-+	if (ret != inlen)
-+		return ret;
++	if (ret == 0)
++		return 0;
 +
 +	if (!iv)
 +		iv = default_iv;
-+	if (CRYPTO_memcmp(out, iv, 8))
++	if (CRYPTO_memcmp(got_iv, iv, 8))
 +		{
-+		OPENSSL_cleanse(out, inlen);
++		OPENSSL_cleanse(out, ret);
 +		return 0;
 +		}
-+	return inlen;
++	return ret;
 +	}
 +
 +/** Wrapping according to RFC 5649 section 4.1.
@@ -1105,7 +1105,7 @@ diff -up openssl-1.0.1j/crypto/modes/wrap128.c.wrap openssl-1.0.1j/crypto/modes/
 +		const unsigned char *in, size_t inlen, block128_f block)
 +	{
 +	/* n: number of 64-bit blocks in the padded key data */
-+	const size_t blocks_padded = (inlen + 8) / 8;
++	const size_t blocks_padded = (inlen + 7) / 8;
 +	const size_t padded_len = blocks_padded * 8;
 +	const size_t padding_len = padded_len - inlen;
 +	/* RFC 5649 section 3: Alternative Initial Value */
@@ -1139,7 +1139,7 @@ diff -up openssl-1.0.1j/crypto/modes/wrap128.c.wrap openssl-1.0.1j/crypto/modes/
 +		block(out, out, key);
 +		ret = 16; /* AIV + padded input */
 +		}
-+		else
++	else
 +		{
 +		memmove(out, in, inlen);
 +		memset(out + inlen, 0, padding_len); /* Section 4.1 step 1 */
@@ -1197,7 +1197,7 @@ diff -up openssl-1.0.1j/crypto/modes/wrap128.c.wrap openssl-1.0.1j/crypto/modes/
 +		memmove(out, out + 8, 8);
 +		padded_len = 8;
 +		}
-+		else
++	else
 +		{
 +		padded_len = inlen - 8;
 +		ret = crypto_128_unwrap_raw(key, aiv, out, out, inlen, block);
