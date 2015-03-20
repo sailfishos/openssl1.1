@@ -17,7 +17,7 @@ Summary: Utilities from the general purpose cryptography library with TLS implem
 Name: openssl
 Version: 1.0.1k
 # Do not forget to bump SHLIB_VERSION on version upgrades
-Release: 1%{?dist}
+Release: 2%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
@@ -79,7 +79,14 @@ Patch80: openssl-1.0.1j-evp-wrap.patch
 Patch81: openssl-1.0.1k-padlock64.patch
 Patch84: openssl-1.0.1k-trusted-first.patch
 Patch85: openssl-1.0.1e-arm-use-elf-auxv-caps.patch
-Patch89: openssl-1.0.1k-ephemeral-key-size.patch
+Patch86: openssl-1.0.1k-ephemeral-key-size.patch
+Patch87: openssl-1.0.1e-cc-reqs.patch
+Patch101: openssl-1.0.1k-cve-2015-0209.patch
+Patch102: openssl-1.0.1e-cve-2015-0286.patch
+Patch103: openssl-1.0.1e-cve-2015-0287.patch
+Patch104: openssl-1.0.1e-cve-2015-0288.patch
+Patch105: openssl-1.0.1k-cve-2015-0289.patch
+Patch106: openssl-1.0.1e-cve-2015-0293.patch
 # Mer patches
 Patch200: openssl-linux-mips.patch
 #Patch201: openssl-aarch64.patch
@@ -205,7 +212,14 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch81 -p1 -b .padlock64
 %patch84 -p1 -b .trusted-first
 %patch85 -p1 -b .armcap
-%patch89 -p1 -b .ephemeral
+%patch86 -p1 -b .ephemeral
+%patch87 -p1 -b .cc-reqs
+%patch101 -p1 -b .use-after-free
+%patch102 -p1 -b .bool-cmp
+%patch103 -p1 -b .item-reuse
+%patch104 -p1 -b .req-null-deref
+%patch105 -p1 -b .pkcs7-null-deref
+%patch106 -p1 -b .ssl2-assert
 
 %patch200 -p2 -b .mips
 #%patch201 -p1 -b .aarch64

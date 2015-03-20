@@ -1,3 +1,9 @@
+* Fri Mar 20 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.1k
+- Fix CVE-2015-0209, CVE-2015-0286, CVE-2015-0287, CVE-2015-0288,
+  CVE-2015-0289, CVE-2015-0293.
+- Import fixes to openssl-1.0.1j-evp-wrap.patch from Fedora
+- Check non-FIPS RSA keygen for minimal distance of p and q
+
 * Thu Jan 22 2015 Pasi Sjöholm <pasi.sjoholm@siirappi.com> - 1.0.1k
 - Revert openssl-1.0.1h-disable-sslv2v3.patch to support SSLv3
 
