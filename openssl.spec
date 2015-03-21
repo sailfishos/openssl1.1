@@ -17,7 +17,7 @@ Summary: Utilities from the general purpose cryptography library with TLS implem
 Name: openssl
 Version: 1.0.1k
 # Do not forget to bump SHLIB_VERSION on version upgrades
-Release: 2%{?dist}
+Release: 3%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
@@ -30,6 +30,8 @@ Source8: openssl-thread-test.c
 Source11: README.FIPS
 Source12: ec_curve.c
 Source13: ectest.c
+Source14: fixpatch
+Source15: openssl-fips.conf
 # Build changes
 Patch1: openssl-1.0.1e-rpmbuild.patch
 Patch2: openssl-1.0.1e-defaults.patch
@@ -89,7 +91,6 @@ Patch105: openssl-1.0.1k-cve-2015-0289.patch
 Patch106: openssl-1.0.1e-cve-2015-0293.patch
 # Mer patches
 Patch200: openssl-linux-mips.patch
-#Patch201: openssl-aarch64.patch
 Patch202: openssl-1.0.0c-remove-date-string.patch
 Patch203: openssl-old-glibc-use-__secure__getenv.patch 
 
@@ -222,7 +223,6 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch106 -p1 -b .ssl2-assert
 
 %patch200 -p2 -b .mips
-#%patch201 -p1 -b .aarch64
 %patch202 -p1 -b .date
 %if %(echo `nm -D /lib/libc.so.6` | grep -q "W secure_getenv" && echo 0 || echo 1)
 %patch203 -p1 -b .securegetenv
