@@ -1,3 +1,7 @@
+* Sat Mar 21 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.1k
+- Remove unused openssl-aarch64.patch
+- Include fixpatch and openssl-fips.conf as source in spec-file
+
 * Fri Mar 20 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.1k
 - Fix CVE-2015-0209, CVE-2015-0286, CVE-2015-0287, CVE-2015-0288,
   CVE-2015-0289, CVE-2015-0293.
