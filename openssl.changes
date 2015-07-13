@@ -1,3 +1,11 @@
+* Mon Jul 13 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.2d
+- Upgrade/rebase to 1.0.2d. MER#1095
+  Fixes several vulnerabilities including:
+  [CVE-2015-4000, CVE-2015-1788, CVE-2015-1789, CVE-2015-1790,
+  CVE-2015-1792, CVE-2015-1791, CVE-2014-8176, CVE-2015-1793]
+  https://www.openssl.org/news/secadv_20150611.txt
+  https://www.openssl.org/news/secadv_20150709.txt
+
 * Sat Mar 21 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.1k
 - Remove unused openssl-aarch64.patch
 - Include fixpatch and openssl-fips.conf as source in spec-file
