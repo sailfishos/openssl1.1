@@ -1,3 +1,9 @@
+* Thu Aug 13 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.2d
+- Drop support for __secure_getenv. MER#1239
+
+* Thu Aug 13 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.2d
+- Fix "undefined instructions"-message storms. MER#1238
+
 * Mon Jul 13 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.2d
 - Upgrade/rebase to 1.0.2d. MER#1095
   Fixes several vulnerabilities including:
