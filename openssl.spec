@@ -84,6 +84,7 @@ Patch82: openssl-1.0.2c-trusted-first-doc.patch
 Patch200: openssl-linux-mips.patch
 Patch202: openssl-1.0.2d-remove-date-string.patch
 Patch203: openssl-old-glibc-use-__secure__getenv.patch 
+Patch204: openssl-1.0.2d-armtick.patch
 
 License: OpenSSL
 Group: System Environment/Libraries
@@ -208,6 +209,7 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %if %(echo `nm -D /lib/libc.so.6` | grep -q "W secure_getenv" && echo 0 || echo 1)
 %patch203 -p1 -b .securegetenv
 %endif
+%patch204 -p1 -b .armtick
 
 sed -i 's/SHLIB_VERSION_NUMBER "1.0.0"/SHLIB_VERSION_NUMBER "%{version}"/' crypto/opensslv.h
 
