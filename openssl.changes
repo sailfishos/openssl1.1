@@ -1,3 +1,6 @@
+* Tue Aug 25 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.2d-5
+- Disable SSLv3 per default. MER#1266
+
 * Sun Aug 16 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 1.0.2d-4
 - Increment version in spec and changelog due new requirements. MER#1243
 
