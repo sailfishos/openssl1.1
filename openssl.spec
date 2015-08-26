@@ -17,7 +17,7 @@ Summary: Utilities from the general purpose cryptography library with TLS implem
 Name: openssl
 Version: 1.0.2d
 # Do not forget to bump SHLIB_VERSION on version upgrades
-Release: 4%{?dist}
+Release: 5%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
