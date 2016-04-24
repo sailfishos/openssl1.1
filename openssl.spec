@@ -256,6 +256,7 @@ sslarch=linux-armv4
 %endif
 %ifarch aarch64
 sslarch=linux-aarch64
+sslflags=no-asm
 %endif
 %ifarch sh3 sh4
 sslarch=linux-generic32
