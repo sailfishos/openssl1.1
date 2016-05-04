@@ -15,9 +15,9 @@
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.2g
+Version: 1.0.2h
 # Do not forget to bump SHLIB_VERSION on version upgrades
-Release: 5%{?dist}
+Release: 1%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
@@ -51,7 +51,7 @@ Patch33: openssl-1.0.0-beta4-ca-dir.patch
 Patch34: openssl-1.0.2a-x509.patch
 Patch35: openssl-1.0.2a-version-add-engines.patch
 Patch39: openssl-1.0.2a-ipv6-apps.patch
-Patch40: openssl-1.0.2g-fips.patch
+Patch40: openssl-1.0.2h-fips.patch
 Patch45: openssl-1.0.2a-env-zlib.patch
 Patch47: openssl-1.0.2a-readme-warning.patch
 Patch49: openssl-1.0.1i-algo-doc.patch
@@ -71,7 +71,6 @@ Patch73: openssl-1.0.2c-ecc-suiteb.patch
 Patch74: openssl-1.0.2a-no-md5-verify.patch
 Patch75: openssl-1.0.2a-compat-symbols.patch
 Patch76: openssl-1.0.2f-new-fips-reqs.patch
-Patch77: openssl-1.0.2a-weak-ciphers.patch
 Patch78: openssl-1.0.2a-cc-reqs.patch
 Patch90: openssl-1.0.2a-enc-fail.patch
 Patch92: openssl-1.0.2a-system-cipherlist.patch
@@ -82,7 +81,7 @@ Patch96: openssl-1.0.2e-speed-doc.patch
 # Backported fixes including security fixes
 Patch80: openssl-1.0.2e-wrap-pad.patch
 Patch81: openssl-1.0.2a-padlock64.patch
-Patch82: openssl-1.0.2c-trusted-first-doc.patch
+Patch82: openssl-1.0.2h-trusted-first-doc.patch
 # Mer patches
 Patch200: openssl-linux-mips.patch
 Patch202: openssl-1.0.2d-remove-date-string.patch
@@ -198,7 +197,6 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch74 -p1 -b .no-md5-verify
 %patch75 -p1 -b .compat
 %patch76 -p1 -b .fips-reqs
-%patch77 -p1 -b .weak-ciphers
 %patch78 -p1 -b .cc-reqs
 %patch90 -p1 -b .enc-fail
 %patch92 -p1 -b .system
