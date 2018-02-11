@@ -1,7 +1,7 @@
-diff -up openssl-1.0.2g/doc/apps/ec.pod.manfix openssl-1.0.2g/doc/apps/ec.pod
---- openssl-1.0.2g/doc/apps/ec.pod.manfix	2016-03-01 14:35:05.000000000 +0100
-+++ openssl-1.0.2g/doc/apps/ec.pod	2016-03-01 16:47:35.331568290 +0100
-@@ -93,10 +93,6 @@ prints out the public, private key compo
+diff -up openssl-1.0.2m/doc/apps/ec.pod.manfix openssl-1.0.2m/doc/apps/ec.pod
+--- openssl-1.0.2m/doc/apps/ec.pod.manfix	2017-11-02 15:32:58.000000000 +0100
++++ openssl-1.0.2m/doc/apps/ec.pod	2017-11-13 09:06:06.372591988 +0100
+@@ -94,10 +94,6 @@ prints out the public, private key compo
  
  this option prevents output of the encoded version of the key.
  
@@ -12,9 +12,9 @@ diff -up openssl-1.0.2g/doc/apps/ec.pod.manfix openssl-1.0.2g/doc/apps/ec.pod
  =item B<-pubin>
  
  by default a private key is read from the input file: with this option a
-diff -up openssl-1.0.2g/doc/apps/openssl.pod.manfix openssl-1.0.2g/doc/apps/openssl.pod
---- openssl-1.0.2g/doc/apps/openssl.pod.manfix	2016-03-01 14:35:05.000000000 +0100
-+++ openssl-1.0.2g/doc/apps/openssl.pod	2016-03-01 16:47:35.331568290 +0100
+diff -up openssl-1.0.2m/doc/apps/openssl.pod.manfix openssl-1.0.2m/doc/apps/openssl.pod
+--- openssl-1.0.2m/doc/apps/openssl.pod.manfix	2017-11-02 15:32:58.000000000 +0100
++++ openssl-1.0.2m/doc/apps/openssl.pod	2017-11-13 09:06:06.372591988 +0100
 @@ -163,7 +163,7 @@ Create or examine a netscape certificate
  
  Online Certificate Status Protocol utility.
@@ -45,10 +45,10 @@ diff -up openssl-1.0.2g/doc/apps/openssl.pod.manfix openssl-1.0.2g/doc/apps/open
  L<rsautl(1)|rsautl(1)>, L<s_client(1)|s_client(1)>,
  L<s_server(1)|s_server(1)>, L<s_time(1)|s_time(1)>,
  L<smime(1)|smime(1)>, L<spkac(1)|spkac(1)>,
-diff -up openssl-1.0.2g/doc/apps/s_client.pod.manfix openssl-1.0.2g/doc/apps/s_client.pod
---- openssl-1.0.2g/doc/apps/s_client.pod.manfix	2016-03-01 14:35:53.000000000 +0100
-+++ openssl-1.0.2g/doc/apps/s_client.pod	2016-03-01 16:47:35.358568902 +0100
-@@ -35,6 +35,9 @@ B<openssl> B<s_client>
+diff -up openssl-1.0.2m/doc/apps/s_client.pod.manfix openssl-1.0.2m/doc/apps/s_client.pod
+--- openssl-1.0.2m/doc/apps/s_client.pod.manfix	2017-11-13 09:06:06.346591381 +0100
++++ openssl-1.0.2m/doc/apps/s_client.pod	2017-11-13 09:07:05.273965939 +0100
+@@ -36,6 +36,9 @@ B<openssl> B<s_client>
  [B<-ssl2>]
  [B<-ssl3>]
  [B<-tls1>]
@@ -58,19 +58,19 @@ diff -up openssl-1.0.2g/doc/apps/s_client.pod.manfix openssl-1.0.2g/doc/apps/s_c
  [B<-no_ssl2>]
  [B<-no_ssl3>]
  [B<-no_tls1>]
-@@ -201,7 +204,7 @@ Use the PSK key B<key> when using a PSK
- given as a hexadecimal number without leading 0x, for example -psk
+@@ -208,7 +211,7 @@ given as a hexadecimal number without le
  1a2b3c4d.
+ This option must be provided in order to use a PSK cipher.
  
 -=item B<-ssl2>, B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-no_ssl2>, B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>
 +=item B<-ssl2>, B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-dtls1>, B<-no_ssl2>, B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>
  
  These options require or disable the use of the specified SSL or TLS protocols.
  By default the initial handshake uses a I<version-flexible> method which will
-diff -up openssl-1.0.2g/doc/apps/s_server.pod.manfix openssl-1.0.2g/doc/apps/s_server.pod
---- openssl-1.0.2g/doc/apps/s_server.pod.manfix	2016-03-01 14:35:53.000000000 +0100
-+++ openssl-1.0.2g/doc/apps/s_server.pod	2016-03-01 16:47:35.359568925 +0100
-@@ -42,6 +42,8 @@ B<openssl> B<s_server>
+diff -up openssl-1.0.2m/doc/apps/s_server.pod.manfix openssl-1.0.2m/doc/apps/s_server.pod
+--- openssl-1.0.2m/doc/apps/s_server.pod.manfix	2017-11-13 09:06:06.346591381 +0100
++++ openssl-1.0.2m/doc/apps/s_server.pod	2017-11-13 09:07:24.481413978 +0100
+@@ -47,6 +47,8 @@ B<openssl> B<s_server>
  [B<-ssl2>]
  [B<-ssl3>]
  [B<-tls1>]
@@ -79,9 +79,9 @@ diff -up openssl-1.0.2g/doc/apps/s_server.pod.manfix openssl-1.0.2g/doc/apps/s_s
  [B<-no_ssl2>]
  [B<-no_ssl3>]
  [B<-no_tls1>]
-@@ -217,7 +219,7 @@ Use the PSK key B<key> when using a PSK
- given as a hexadecimal number without leading 0x, for example -psk
+@@ -224,7 +226,7 @@ given as a hexadecimal number without le
  1a2b3c4d.
+ This option must be provided in order to use a PSK cipher.
  
 -=item B<-ssl2>, B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-no_ssl2>, B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>
 +=item B<-ssl2>, B<-ssl3>, B<-tls1>, B<-tls1_1>, B<-tls1_2>, B<-dtls1>, B<-no_ssl2>, B<-no_ssl3>, B<-no_tls1>, B<-no_tls1_1>, B<-no_tls1_2>
