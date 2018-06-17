@@ -1,3 +1,6 @@
+* Mon May 28 2018 Andrew Branson <andrew.branson@jollamobile.com> - 1.0.2h-2
+- Remove undefined macro causing errors in new RPM. JB#28828
+
 * Wed May 04 2016 Niels Breet <niels.breet@jolla.com> - 1.0.2h
 - Upgrade to 1.0.2h. Fixes MER#1580
 
