@@ -15,13 +15,13 @@
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.0.2h
+Version: 1.0.2o
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 2%{?dist}
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source: openssl-%{version}-hobbled.tar.xz
+Source: %{name}-%{version}.tar.gz
 Source1: hobble-openssl
 Source2: Makefile.certificate
 Source6: make-dummy-cert
@@ -37,7 +37,7 @@ Source15: openssl-fips.conf
 # Build changes
 Patch1: openssl-1.0.2e-rpmbuild.patch
 Patch2: openssl-1.0.2a-defaults.patch
-Patch4: openssl-1.0.2a-enginesdir.patch
+Patch4: openssl-1.0.2i-enginesdir.patch
 Patch5: openssl-1.0.2a-no-rpath.patch
 Patch6: openssl-1.0.2a-test-use-localhost.patch
 Patch7: openssl-1.0.0-timezone.patch
@@ -51,7 +51,8 @@ Patch33: openssl-1.0.0-beta4-ca-dir.patch
 Patch34: openssl-1.0.2a-x509.patch
 Patch35: openssl-1.0.2a-version-add-engines.patch
 Patch39: openssl-1.0.2a-ipv6-apps.patch
-Patch40: openssl-1.0.2h-fips.patch
+Patch40: openssl-1.0.2m-fips.patch
+Patch43: openssl-1.0.2m-krb5keytab.patch
 Patch45: openssl-1.0.2a-env-zlib.patch
 Patch47: openssl-1.0.2a-readme-warning.patch
 Patch49: openssl-1.0.1i-algo-doc.patch
@@ -61,27 +62,28 @@ Patch56: openssl-1.0.2a-rsa-x931.patch
 Patch58: openssl-1.0.2a-fips-md5-allow.patch
 Patch60: openssl-1.0.2a-apps-dgst.patch
 Patch63: openssl-1.0.2a-xmpp-starttls.patch
-Patch65: openssl-1.0.2a-chil-fixes.patch
-Patch66: openssl-1.0.2a-pkgconfig-krb5.patch
-Patch68: openssl-1.0.2a-secure-getenv.patch
+Patch65: openssl-1.0.2i-chil-fixes.patch
+Patch66: openssl-1.0.2h-pkgconfig.patch
+Patch68: openssl-1.0.2m-secure-getenv.patch
 Patch70: openssl-1.0.2a-fips-ec.patch
-Patch71: openssl-1.0.2g-manfix.patch
+Patch71: openssl-1.0.2m-manfix.patch
 Patch72: openssl-1.0.2a-fips-ctor.patch
 Patch73: openssl-1.0.2c-ecc-suiteb.patch
-Patch74: openssl-1.0.2a-no-md5-verify.patch
+Patch74: openssl-1.0.2j-deprecate-algos.patch
 Patch75: openssl-1.0.2a-compat-symbols.patch
-Patch76: openssl-1.0.2f-new-fips-reqs.patch
-Patch78: openssl-1.0.2a-cc-reqs.patch
-Patch90: openssl-1.0.2a-enc-fail.patch
+Patch76: openssl-1.0.2j-new-fips-reqs.patch
+Patch77: openssl-1.0.2j-downgrade-strength.patch
+Patch90: openssl-1.0.2i-enc-fail.patch
 Patch92: openssl-1.0.2a-system-cipherlist.patch
 Patch93: openssl-1.0.2g-disable-sslv2v3.patch
 Patch94: openssl-1.0.2d-secp256k1.patch
 Patch95: openssl-1.0.2e-remove-nistp224.patch
 Patch96: openssl-1.0.2e-speed-doc.patch
+Patch99: openssl-1.0.2k-fips-randlock.patch
 # Backported fixes including security fixes
 Patch80: openssl-1.0.2e-wrap-pad.patch
 Patch81: openssl-1.0.2a-padlock64.patch
-Patch82: openssl-1.0.2h-trusted-first-doc.patch
+Patch82: openssl-1.0.2m-trusted-first-doc.patch
 # Mer patches
 Patch200: openssl-linux-mips.patch
 Patch202: openssl-1.0.2d-remove-date-string.patch
@@ -151,7 +153,7 @@ package provides Perl scripts for converting certificates and keys
 from other formats to the formats used by the OpenSSL toolkit.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}/%{name}
 
 # The hobble_openssl is called here redundantly, just to be sure.
 # The tarball has already the sources removed.
@@ -176,6 +178,7 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch35 -p1 -b .version-add-engines
 %patch39 -p1 -b .ipv6-apps
 %patch40 -p1 -b .fips
+%patch43 -p1 -b .krb5keytab
 %patch45 -p1 -b .env-zlib
 %patch47 -p1 -b .warning
 %patch49 -p1 -b .algo-doc
@@ -186,22 +189,23 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch60 -p1 -b .dgst
 %patch63 -p1 -b .starttls
 %patch65 -p1 -b .chil
-%patch66 -p1 -b .krb5
+%patch66 -p1 -b .pkgconfig
 %patch68 -p1 -b .secure-getenv
 %patch70 -p1 -b .fips-ec
 %patch71 -p1 -b .manfix
 %patch72 -p1 -b .fips-ctor
 %patch73 -p1 -b .suiteb
-%patch74 -p1 -b .no-md5-verify
+%patch74 -p1 -b .deprecate-algos
 %patch75 -p1 -b .compat
 %patch76 -p1 -b .fips-reqs
-%patch78 -p1 -b .cc-reqs
+%patch77 -p1 -b .strength
 %patch90 -p1 -b .enc-fail
 %patch92 -p1 -b .system
 %patch93 -p1 -b .v2v3
 %patch94 -p1 -b .secp256k1
 %patch95 -p1 -b .nistp224
 %patch96 -p1 -b .speed-doc
+%patch99 -p1 -b .randlock
 
 %patch80 -p1 -b .wrap
 %patch81 -p1 -b .padlock64
