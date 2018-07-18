@@ -344,9 +344,9 @@ diff -up openssl-1.0.2j/crypto/fips/fips_post.c.fips-reqs openssl-1.0.2j/crypto/
          rv = 0;
 +    if (!FIPS_selftest_dh())
 +        rv = 0;
-     if (!FIPS_selftest_ecdh())
-         rv = 0;
      return rv;
+ }
+ 
 diff -up openssl-1.0.2j/crypto/fips/fips_rsa_selftest.c.fips-reqs openssl-1.0.2j/crypto/fips/fips_rsa_selftest.c
 --- openssl-1.0.2j/crypto/fips/fips_rsa_selftest.c.fips-reqs	2017-01-10 16:25:11.109339852 +0100
 +++ openssl-1.0.2j/crypto/fips/fips_rsa_selftest.c	2017-01-10 16:25:11.144340641 +0100
