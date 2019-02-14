@@ -342,11 +342,9 @@ make -C test apps tests
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 # Install OpenSSL.
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir},%{_libdir},%{_mandir},%{_libdir}/openssl}
-make INSTALL_PREFIX=$RPM_BUILD_ROOT install
-make INSTALL_PREFIX=$RPM_BUILD_ROOT install_docs
+# We don't need to install docs now because we don't package it.
+make INSTALL_PREFIX=$RPM_BUILD_ROOT install_sw
 mv $RPM_BUILD_ROOT%{_libdir}/engines $RPM_BUILD_ROOT%{_libdir}/openssl
-mv $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/man/* $RPM_BUILD_ROOT%{_mandir}/
-rmdir $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/man
 rename so.%{soversion} so.%{version} $RPM_BUILD_ROOT%{_libdir}/*.so.%{soversion}
 mkdir $RPM_BUILD_ROOT/%{_lib}
 mv $RPM_BUILD_ROOT%{_libdir}/libcrypto.so.%{version} $RPM_BUILD_ROOT/%{_lib}
@@ -374,9 +372,6 @@ for header in $RPM_BUILD_ROOT%{_includedir}/openssl/* ; do
 		install -m644 include/openssl/`basename ${header}` ${header}
 	fi
 done
-
-# Remove man pages
-rm -rf $RPM_BUILD_ROOT%{_mandir}
 
 # Pick a CA script.
 pushd  $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/misc
