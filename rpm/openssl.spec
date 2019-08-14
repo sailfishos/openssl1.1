@@ -446,7 +446,7 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 %dir %{_sysconfdir}/pki/tls/certs
 %dir %{_sysconfdir}/pki/tls/misc
 %dir %{_sysconfdir}/pki/tls/private
-%config(noreplace) %{_sysconfdir}/pki/tls/openssl.cnf
+%config %{_sysconfdir}/pki/tls/openssl.cnf
 %attr(0755,root,root) /%{_lib}/libcrypto.so.%{version}
 %attr(0755,root,root) /%{_lib}/libcrypto.so.%{soversion}
 %attr(0755,root,root) %{_libdir}/libssl.so.%{version}
