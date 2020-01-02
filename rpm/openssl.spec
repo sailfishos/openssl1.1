@@ -82,12 +82,18 @@ Patch99: openssl-1.0.2k-fips-randlock.patch
 Patch80: openssl-1.0.2e-wrap-pad.patch
 Patch81: openssl-1.0.2a-padlock64.patch
 Patch82: openssl-1.0.2m-trusted-first-doc.patch
+Patch83: CVE-2018-0737.patch	
+Patch84: CVE-2018-0732.patch
+Patch85: CVE-2018-0734.patch
+Patch86: CVE-2019-1559.patch
+Patch87: CVE-2019-1547.patch
+Patch88: CVE-2019-1563.patch 
+Patch89: CVE-2019-1551.patch 
 # Mer patches
 Patch202: openssl-1.0.2d-remove-date-string.patch
 Patch204: openssl-1.0.2d-armtick.patch
 
 License: OpenSSL
-Group: System Environment/Libraries
 URL: http://www.openssl.org/
 BuildRequires: coreutils, perl, sed, zlib-devel
 # /usr/bin/cmp
@@ -105,7 +111,6 @@ protocols.
 
 %package libs
 Summary: A general purpose cryptography library with TLS implementation
-Group: System Environment/Libraries
 Requires: ca-certificates >= 2008-5
 # Needed obsoletes due to the base/lib subpackage split
 Obsoletes: openssl < 1.0.1b
@@ -117,7 +122,6 @@ support cryptographic algorithms and protocols.
 
 %package devel
 Summary: Files for development of applications which will use OpenSSL
-Group: Development/Libraries
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: zlib-devel%{?_isa}
 Requires: pkgconfig
@@ -129,7 +133,6 @@ support various cryptographic algorithms and protocols.
 
 %package static
 Summary:  Libraries for static linking of applications which will use OpenSSL
-Group: Development/Libraries
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
@@ -140,7 +143,6 @@ protocols.
 
 %package perl
 Summary: Perl scripts provided with OpenSSL
-Group: Applications/Internet
 Requires: perl
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
@@ -208,6 +210,13 @@ cp %{SOURCE12} %{SOURCE13} crypto/ec/
 %patch80 -p1 -b .wrap
 %patch81 -p1 -b .padlock64
 %patch82 -p1 -b .trusted-first
+%patch83 -p1 -b .2018-0737	
+%patch84 -p1 -b .2018-0732
+%patch85 -p1 -b .2018-0734
+%patch86 -p1 -b .2019-1559
+%patch87 -p1 -b .2019-1547
+%patch88 -p1 -b .2019-1563 
+%patch89 -p1 -b .2019-1551 
 
 %patch202 -p1 -b .date
 %patch204 -p1 -b .armtick
@@ -417,9 +426,6 @@ rm -rf $RPM_BUILD_ROOT/%{_bindir}/openssl_fips_fingerprint
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/fips_premain.*
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 
-%clean
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(-,root,root)
 %doc FAQ LICENSE CHANGES NEWS INSTALL README
@@ -441,7 +447,7 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/fipscanister.*
 
 %files libs
 %defattr(-,root,root)
-%doc LICENSE
+%license LICENSE
 %dir %{_sysconfdir}/pki/tls
 %dir %{_sysconfdir}/pki/tls/certs
 %dir %{_sysconfdir}/pki/tls/misc
