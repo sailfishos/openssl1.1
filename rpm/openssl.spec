@@ -293,6 +293,10 @@ sslarch=linux-generic64
 # Configure the build tree.  Override OpenSSL defaults with known-good defaults
 # usable on all platforms.  The Configure script already knows to use -fPIC and
 # RPM_OPT_FLAGS, so we can skip specifiying them here.
+export CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64"
+export CXXFLAGS="$CXXFLAGS -D_FILE_OFFSET_BITS=64"
+export CPPFLAGS="$CPPFLAGS -D_FILE_OFFSET_BITS=64"
+
 ./Configure \
 	--prefix=/usr --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
 	zlib enable-camellia enable-seed enable-tlsext enable-rfc3779 \
