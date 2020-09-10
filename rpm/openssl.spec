@@ -384,6 +384,13 @@ install -m644 %{SOURCE9} \
 LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH
 
+# HACK: include older .so so we can update everything properly
+cp -a %{_libdir}/libssl.so.1.0.2o+git5 $RPM_BUILD_ROOT/%{_libdir}/.
+cp -a %{_libdir}/libssl.so.10 $RPM_BUILD_ROOT/%{_libdir}/.
+mkdir $RPM_BUILD_ROOT/%{_lib}
+cp -a /%{_lib}/libcrypto.so.1.0.2o+git5 $RPM_BUILD_ROOT/%{_lib}/.
+cp -a /%{_lib}/libcrypto.so.10 $RPM_BUILD_ROOT/%{_lib}/.
+
 %files
 %defattr(-,root,root)
 %attr(0755,root,root) %{_bindir}/c_rehash
@@ -418,6 +425,12 @@ export LD_LIBRARY_PATH
 %attr(0755,root,root) %{_libdir}/libssl.so.%{version}
 %{_libdir}/libcrypto.so.%{soversion}
 %{_libdir}/libssl.so.%{soversion}
+
+# HACK: keep old libs
+%{_libdir}/libssl.so.1.0.2o+git5
+%{_libdir}/libssl.so.10
+/%{_lib}/libcrypto.so.1.0.2o+git5
+/%{_lib}/libcrypto.so.10
 
 #%attr(0644,root,root) %{_libdir}/.libcrypto.so.*.hmac
 #%attr(0644,root,root) %{_libdir}/.libssl.so.*.hmac
