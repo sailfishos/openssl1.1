@@ -18,7 +18,7 @@
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.1.1g
+Version: 1.1.1h
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1
 
