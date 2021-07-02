@@ -11,7 +11,15 @@
 # 1.0.0 soversion = 10
 # 1.1.0 soversion = 1.1 (same as upstream although presence of some symbols
 #                        depends on build configuration options)
+
+# HACK: Enable this build condition to keep old version for upgrading
+#       Adjust %{old_version} and %{old_soversion} accordingly!
+%bcond_with keep_oldversion_hack
+
 %define soversion 1.1
+%define old_version 1.0.2o+git5
+%define old_soversion 10
+
 %define nofips 1
 
 # Number of threads to spawn when testing some threading fixes.
@@ -376,12 +384,14 @@ install -m644 %{SOURCE9} \
 LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH
 
+%if %{with keep_oldversion_hack}
 # HACK: include older .so so we can update everything properly
-cp -a %{_libdir}/libssl.so.1.0.2o+git5 $RPM_BUILD_ROOT/%{_libdir}/.
-cp -a %{_libdir}/libssl.so.10 $RPM_BUILD_ROOT/%{_libdir}/.
+cp -a %{_libdir}/libssl.so.%{old_version} $RPM_BUILD_ROOT/%{_libdir}/.
+cp -a %{_libdir}/libssl.so.%{old_soversion} $RPM_BUILD_ROOT/%{_libdir}/.
 mkdir $RPM_BUILD_ROOT/%{_lib}
-cp -a /%{_lib}/libcrypto.so.1.0.2o+git5 $RPM_BUILD_ROOT/%{_lib}/.
-cp -a /%{_lib}/libcrypto.so.10 $RPM_BUILD_ROOT/%{_lib}/.
+cp -a /%{_lib}/libcrypto.so.%{old_version} $RPM_BUILD_ROOT/%{_lib}/.
+cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
+%endif
 
 %files
 %defattr(-,root,root)
@@ -418,11 +428,13 @@ cp -a /%{_lib}/libcrypto.so.10 $RPM_BUILD_ROOT/%{_lib}/.
 %{_libdir}/libcrypto.so.%{soversion}
 %{_libdir}/libssl.so.%{soversion}
 
+%if %{with keep_oldversion_hack}
 # HACK: keep old libs
-%{_libdir}/libssl.so.1.0.2o+git5
-%{_libdir}/libssl.so.10
-/%{_lib}/libcrypto.so.1.0.2o+git5
-/%{_lib}/libcrypto.so.10
+%{_libdir}/libssl.so.%{old_version}
+%{_libdir}/libssl.so.%{old_soversion}
+/%{_lib}/libcrypto.so.%{old_version}
+/%{_lib}/libcrypto.so.%{old_soversion}
+%endif
 
 #%attr(0644,root,root) %{_libdir}/.libcrypto.so.*.hmac
 #%attr(0644,root,root) %{_libdir}/.libssl.so.*.hmac
