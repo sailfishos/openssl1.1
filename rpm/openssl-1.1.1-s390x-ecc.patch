@@ -1927,7 +1927,7 @@ diff -up openssl-1.1.1g/crypto/s390x_arch.h.s390x-ecc openssl-1.1.1g/crypto/s390
 +    unsigned long long kdsa[2];
  };
  
- extern struct OPENSSL_s390xcap_st OPENSSL_s390xcap_P;
+ #if defined(__GNUC__) && defined(__linux)
 @@ -66,11 +74,14 @@ extern struct OPENSSL_s390xcap_st OPENSS
  # define S390X_KMF		0x90
  # define S390X_PRNO		0xa0
