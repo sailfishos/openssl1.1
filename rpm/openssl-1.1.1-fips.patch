@@ -870,8 +870,8 @@ diff -up openssl-1.1.1j/crypto/evp/digest.c.fips openssl-1.1.1j/crypto/evp/diges
 +# include <openssl/fips.h>
 +#endif
  
- /* This call frees resources associated with the context */
- int EVP_MD_CTX_reset(EVP_MD_CTX *ctx)
+ 
+ static void cleanup_old_md_data(EVP_MD_CTX *ctx, int force)
 @@ -66,6 +69,12 @@ int EVP_DigestInit(EVP_MD_CTX *ctx, cons
  int EVP_DigestInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type, ENGINE *impl)
  {
@@ -898,9 +898,9 @@ diff -up openssl-1.1.1j/crypto/evp/digest.c.fips openssl-1.1.1j/crypto/evp/diges
 +            }
 +        }
 +#endif
-         if (ctx->digest && ctx->digest->ctx_size) {
-             OPENSSL_clear_free(ctx->md_data, ctx->digest->ctx_size);
-             ctx->md_data = NULL;
+         cleanup_old_md_data(ctx, 1);
+ 
+         ctx->digest = type;
 @@ -150,6 +168,10 @@ int EVP_DigestInit_ex(EVP_MD_CTX *ctx, c
  
  int EVP_DigestUpdate(EVP_MD_CTX *ctx, const void *data, size_t count)
