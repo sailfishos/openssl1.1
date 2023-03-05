@@ -68,7 +68,7 @@
   CVE-2014-0198,CVE-2010-5298,CVE-2014-3470]
   https://www.openssl.org/news/secadv_20140605.txt
 
-* Thu Apr 08 2014 Islam Amer <islam.amer@jollamobile.com> - 1.0.1g
+* Tue Apr 08 2014 Islam Amer <islam.amer@jollamobile.com> - 1.0.1g
 - Update to version 1.0.1g [CVE-2014-0160]
 
 * Sun Mar 09 2014 Islam Amer <islam.amer@jollamobile.com> - 1.0.1f
@@ -410,7 +410,7 @@
 * Tue Mar 16 2004 Phil Knirsch <pknirsch@redhat.com>
 - Fixed libica filespec.
 
-* Thu Mar 10 2004 Nalin Dahyabhai <nalin@redhat.com> 0.9.7a-34
+* Wed Mar 10 2004 Nalin Dahyabhai <nalin@redhat.com> 0.9.7a-34
 - ppc/ppc64 define __powerpc__/__powerpc64__, not __ppc__/__ppc64__, fix
   the intermediate header
 
@@ -502,7 +502,7 @@
 * Tue Jul 15 2003 Nalin Dahyabhai <nalin@redhat.com> 0.9.7a-10.9
 - free the kssl_ctx structure when we free an SSL structure (#99066)
 
-* Fri Jul 10 2003 Nalin Dahyabhai <nalin@redhat.com> 0.9.7a-16
+* Thu Jul 10 2003 Nalin Dahyabhai <nalin@redhat.com> 0.9.7a-16
 - rebuild
 
 * Thu Jul 10 2003 Nalin Dahyabhai <nalin@redhat.com> 0.9.7a-15
@@ -753,7 +753,7 @@
 - adjust the hobble script to not disturb symlinks in include/ (fix from
   Joe Orton)
 
-* Fri Apr 26 2001 Nalin Dahyabhai <nalin@redhat.com>
+* Thu Apr 26 2001 Nalin Dahyabhai <nalin@redhat.com>
 - drop the m2crypo patch we weren't using
 
 * Tue Apr 24 2001 Nalin Dahyabhai <nalin@redhat.com>
