@@ -320,7 +320,7 @@ install -m755 %{SOURCE7} $RPM_BUILD_ROOT%{_bindir}/renew-dummy-cert
 # docs are disabled
 # BEGIN
 # Rename man pages so that they don't conflict with other system man pages.
-#pushd $RPM_BUILD_ROOT%{_mandir}
+#pushd $RPM_BUILD_ROOT %%{_mandir}
 #ln -s -f config.5 man5/openssl.cnf.5
 #for manpage in man*/* ; do
 #	if [ -L ${manpage} ]; then
@@ -409,14 +409,14 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 %attr(0755,root,root) %{_bindir}/openssl
 # docs are disabled
 # BEGIN
-#%{_mandir}/man1*/*
-#%{_mandir}/man5*/*
-#%{_mandir}/man7*/*
-#%{_docdir}/Makefile.certificate
-#%exclude %{_mandir}/man1*/*.pl*
-#%exclude %{_mandir}/man1*/c_rehash*
-#%exclude %{_mandir}/man1*/tsget*
-#%exclude %{_mandir}/man1*/openssl-tsget*
+#%%{_mandir}/man1*/*
+#%%{_mandir}/man5*/*
+#%%{_mandir}/man7*/*
+#%%{_docdir}/Makefile.certificate
+#%exclude %%{_mandir}/man1*/*.pl*
+#%exclude %%{_mandir}/man1*/c_rehash*
+#%exclude %%{_mandir}/man1*/tsget*
+#%exclude %%{_mandir}/man1*/openssl-tsget*
 # END
 %files libs
 %defattr(-,root,root)
@@ -441,8 +441,8 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 /%{_lib}/libcrypto.so.%{old_soversion}
 %endif
 
-#%attr(0644,root,root) %{_libdir}/.libcrypto.so.*.hmac
-#%attr(0644,root,root) %{_libdir}/.libssl.so.*.hmac
+#%attr(0644,root,root) %%{_libdir}/.libcrypto.so.*.hmac
+#%attr(0644,root,root) %%{_libdir}/.libssl.so.*.hmac
 %attr(0755,root,root) %{_libdir}/%{name}
 
 %files devel
@@ -450,7 +450,7 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 %doc CHANGES doc/dir-locals.example.el doc/openssl-c-indent.el
 %{_prefix}/include/openssl
 %attr(0755,root,root) %{_libdir}/*.so
-#%{_mandir}/man3*/*  docs are disabled
+#%%{_mandir}/man3*/*  docs are disabled
 %attr(0644,root,root) %{_libdir}/pkgconfig/*.pc
 
 %files static
@@ -463,10 +463,10 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 %{_sysconfdir}/pki/tls/misc/tsget
 # docs are disabled
 # BEGIN
-#%{_mandir}/man1*/*.pl*
-#%{_mandir}/man1*/c_rehash*
-#%{_mandir}/man1*/tsget*
-#%{_mandir}/man1*/openssl-tsget*
+#%%{_mandir}/man1*/*.pl*
+#%%{_mandir}/man1*/c_rehash*
+#%%{_mandir}/man1*/tsget*
+#%%{_mandir}/man1*/openssl-tsget*
 # END
 %dir %{_sysconfdir}/pki/CA
 %dir %{_sysconfdir}/pki/CA/private
