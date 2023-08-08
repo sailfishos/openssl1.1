@@ -184,7 +184,7 @@ diff -up openssl-1.1.1g/ssl/t1_lib.c.fips-curves openssl-1.1.1g/ssl/t1_lib.c
          /* We never allow GOST sig algs on the server with TLSv1.3 */
          if (s->server && SSL_IS_TLS13(s))
              return 0;
-@@ -2842,6 +2882,13 @@ int tls_choose_sigalg(SSL *s, int fatale
+@@ -2881,6 +2921,13 @@ int tls_choose_sigalg(SSL *s, int fatale
                  const uint16_t *sent_sigs;
                  size_t sent_sigslen;
  

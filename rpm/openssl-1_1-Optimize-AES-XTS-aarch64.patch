@@ -117,7 +117,7 @@ Index: openssl-1.1.1d/crypto/aes/asm/aesv8-armx.pl
 ===================================================================
 --- openssl-1.1.1d.orig/crypto/aes/asm/aesv8-armx.pl
 +++ openssl-1.1.1d/crypto/aes/asm/aesv8-armx.pl
-@@ -897,6 +897,1432 @@ $code.=<<___;
+@@ -1351,6 +1351,1432 @@ $code.=<<___;
  .size	${prefix}_ctr32_encrypt_blocks,.-${prefix}_ctr32_encrypt_blocks
  ___
  }}}

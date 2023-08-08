@@ -12,7 +12,7 @@ diff -up openssl-1.1.1g/Configurations/00-base-templates.conf.s390x-ecc openssl-
 diff -up openssl-1.1.1g/Configure.s390x-ecc openssl-1.1.1g/Configure
 --- openssl-1.1.1g/Configure.s390x-ecc	2020-05-18 12:45:40.781233618 +0200
 +++ openssl-1.1.1g/Configure	2020-05-18 12:45:40.856234270 +0200
-@@ -1398,6 +1398,9 @@ unless ($disabled{asm}) {
+@@ -1418,6 +1418,9 @@ unless ($disabled{asm}) {
      if ($target{ec_asm_src} =~ /ecp_nistz256/) {
          push @{$config{lib_defines}}, "ECP_NISTZ256_ASM";
      }
@@ -429,7 +429,7 @@ diff -up openssl-1.1.1g/crypto/ec/ec_local.h.s390x-ecc openssl-1.1.1g/crypto/ec/
      /* Inverse modulo order */
      int (*field_inverse_mod_ord)(const EC_GROUP *, BIGNUM *r,
                                   const BIGNUM *x, BN_CTX *);
-@@ -587,6 +595,11 @@ int ec_group_simple_order_bits(const EC_
+@@ -589,6 +597,11 @@ int ec_group_simple_order_bits(const EC_
   */
  const EC_METHOD *EC_GFp_nistz256_method(void);
  #endif
@@ -441,7 +441,7 @@ diff -up openssl-1.1.1g/crypto/ec/ec_local.h.s390x-ecc openssl-1.1.1g/crypto/ec/
  
  size_t ec_key_simple_priv2oct(const EC_KEY *eckey,
                                unsigned char *buf, size_t len);
-@@ -651,6 +664,13 @@ int ossl_ecdsa_verify(int type, const un
+@@ -653,6 +666,13 @@ int ossl_ecdsa_verify(int type, const un
                        const unsigned char *sigbuf, int sig_len, EC_KEY *eckey);
  int ossl_ecdsa_verify_sig(const unsigned char *dgst, int dgst_len,
                            const ECDSA_SIG *sig, EC_KEY *eckey);
@@ -496,7 +496,7 @@ diff -up openssl-1.1.1g/crypto/ec/ecp_nist.c.s390x-ecc openssl-1.1.1g/crypto/ec/
 diff -up openssl-1.1.1g/crypto/ec/ecp_nistp224.c.s390x-ecc openssl-1.1.1g/crypto/ec/ecp_nistp224.c
 --- openssl-1.1.1g/crypto/ec/ecp_nistp224.c.s390x-ecc	2020-04-21 14:22:39.000000000 +0200
 +++ openssl-1.1.1g/crypto/ec/ecp_nistp224.c	2020-05-18 12:45:44.568266531 +0200
-@@ -292,6 +292,9 @@ const EC_METHOD *EC_GFp_nistp224_method(
+@@ -293,6 +293,9 @@ const EC_METHOD *EC_GFp_nistp224_method(
          0, /* keycopy */
          0, /* keyfinish */
          ecdh_simple_compute_key,
@@ -522,7 +522,7 @@ diff -up openssl-1.1.1g/crypto/ec/ecp_nistp256.c.s390x-ecc openssl-1.1.1g/crypto
 diff -up openssl-1.1.1g/crypto/ec/ecp_nistp521.c.s390x-ecc openssl-1.1.1g/crypto/ec/ecp_nistp521.c
 --- openssl-1.1.1g/crypto/ec/ecp_nistp521.c.s390x-ecc	2020-04-21 14:22:39.000000000 +0200
 +++ openssl-1.1.1g/crypto/ec/ecp_nistp521.c	2020-05-18 12:45:44.569266540 +0200
-@@ -1669,6 +1669,9 @@ const EC_METHOD *EC_GFp_nistp521_method(
+@@ -1670,6 +1670,9 @@ const EC_METHOD *EC_GFp_nistp521_method(
          0, /* keycopy */
          0, /* keyfinish */
          ecdh_simple_compute_key,
@@ -535,7 +535,7 @@ diff -up openssl-1.1.1g/crypto/ec/ecp_nistp521.c.s390x-ecc openssl-1.1.1g/crypto
 diff -up openssl-1.1.1g/crypto/ec/ecp_nistz256.c.s390x-ecc openssl-1.1.1g/crypto/ec/ecp_nistz256.c
 --- openssl-1.1.1g/crypto/ec/ecp_nistz256.c.s390x-ecc	2020-04-21 14:22:39.000000000 +0200
 +++ openssl-1.1.1g/crypto/ec/ecp_nistz256.c	2020-05-18 12:45:44.570266549 +0200
-@@ -1720,6 +1720,9 @@ const EC_METHOD *EC_GFp_nistz256_method(
+@@ -1513,6 +1513,9 @@ const EC_METHOD *EC_GFp_nistz256_method(
          0, /* keycopy */
          0, /* keyfinish */
          ecdh_simple_compute_key,
@@ -1637,7 +1637,7 @@ diff -up openssl-1.1.1g/crypto/ec/ecx_meth.c.s390x-ecc openssl-1.1.1g/crypto/ec/
 diff -up openssl-1.1.1g/crypto/err/openssl.txt.s390x-ecc openssl-1.1.1g/crypto/err/openssl.txt
 --- openssl-1.1.1g/crypto/err/openssl.txt.s390x-ecc	2020-05-18 12:45:40.834234079 +0200
 +++ openssl-1.1.1g/crypto/err/openssl.txt	2020-05-18 12:45:44.575266592 +0200
-@@ -496,6 +496,11 @@ EC_F_ECDSA_SIGN_EX:254:ECDSA_sign_ex
+@@ -498,6 +498,11 @@ EC_F_ECDSA_SIGN_EX:254:ECDSA_sign_ex
  EC_F_ECDSA_SIGN_SETUP:248:ECDSA_sign_setup
  EC_F_ECDSA_SIG_NEW:265:ECDSA_SIG_new
  EC_F_ECDSA_VERIFY:253:ECDSA_verify
@@ -1649,7 +1649,7 @@ diff -up openssl-1.1.1g/crypto/err/openssl.txt.s390x-ecc openssl-1.1.1g/crypto/e
  EC_F_ECD_ITEM_VERIFY:270:ecd_item_verify
  EC_F_ECKEY_PARAM2TYPE:223:eckey_param2type
  EC_F_ECKEY_PARAM_DECODE:212:eckey_param_decode
-@@ -657,6 +662,7 @@ EC_F_NISTP521_PRE_COMP_NEW:237:nistp521_
+@@ -659,6 +664,7 @@ EC_F_NISTP521_PRE_COMP_NEW:237:nistp521_
  EC_F_O2I_ECPUBLICKEY:152:o2i_ECPublicKey
  EC_F_OLD_EC_PRIV_DECODE:222:old_ec_priv_decode
  EC_F_OSSL_ECDH_COMPUTE_KEY:247:ossl_ecdh_compute_key
@@ -1657,7 +1657,7 @@ diff -up openssl-1.1.1g/crypto/err/openssl.txt.s390x-ecc openssl-1.1.1g/crypto/e
  EC_F_OSSL_ECDSA_SIGN_SIG:249:ossl_ecdsa_sign_sig
  EC_F_OSSL_ECDSA_VERIFY_SIG:250:ossl_ecdsa_verify_sig
  EC_F_PKEY_ECD_CTRL:271:pkey_ecd_ctrl
-@@ -672,6 +678,12 @@ EC_F_PKEY_EC_KDF_DERIVE:283:pkey_ec_kdf_
+@@ -674,6 +680,12 @@ EC_F_PKEY_EC_KDF_DERIVE:283:pkey_ec_kdf_
  EC_F_PKEY_EC_KEYGEN:199:pkey_ec_keygen
  EC_F_PKEY_EC_PARAMGEN:219:pkey_ec_paramgen
  EC_F_PKEY_EC_SIGN:218:pkey_ec_sign
@@ -1670,7 +1670,7 @@ diff -up openssl-1.1.1g/crypto/err/openssl.txt.s390x-ecc openssl-1.1.1g/crypto/e
  EC_F_VALIDATE_ECX_DERIVE:278:validate_ecx_derive
  ENGINE_F_DIGEST_UPDATE:198:digest_update
  ENGINE_F_DYNAMIC_CTRL:180:dynamic_ctrl
-@@ -2160,6 +2172,7 @@ EC_R_BUFFER_TOO_SMALL:100:buffer too sma
+@@ -2171,6 +2183,7 @@ EC_R_BUFFER_TOO_SMALL:100:buffer too sma
  EC_R_CANNOT_INVERT:165:cannot invert
  EC_R_COORDINATES_OUT_OF_RANGE:146:coordinates out of range
  EC_R_CURVE_DOES_NOT_SUPPORT_ECDH:160:curve does not support ecdh
@@ -1928,7 +1928,7 @@ diff -up openssl-1.1.1g/crypto/s390x_arch.h.s390x-ecc openssl-1.1.1g/crypto/s390
  };
  
  #if defined(__GNUC__) && defined(__linux)
-@@ -66,11 +74,14 @@ extern struct OPENSSL_s390xcap_st OPENSS
+@@ -69,11 +77,14 @@ extern struct OPENSSL_s390xcap_st OPENSS
  # define S390X_KMF		0x90
  # define S390X_PRNO		0xa0
  # define S390X_KMA		0xb0
@@ -1943,7 +1943,7 @@ diff -up openssl-1.1.1g/crypto/s390x_arch.h.s390x-ecc openssl-1.1.1g/crypto/s390
  
  /* Function Codes */
  
-@@ -94,10 +105,32 @@ extern struct OPENSSL_s390xcap_st OPENSS
+@@ -97,10 +108,32 @@ extern struct OPENSSL_s390xcap_st OPENSS
  /* prno */
  # define S390X_TRNG		114
  

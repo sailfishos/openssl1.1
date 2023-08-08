@@ -124,7 +124,7 @@ diff -up openssl-1.1.1h/apps/speed.c.curves openssl-1.1.1h/apps/speed.c
          /* Other and ECDH only ones */
          {"X25519", NID_X25519, 253},
          {"X448", NID_X448, 448}
-@@ -2026,9 +1945,9 @@ int speed_main(int argc, char **argv)
+@@ -2030,9 +1949,9 @@ int speed_main(int argc, char **argv)
  #  endif
  
  #  ifndef OPENSSL_NO_EC
@@ -137,7 +137,7 @@ diff -up openssl-1.1.1h/apps/speed.c.curves openssl-1.1.1h/apps/speed.c
          ecdsa_c[i][0] = ecdsa_c[i - 1][0] / 2;
          ecdsa_c[i][1] = ecdsa_c[i - 1][1] / 2;
          if (ecdsa_doit[i] <= 1 && ecdsa_c[i][0] == 0)
-@@ -2040,7 +1959,7 @@ int speed_main(int argc, char **argv)
+@@ -2044,7 +1963,7 @@ int speed_main(int argc, char **argv)
              }
          }
      }
@@ -146,7 +146,7 @@ diff -up openssl-1.1.1h/apps/speed.c.curves openssl-1.1.1h/apps/speed.c
      ecdsa_c[R_EC_K163][0] = count / 1000;
      ecdsa_c[R_EC_K163][1] = count / 1000 / 2;
      for (i = R_EC_K233; i <= R_EC_K571; i++) {
-@@ -2071,8 +1990,8 @@ int speed_main(int argc, char **argv)
+@@ -2075,8 +1994,8 @@ int speed_main(int argc, char **argv)
      }
  #   endif
  
@@ -157,7 +157,7 @@ diff -up openssl-1.1.1h/apps/speed.c.curves openssl-1.1.1h/apps/speed.c
          ecdh_c[i][0] = ecdh_c[i - 1][0] / 2;
          if (ecdh_doit[i] <= 1 && ecdh_c[i][0] == 0)
              ecdh_doit[i] = 0;
-@@ -2082,7 +2001,7 @@ int speed_main(int argc, char **argv)
+@@ -2086,7 +2005,7 @@ int speed_main(int argc, char **argv)
              }
          }
      }

@@ -13,7 +13,7 @@ diff -up openssl-1.1.1j/apps/pkcs12.c.fips openssl-1.1.1j/apps/pkcs12.c
 diff -up openssl-1.1.1j/apps/speed.c.fips openssl-1.1.1j/apps/speed.c
 --- openssl-1.1.1j/apps/speed.c.fips	2021-03-03 12:57:42.185734409 +0100
 +++ openssl-1.1.1j/apps/speed.c	2021-03-03 12:57:42.195734492 +0100
-@@ -1593,7 +1593,8 @@ int speed_main(int argc, char **argv)
+@@ -1597,7 +1597,8 @@ int speed_main(int argc, char **argv)
              continue;
          if (strcmp(*argv, "rsa") == 0) {
              for (loop = 0; loop < OSSL_NELEM(rsa_doit); loop++)
@@ -23,7 +23,7 @@ diff -up openssl-1.1.1j/apps/speed.c.fips openssl-1.1.1j/apps/speed.c
              continue;
          }
          if (found(*argv, rsa_choices, &i)) {
-@@ -1603,7 +1604,9 @@ int speed_main(int argc, char **argv)
+@@ -1607,7 +1608,9 @@ int speed_main(int argc, char **argv)
  #endif
  #ifndef OPENSSL_NO_DSA
          if (strcmp(*argv, "dsa") == 0) {
@@ -34,7 +34,7 @@ diff -up openssl-1.1.1j/apps/speed.c.fips openssl-1.1.1j/apps/speed.c
                  dsa_doit[R_DSA_2048] = 1;
              continue;
          }
-@@ -1634,19 +1637,21 @@ int speed_main(int argc, char **argv)
+@@ -1638,19 +1641,21 @@ int speed_main(int argc, char **argv)
          }
          if (strcmp(*argv, "ecdh") == 0) {
              for (loop = 0; loop < OSSL_NELEM(ecdh_doit); loop++)
@@ -60,7 +60,7 @@ diff -up openssl-1.1.1j/apps/speed.c.fips openssl-1.1.1j/apps/speed.c
              eddsa_doit[i] = 2;
              continue;
          }
-@@ -1735,23 +1740,31 @@ int speed_main(int argc, char **argv)
+@@ -1739,23 +1744,31 @@ int speed_main(int argc, char **argv)
      /* No parameters; turn on everything. */
      if ((argc == 0) && !doit[D_EVP]) {
          for (i = 0; i < ALGOR_NUM; i++)
@@ -98,7 +98,7 @@ diff -up openssl-1.1.1j/apps/speed.c.fips openssl-1.1.1j/apps/speed.c
  #endif
      }
      for (i = 0; i < ALGOR_NUM; i++)
-@@ -1799,30 +1812,46 @@ int speed_main(int argc, char **argv)
+@@ -1803,30 +1816,46 @@ int speed_main(int argc, char **argv)
      AES_set_encrypt_key(key24, 192, &aes_ks2);
      AES_set_encrypt_key(key32, 256, &aes_ks3);
  #ifndef OPENSSL_NO_CAMELLIA
@@ -155,7 +155,7 @@ diff -up openssl-1.1.1j/apps/speed.c.fips openssl-1.1.1j/apps/speed.c
  #endif
  #ifndef SIGALRM
  # ifndef OPENSSL_NO_DES
-@@ -2120,6 +2149,7 @@ int speed_main(int argc, char **argv)
+@@ -2124,6 +2153,7 @@ int speed_main(int argc, char **argv)
  
          for (i = 0; i < loopargs_len; i++) {
              loopargs[i].hctx = HMAC_CTX_new();
@@ -190,7 +190,7 @@ diff -up openssl-1.1.1j/crypto/cmac/cm_pmeth.c.fips openssl-1.1.1j/crypto/cmac/c
 diff -up openssl-1.1.1j/crypto/dh/dh_err.c.fips openssl-1.1.1j/crypto/dh/dh_err.c
 --- openssl-1.1.1j/crypto/dh/dh_err.c.fips	2021-02-16 16:24:01.000000000 +0100
 +++ openssl-1.1.1j/crypto/dh/dh_err.c	2021-03-03 12:57:42.195734492 +0100
-@@ -25,6 +25,9 @@ static const ERR_STRING_DATA DH_str_func
+@@ -26,6 +26,9 @@ static const ERR_STRING_DATA DH_str_func
      {ERR_PACK(ERR_LIB_DH, DH_F_DH_CMS_SET_PEERKEY, 0), "dh_cms_set_peerkey"},
      {ERR_PACK(ERR_LIB_DH, DH_F_DH_CMS_SET_SHARED_INFO, 0),
       "dh_cms_set_shared_info"},
@@ -200,7 +200,7 @@ diff -up openssl-1.1.1j/crypto/dh/dh_err.c.fips openssl-1.1.1j/crypto/dh/dh_err.
      {ERR_PACK(ERR_LIB_DH, DH_F_DH_METH_DUP, 0), "DH_meth_dup"},
      {ERR_PACK(ERR_LIB_DH, DH_F_DH_METH_NEW, 0), "DH_meth_new"},
      {ERR_PACK(ERR_LIB_DH, DH_F_DH_METH_SET1_NAME, 0), "DH_meth_set1_name"},
-@@ -72,12 +75,14 @@ static const ERR_STRING_DATA DH_str_reas
+@@ -73,12 +76,14 @@ static const ERR_STRING_DATA DH_str_reas
      {ERR_PACK(ERR_LIB_DH, 0, DH_R_INVALID_PUBKEY), "invalid public key"},
      {ERR_PACK(ERR_LIB_DH, 0, DH_R_KDF_PARAMETER_ERROR), "kdf parameter error"},
      {ERR_PACK(ERR_LIB_DH, 0, DH_R_KEYS_NOT_SET), "keys not set"},
@@ -872,7 +872,7 @@ diff -up openssl-1.1.1j/crypto/evp/digest.c.fips openssl-1.1.1j/crypto/evp/diges
  
  
  static void cleanup_old_md_data(EVP_MD_CTX *ctx, int force)
-@@ -66,6 +69,12 @@ int EVP_DigestInit(EVP_MD_CTX *ctx, cons
+@@ -77,6 +80,12 @@ int EVP_DigestInit(EVP_MD_CTX *ctx, cons
  int EVP_DigestInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type, ENGINE *impl)
  {
      EVP_MD_CTX_clear_flags(ctx, EVP_MD_CTX_FLAG_CLEANED);
@@ -885,7 +885,7 @@ diff -up openssl-1.1.1j/crypto/evp/digest.c.fips openssl-1.1.1j/crypto/evp/diges
  #ifndef OPENSSL_NO_ENGINE
      /*
       * Whether it's nice or not, "Inits" can be used on "Final"'d contexts so
-@@ -119,6 +128,15 @@ int EVP_DigestInit_ex(EVP_MD_CTX *ctx, c
+@@ -131,6 +140,15 @@ int EVP_DigestInit_ex(EVP_MD_CTX *ctx, c
      }
  #endif
      if (ctx->digest != type) {
@@ -901,7 +901,7 @@ diff -up openssl-1.1.1j/crypto/evp/digest.c.fips openssl-1.1.1j/crypto/evp/diges
          cleanup_old_md_data(ctx, 1);
  
          ctx->digest = type;
-@@ -150,6 +168,10 @@ int EVP_DigestInit_ex(EVP_MD_CTX *ctx, c
+@@ -160,6 +178,10 @@ int EVP_DigestInit_ex(EVP_MD_CTX *ctx, c
  
  int EVP_DigestUpdate(EVP_MD_CTX *ctx, const void *data, size_t count)
  {
@@ -912,7 +912,7 @@ diff -up openssl-1.1.1j/crypto/evp/digest.c.fips openssl-1.1.1j/crypto/evp/diges
      if (count == 0)
          return 1;
  
-@@ -170,6 +192,9 @@ int EVP_DigestFinal_ex(EVP_MD_CTX *ctx,
+@@ -180,6 +202,9 @@ int EVP_DigestFinal_ex(EVP_MD_CTX *ctx,
  {
      int ret;
  
@@ -943,7 +943,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
              EVPerr(EVP_F_AES_T4_XTS_INIT_KEY, EVP_R_XTS_DUPLICATED_KEYS);
              return 0;
          }
-@@ -2833,9 +2833,9 @@ static int aes_ctr_cipher(EVP_CIPHER_CTX
+@@ -2827,9 +2827,9 @@ static int aes_ctr_cipher(EVP_CIPHER_CTX
      return 1;
  }
  
@@ -956,7 +956,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
  
  static int aes_gcm_cleanup(EVP_CIPHER_CTX *c)
  {
-@@ -2869,6 +2869,11 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *
+@@ -2863,6 +2863,11 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *
      case EVP_CTRL_AEAD_SET_IVLEN:
          if (arg <= 0)
              return 0;
@@ -968,7 +968,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
          /* Allocate memory for IV if needed */
          if ((arg > EVP_MAX_IV_LENGTH) && (arg > gctx->ivlen)) {
              if (gctx->iv != c->iv)
-@@ -3318,11 +3323,14 @@ static int aes_gcm_cipher(EVP_CIPHER_CTX
+@@ -3312,11 +3317,14 @@ static int aes_gcm_cipher(EVP_CIPHER_CTX
                  | EVP_CIPH_CUSTOM_COPY | EVP_CIPH_CUSTOM_IV_LENGTH)
  
  BLOCK_CIPHER_custom(NID_aes, 128, 1, 12, gcm, GCM,
@@ -986,7 +986,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
  
  static int aes_xts_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr)
  {
-@@ -3380,7 +3388,7 @@ static int aes_xts_init_key(EVP_CIPHER_C
+@@ -3374,7 +3382,7 @@ static int aes_xts_init_key(EVP_CIPHER_C
               *       BEFORE using the keys in the XTS-AES algorithm to process
               *       data with them."
               */
@@ -995,7 +995,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
                  EVPerr(EVP_F_AES_XTS_INIT_KEY, EVP_R_XTS_DUPLICATED_KEYS);
                  return 0;
              }
-@@ -3484,6 +3492,14 @@ static int aes_xts_cipher(EVP_CIPHER_CTX
+@@ -3478,6 +3486,14 @@ static int aes_xts_cipher(EVP_CIPHER_CTX
          return 0;
      if (!out || !in || len < AES_BLOCK_SIZE)
          return 0;
@@ -1010,7 +1010,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
      if (xctx->stream)
          (*xctx->stream) (in, out, len,
                           xctx->xts.key1, xctx->xts.key2,
-@@ -3501,8 +3517,10 @@ static int aes_xts_cipher(EVP_CIPHER_CTX
+@@ -3495,8 +3511,10 @@ static int aes_xts_cipher(EVP_CIPHER_CTX
                           | EVP_CIPH_ALWAYS_CALL_INIT | EVP_CIPH_CTRL_INIT \
                           | EVP_CIPH_CUSTOM_COPY)
  
@@ -1023,7 +1023,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
  
  static int aes_ccm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr)
  {
-@@ -3772,11 +3790,11 @@ static int aes_ccm_cipher(EVP_CIPHER_CTX
+@@ -3766,11 +3784,11 @@ static int aes_ccm_cipher(EVP_CIPHER_CTX
  #define aes_ccm_cleanup NULL
  
  BLOCK_CIPHER_custom(NID_aes, 128, 1, 12, ccm, CCM,
@@ -1038,7 +1038,7 @@ diff -up openssl-1.1.1j/crypto/evp/e_aes.c.fips openssl-1.1.1j/crypto/evp/e_aes.
  
  typedef struct {
      union {
-@@ -3869,7 +3887,7 @@ static int aes_wrap_cipher(EVP_CIPHER_CT
+@@ -3863,7 +3881,7 @@ static int aes_wrap_cipher(EVP_CIPHER_CT
      return rv ? (int)rv : -1;
  }
  
@@ -9705,7 +9705,7 @@ diff -up openssl-1.1.1j/crypto/rand/rand_lib.c.fips openssl-1.1.1j/crypto/rand/r
  
  #ifndef OPENSSL_NO_ENGINE
  /* non-NULL if default_RAND_meth is ENGINE-provided */
-@@ -959,3 +963,15 @@ int RAND_status(void)
+@@ -967,3 +971,15 @@ int RAND_status(void)
          return meth->status();
      return 0;
  }
@@ -10338,7 +10338,7 @@ diff -up openssl-1.1.1j/crypto/rsa/rsa_ossl.c.fips openssl-1.1.1j/crypto/rsa/rsa
      if (BN_num_bits(rsa->n) > OPENSSL_RSA_MAX_MODULUS_BITS) {
          RSAerr(RSA_F_RSA_OSSL_PUBLIC_ENCRYPT, RSA_R_MODULUS_TOO_LARGE);
          return -1;
-@@ -246,6 +272,22 @@ static int rsa_ossl_private_encrypt(int
+@@ -247,6 +273,22 @@ static int rsa_ossl_private_encrypt(int
      BIGNUM *unblind = NULL;
      BN_BLINDING *blinding = NULL;
  
@@ -10361,7 +10361,7 @@ diff -up openssl-1.1.1j/crypto/rsa/rsa_ossl.c.fips openssl-1.1.1j/crypto/rsa/rsa
      if ((ctx = BN_CTX_new()) == NULL)
          goto err;
      BN_CTX_start(ctx);
-@@ -380,6 +422,22 @@ static int rsa_ossl_private_decrypt(int
+@@ -381,6 +423,22 @@ static int rsa_ossl_private_decrypt(int
      BIGNUM *unblind = NULL;
      BN_BLINDING *blinding = NULL;
  
@@ -10384,7 +10384,7 @@ diff -up openssl-1.1.1j/crypto/rsa/rsa_ossl.c.fips openssl-1.1.1j/crypto/rsa/rsa
      if ((ctx = BN_CTX_new()) == NULL)
          goto err;
      BN_CTX_start(ctx);
-@@ -507,6 +565,22 @@ static int rsa_ossl_public_decrypt(int f
+@@ -506,6 +564,22 @@ static int rsa_ossl_public_decrypt(int f
      unsigned char *buf = NULL;
      BN_CTX *ctx = NULL;
  
@@ -10652,7 +10652,7 @@ diff -up openssl-1.1.1j/include/openssl/crypto.h.fips openssl-1.1.1j/include/ope
 diff -up openssl-1.1.1j/include/openssl/dherr.h.fips openssl-1.1.1j/include/openssl/dherr.h
 --- openssl-1.1.1j/include/openssl/dherr.h.fips	2021-02-16 16:24:01.000000000 +0100
 +++ openssl-1.1.1j/include/openssl/dherr.h	2021-03-03 12:57:42.204734567 +0100
-@@ -36,6 +36,9 @@ int ERR_load_DH_strings(void);
+@@ -37,6 +37,9 @@ int ERR_load_DH_strings(void);
  #  define DH_F_DH_CMS_DECRYPT                              114
  #  define DH_F_DH_CMS_SET_PEERKEY                          115
  #  define DH_F_DH_CMS_SET_SHARED_INFO                      116
@@ -10662,7 +10662,7 @@ diff -up openssl-1.1.1j/include/openssl/dherr.h.fips openssl-1.1.1j/include/open
  #  define DH_F_DH_METH_DUP                                 117
  #  define DH_F_DH_METH_NEW                                 118
  #  define DH_F_DH_METH_SET1_NAME                           119
-@@ -73,12 +76,14 @@ int ERR_load_DH_strings(void);
+@@ -74,12 +77,14 @@ int ERR_load_DH_strings(void);
  #  define DH_R_INVALID_PARAMETER_NID                       114
  #  define DH_R_INVALID_PUBKEY                              102
  #  define DH_R_KDF_PARAMETER_ERROR                         112
@@ -10680,7 +10680,7 @@ diff -up openssl-1.1.1j/include/openssl/dherr.h.fips openssl-1.1.1j/include/open
 diff -up openssl-1.1.1j/include/openssl/dh.h.fips openssl-1.1.1j/include/openssl/dh.h
 --- openssl-1.1.1j/include/openssl/dh.h.fips	2021-02-16 16:24:01.000000000 +0100
 +++ openssl-1.1.1j/include/openssl/dh.h	2021-03-03 12:57:42.204734567 +0100
-@@ -31,6 +31,7 @@ extern "C" {
+@@ -34,6 +34,7 @@ extern "C" {
  # endif
  
  # define OPENSSL_DH_FIPS_MIN_MODULUS_BITS 1024
@@ -11360,7 +11360,7 @@ diff -up openssl-1.1.1j/ssl/ssl_ciph.c.fips openssl-1.1.1j/ssl/ssl_ciph.c
          if ((c->algorithm_mkey & disabled_mkey) ||
              (c->algorithm_auth & disabled_auth) ||
              (c->algorithm_enc & disabled_enc) ||
-@@ -1671,7 +1676,8 @@ STACK_OF(SSL_CIPHER) *ssl_create_cipher_
+@@ -1669,7 +1674,8 @@ STACK_OF(SSL_CIPHER) *ssl_create_cipher_
       * to the resulting precedence to the STACK_OF(SSL_CIPHER).
       */
      for (curr = head; curr != NULL; curr = curr->next) {
@@ -11419,7 +11419,7 @@ diff -up openssl-1.1.1j/ssl/ssl_init.c.fips openssl-1.1.1j/ssl/ssl_init.c
 diff -up openssl-1.1.1j/ssl/ssl_lib.c.fips openssl-1.1.1j/ssl/ssl_lib.c
 --- openssl-1.1.1j/ssl/ssl_lib.c.fips	2021-03-03 12:57:42.193734476 +0100
 +++ openssl-1.1.1j/ssl/ssl_lib.c	2021-03-03 12:57:42.206734583 +0100
-@@ -2973,6 +2973,11 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *m
+@@ -3040,6 +3040,11 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *m
      if (!OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS, NULL))
          return NULL;
  
@@ -11431,7 +11431,7 @@ diff -up openssl-1.1.1j/ssl/ssl_lib.c.fips openssl-1.1.1j/ssl/ssl_lib.c
      if (SSL_get_ex_data_X509_STORE_CTX_idx() < 0) {
          SSLerr(SSL_F_SSL_CTX_NEW, SSL_R_X509_VERIFICATION_SETUP_PROBLEMS);
          goto err;
-@@ -3029,13 +3034,17 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *m
+@@ -3096,13 +3101,17 @@ SSL_CTX *SSL_CTX_new(const SSL_METHOD *m
      if (ret->param == NULL)
          goto err;
  
@@ -11583,7 +11583,7 @@ diff -up openssl-1.1.1j/test/dsatest.c.fips openssl-1.1.1j/test/dsatest.c
 diff -up openssl-1.1.1j/test/recipes/30-test_evp_data/evpciph.txt.fips openssl-1.1.1j/test/recipes/30-test_evp_data/evpciph.txt
 --- openssl-1.1.1j/test/recipes/30-test_evp_data/evpciph.txt.fips	2021-02-16 16:24:01.000000000 +0100
 +++ openssl-1.1.1j/test/recipes/30-test_evp_data/evpciph.txt	2021-03-03 12:57:42.207734591 +0100
-@@ -1206,6 +1206,7 @@ Key = 0000000000000000000000000000000000
+@@ -1256,6 +1256,7 @@ Key = 0000000000000000000000000000000000
  IV = 00000000000000000000000000000000
  Plaintext = 0000000000000000000000000000000000000000000000000000000000000000
  Ciphertext = 917cf69ebd68b2ec9b9fe9a3eadda692cd43d2f59598ed858c02c2652fbf922e

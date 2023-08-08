@@ -16,7 +16,7 @@ diff --git a/apps/s_server.c b/apps/s_server.c
 index bcc83e562c..591c6c19c5 100644
 --- a/apps/s_server.c
 +++ b/apps/s_server.c
-@@ -707,7 +707,7 @@ static int alpn_cb(SSL *s, const unsigned char **out, unsigned char *outlen,
+@@ -716,7 +716,7 @@ static int alpn_cb(SSL *s, const unsigned char **out, unsigned char *outlen,
      if (SSL_select_next_proto
          ((unsigned char **)out, outlen, alpn_ctx->data, alpn_ctx->len, in,
           inlen) != OPENSSL_NPN_NEGOTIATED) {

@@ -120,7 +120,7 @@ Index: openssl-1.1.1d/crypto/armcap.c
  # endif
  uint32_t _armv7_tick(void);
  
-@@ -95,6 +98,7 @@ void OPENSSL_cpuid_setup(void) __attribu
+@@ -130,6 +133,7 @@ void OPENSSL_cpuid_setup(void) __attribu
  #  define HWCAP_CE_PMULL         (1 << 4)
  #  define HWCAP_CE_SHA1          (1 << 5)
  #  define HWCAP_CE_SHA256        (1 << 6)
@@ -128,7 +128,7 @@ Index: openssl-1.1.1d/crypto/armcap.c
  #  define HWCAP_CE_SHA512        (1 << 21)
  # endif
  
-@@ -155,6 +159,9 @@ void OPENSSL_cpuid_setup(void)
+@@ -190,6 +194,9 @@ void OPENSSL_cpuid_setup(void)
  #  ifdef __aarch64__
          if (hwcap & HWCAP_CE_SHA512)
              OPENSSL_armcap_P |= ARMV8_SHA512;
@@ -138,7 +138,7 @@ Index: openssl-1.1.1d/crypto/armcap.c
  #  endif
      }
  # endif
-@@ -210,5 +217,16 @@ void OPENSSL_cpuid_setup(void)
+@@ -245,5 +252,16 @@ void OPENSSL_cpuid_setup(void)
  
      sigaction(SIGILL, &ill_oact, NULL);
      sigprocmask(SIG_SETMASK, &oset, NULL);
@@ -568,7 +568,7 @@ Index: openssl-1.1.1d/crypto/bn/build.info
 ===================================================================
 --- openssl-1.1.1d.orig/crypto/bn/build.info
 +++ openssl-1.1.1d/crypto/bn/build.info
-@@ -65,3 +65,4 @@ INCLUDE[armv4-mont.o]=..
+@@ -64,3 +64,4 @@ INCLUDE[armv4-mont.o]=..
  GENERATE[armv4-gf2m.S]=asm/armv4-gf2m.pl $(PERLASM_SCHEME)
  INCLUDE[armv4-gf2m.o]=..
  GENERATE[armv8-mont.S]=asm/armv8-mont.pl $(PERLASM_SCHEME)
