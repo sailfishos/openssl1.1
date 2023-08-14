@@ -1987,8 +1987,8 @@ diff -up openssl-1.1.1j/crypto/dh/dh_check.c.fips-dh openssl-1.1.1j/crypto/dh/dh
 +/* Note: according to documentation - this only checks the params */
  int DH_check(const DH *dh, int *ret)
  {
-     int ok = 0, r;
-@@ -104,6 +112,9 @@ int DH_check(const DH *dh, int *ret)
+     int ok = 0, r, q_good = 0;
+@@ -111,6 +119,9 @@ int DH_check(const DH *dh, int *ret)
      if (!DH_check_params(dh, ret))
          return 0;
  
@@ -1998,7 +1998,7 @@ diff -up openssl-1.1.1j/crypto/dh/dh_check.c.fips-dh openssl-1.1.1j/crypto/dh/dh
      ctx = BN_CTX_new();
      if (ctx == NULL)
          goto err;
-@@ -177,7 +188,7 @@ int DH_check_pub_key_ex(const DH *dh, co
+@@ -191,7 +202,7 @@ int DH_check_pub_key_ex(const DH *dh, co
      return errflags == 0;
  }
  
@@ -2007,7 +2007,7 @@ diff -up openssl-1.1.1j/crypto/dh/dh_check.c.fips-dh openssl-1.1.1j/crypto/dh/dh
  {
      int ok = 0;
      BIGNUM *tmp = NULL;
-@@ -198,9 +209,9 @@ int DH_check_pub_key(const DH *dh, const
+@@ -212,9 +223,9 @@ int DH_check_pub_key(const DH *dh, const
      if (BN_cmp(pub_key, tmp) >= 0)
          *ret |= DH_CHECK_PUBKEY_TOO_LARGE;
  
@@ -2019,7 +2019,7 @@ diff -up openssl-1.1.1j/crypto/dh/dh_check.c.fips-dh openssl-1.1.1j/crypto/dh/dh
              goto err;
          if (!BN_is_one(tmp))
              *ret |= DH_CHECK_PUBKEY_INVALID;
-@@ -212,3 +223,23 @@ int DH_check_pub_key(const DH *dh, const
+@@ -226,3 +237,23 @@ int DH_check_pub_key(const DH *dh, const
      BN_CTX_free(ctx);
      return ok;
  }
@@ -2438,7 +2438,7 @@ diff -up openssl-1.1.1j/crypto/ec/ec_key.c.fips-dh openssl-1.1.1j/crypto/ec/ec_k
 diff -up openssl-1.1.1j/crypto/evp/p_lib.c.fips-dh openssl-1.1.1j/crypto/evp/p_lib.c
 --- openssl-1.1.1j/crypto/evp/p_lib.c.fips-dh	2021-02-16 16:24:01.000000000 +0100
 +++ openssl-1.1.1j/crypto/evp/p_lib.c	2021-03-03 14:23:27.405092436 +0100
-@@ -540,7 +540,8 @@ EC_KEY *EVP_PKEY_get1_EC_KEY(EVP_PKEY *p
+@@ -545,7 +545,8 @@ EC_KEY *EVP_PKEY_get1_EC_KEY(EVP_PKEY *p
  
  int EVP_PKEY_set1_DH(EVP_PKEY *pkey, DH *key)
  {
@@ -2664,7 +2664,7 @@ diff -up openssl-1.1.1j/include/openssl/obj_mac.h.fips-dh openssl-1.1.1j/include
 diff -up openssl-1.1.1j/ssl/s3_lib.c.fips-dh openssl-1.1.1j/ssl/s3_lib.c
 --- openssl-1.1.1j/ssl/s3_lib.c.fips-dh	2021-03-03 14:23:27.354091997 +0100
 +++ openssl-1.1.1j/ssl/s3_lib.c	2021-03-03 14:23:27.407092453 +0100
-@@ -4849,13 +4849,51 @@ int ssl_derive(SSL *s, EVP_PKEY *privkey
+@@ -4864,13 +4864,51 @@ int ssl_derive(SSL *s, EVP_PKEY *privkey
  EVP_PKEY *ssl_dh_to_pkey(DH *dh)
  {
      EVP_PKEY *ret;
@@ -2719,7 +2719,7 @@ diff -up openssl-1.1.1j/ssl/s3_lib.c.fips-dh openssl-1.1.1j/ssl/s3_lib.c
 diff -up openssl-1.1.1j/ssl/t1_lib.c.fips-dh openssl-1.1.1j/ssl/t1_lib.c
 --- openssl-1.1.1j/ssl/t1_lib.c.fips-dh	2021-03-03 14:23:27.401092401 +0100
 +++ openssl-1.1.1j/ssl/t1_lib.c	2021-03-03 14:23:27.407092453 +0100
-@@ -2542,7 +2542,7 @@ DH *ssl_get_auto_dh(SSL *s)
+@@ -2547,7 +2547,7 @@ DH *ssl_get_auto_dh(SSL *s)
          p = BN_get_rfc3526_prime_4096(NULL);
      else if (dh_secbits >= 128)
          p = BN_get_rfc3526_prime_3072(NULL);

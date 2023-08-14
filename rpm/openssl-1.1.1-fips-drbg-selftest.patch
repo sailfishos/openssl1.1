@@ -575,7 +575,7 @@ diff -up openssl-1.1.1g/crypto/rand/drbg_selftest.c.drbg-selftest openssl-1.1.1g
 diff -up openssl-1.1.1g/include/crypto/rand.h.drbg-selftest openssl-1.1.1g/include/crypto/rand.h
 --- openssl-1.1.1g/include/crypto/rand.h.drbg-selftest	2020-04-23 13:33:12.587622510 +0200
 +++ openssl-1.1.1g/include/crypto/rand.h	2020-04-23 13:33:12.619621907 +0200
-@@ -140,4 +140,9 @@ void rand_pool_cleanup(void);
+@@ -150,4 +150,9 @@ void rand_pool_cleanup(void);
   */
  void rand_pool_keep_random_devices_open(int keep);
  

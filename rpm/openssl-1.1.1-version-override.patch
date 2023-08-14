@@ -4,9 +4,9 @@ diff -up openssl-1.1.1q/include/openssl/opensslv.h.version-override openssl-1.1.
 @@ -40,7 +40,7 @@ extern "C" {
   *  major minor fix final patch/beta)
   */
- # define OPENSSL_VERSION_NUMBER  0x1010113fL
--# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1s  1 Nov 2022"
-+# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1s  FIPS 1 Nov 2022"
+ # define OPENSSL_VERSION_NUMBER  0x1010116fL
+-# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1v  1 Aug 2023"
++# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1v  FIPS 1 Aug 2023"
  
  /*-
   * The macros below are to be used for shared library (.so, .dll, ...)

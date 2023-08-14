@@ -16,7 +16,7 @@ diff --git a/crypto/err/openssl.txt b/crypto/err/openssl.txt
 index ae67dac7f6..e7ed2f8d63 100644
 --- a/crypto/err/openssl.txt
 +++ b/crypto/err/openssl.txt
-@@ -828,6 +828,10 @@ KDF_F_KDF_SCRYPT_CTRL_UINT32:121:kdf_scrypt_ctrl_uint32
+@@ -835,6 +835,10 @@ KDF_F_KDF_SCRYPT_CTRL_UINT32:121:kdf_scrypt_ctrl_uint32
  KDF_F_KDF_SCRYPT_CTRL_UINT64:122:kdf_scrypt_ctrl_uint64
  KDF_F_KDF_SCRYPT_DERIVE:123:kdf_scrypt_derive
  KDF_F_KDF_SCRYPT_NEW:124:kdf_scrypt_new
@@ -27,7 +27,7 @@ index ae67dac7f6..e7ed2f8d63 100644
  KDF_F_KDF_TLS1_PRF_CTRL_STR:125:kdf_tls1_prf_ctrl_str
  KDF_F_KDF_TLS1_PRF_DERIVE:126:kdf_tls1_prf_derive
  KDF_F_KDF_TLS1_PRF_NEW:127:kdf_tls1_prf_new
-@@ -2320,6 +2324,9 @@ KDF_R_MISSING_PASS:110:missing pass
+@@ -2347,6 +2351,9 @@ KDF_R_MISSING_PASS:110:missing pass
  KDF_R_MISSING_SALT:111:missing salt
  KDF_R_MISSING_SECRET:107:missing secret
  KDF_R_MISSING_SEED:106:missing seed
@@ -683,7 +683,7 @@ diff --git a/include/openssl/kdferr.h b/include/openssl/kdferr.h
 index 0191f2b21d..ff13ccb649 100644
 --- a/include/openssl/kdferr.h
 +++ b/include/openssl/kdferr.h
-@@ -32,6 +32,10 @@ int ERR_load_KDF_strings(void);
+@@ -36,6 +36,10 @@ int ERR_load_KDF_strings(void);
  # define KDF_F_KDF_SCRYPT_CTRL_UINT64                     122
  # define KDF_F_KDF_SCRYPT_DERIVE                          123
  # define KDF_F_KDF_SCRYPT_NEW                             124
@@ -694,7 +694,7 @@ index 0191f2b21d..ff13ccb649 100644
  # define KDF_F_KDF_TLS1_PRF_CTRL_STR                      125
  # define KDF_F_KDF_TLS1_PRF_DERIVE                        126
  # define KDF_F_KDF_TLS1_PRF_NEW                           127
-@@ -62,6 +66,9 @@ int ERR_load_KDF_strings(void);
+@@ -66,6 +70,9 @@ int ERR_load_KDF_strings(void);
  # define KDF_R_MISSING_SALT                               111
  # define KDF_R_MISSING_SECRET                             107
  # define KDF_R_MISSING_SEED                               106
@@ -5600,7 +5600,7 @@ diff --git a/crypto/kdf/sshkdf.c b/crypto/kdf/sshkdf.c
 index 300e1adbb23..f585e8a0d6d 100644
 --- a/crypto/kdf/sshkdf.c
 +++ b/crypto/kdf/sshkdf.c
-@@ -125,6 +125,9 @@ static int kdf_sshkdf_ctrl_str(EVP_KDF_IMPL *impl, const char *type,
+@@ -124,6 +124,9 @@ static int kdf_sshkdf_ctrl_str(EVP_KDF_IMPL *impl, const char *type,
          return 0;
      }
  

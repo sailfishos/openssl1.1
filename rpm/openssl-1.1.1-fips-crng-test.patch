@@ -186,7 +186,7 @@ diff -up openssl-1.1.1g/crypto/rand/rand_local.h.crng-test openssl-1.1.1g/crypto
  
  /*
   * Maximum allocation size for RANDOM_POOL buffers
-@@ -296,4 +306,22 @@ int rand_drbg_enable_locking(RAND_DRBG *
+@@ -303,4 +313,22 @@ int rand_drbg_enable_locking(RAND_DRBG *
  /* initializes the AES-CTR DRBG implementation */
  int drbg_ctr_init(RAND_DRBG *drbg);
  
@@ -212,7 +212,7 @@ diff -up openssl-1.1.1g/crypto/rand/rand_local.h.crng-test openssl-1.1.1g/crypto
 diff -up openssl-1.1.1g/include/crypto/rand.h.crng-test openssl-1.1.1g/include/crypto/rand.h
 --- openssl-1.1.1g/include/crypto/rand.h.crng-test	2020-04-23 13:30:45.824390573 +0200
 +++ openssl-1.1.1g/include/crypto/rand.h	2020-04-23 13:30:45.864389819 +0200
-@@ -49,6 +49,14 @@ size_t rand_drbg_get_additional_data(RAN
+@@ -59,6 +59,14 @@ size_t rand_drbg_get_additional_data(RAN
  
  void rand_drbg_cleanup_additional_data(RAND_POOL *pool, unsigned char *out);
  
@@ -272,7 +272,7 @@ diff -up openssl-1.1.1g/test/drbgtest.c.crng-test openssl-1.1.1g/test/drbgtest.c
          failures++;
          goto err;
      }
-@@ -293,7 +319,8 @@ static int error_check(DRBG_SELFTEST_DAT
+@@ -292,7 +318,8 @@ static int error_check(DRBG_SELFTEST_DAT
      unsigned int reseed_counter_tmp;
      int ret = 0;
  
@@ -282,7 +282,7 @@ diff -up openssl-1.1.1g/test/drbgtest.c.crng-test openssl-1.1.1g/test/drbgtest.c
          goto err;
  
      /*
-@@ -740,6 +767,10 @@ static int test_rand_drbg_reseed(void)
+@@ -739,6 +766,10 @@ static int test_rand_drbg_reseed(void)
          || !TEST_ptr_eq(private->parent, master))
          return 0;
  
@@ -293,7 +293,7 @@ diff -up openssl-1.1.1g/test/drbgtest.c.crng-test openssl-1.1.1g/test/drbgtest.c
      /* uninstantiate the three global DRBGs */
      RAND_DRBG_uninstantiate(private);
      RAND_DRBG_uninstantiate(public);
-@@ -964,7 +995,8 @@ static int test_rand_seed(void)
+@@ -963,7 +994,8 @@ static int test_rand_seed(void)
      size_t rand_buflen;
      size_t required_seed_buflen = 0;
  
@@ -303,7 +303,7 @@ diff -up openssl-1.1.1g/test/drbgtest.c.crng-test openssl-1.1.1g/test/drbgtest.c
          return 0;
  
  #ifdef OPENSSL_RAND_SEED_NONE
-@@ -1013,6 +1045,95 @@ static int test_rand_add(void)
+@@ -1012,6 +1044,95 @@ static int test_rand_add(void)
      return 1;
  }
  
@@ -399,7 +399,7 @@ diff -up openssl-1.1.1g/test/drbgtest.c.crng-test openssl-1.1.1g/test/drbgtest.c
  int setup_tests(void)
  {
      app_data_index = RAND_DRBG_get_ex_new_index(0L, NULL, NULL, NULL, NULL);
-@@ -1025,5 +1146,6 @@ int setup_tests(void)
+@@ -1024,5 +1145,6 @@ int setup_tests(void)
  #if defined(OPENSSL_THREADS)
      ADD_TEST(test_multi_thread);
  #endif

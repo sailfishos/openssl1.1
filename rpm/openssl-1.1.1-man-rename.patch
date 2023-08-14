@@ -1,7 +1,7 @@
 diff -up openssl-1.1.1-pre9/doc/man1/openssl.pod.man-rename openssl-1.1.1-pre9/doc/man1/openssl.pod
 --- openssl-1.1.1-pre9/doc/man1/openssl.pod.man-rename	2018-08-21 14:14:13.000000000 +0200
 +++ openssl-1.1.1-pre9/doc/man1/openssl.pod	2018-08-22 12:13:04.092568064 +0200
-@@ -482,13 +482,13 @@ L<dhparam(1)>, L<dsa(1)>, L<dsaparam(1)>
+@@ -539,13 +539,13 @@ L<dhparam(1)>, L<dsa(1)>, L<dsaparam(1)>
  L<ec(1)>, L<ecparam(1)>,
  L<enc(1)>, L<engine(1)>, L<errstr(1)>, L<gendsa(1)>, L<genpkey(1)>,
  L<genrsa(1)>, L<nseq(1)>, L<ocsp(1)>,

@@ -26,7 +26,7 @@
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.1.1s
+Version: 1.1.1v
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1
 
@@ -80,9 +80,9 @@ Patch52: openssl-1.1.1-s390x-update.patch
 Patch53: openssl-1.1.1-fips-crng-test.patch
 Patch55: openssl-1.1.1-aes-asm-aesv8-armx.pl-20-improvement-on-ThunderX2.patch
 Patch56: openssl-1.1.1-s390x-ecc.patch
-Patch57: openssl-1_1-Optimize-AES-GCM-uarchs.patch
-Patch58: openssl-1_1-Optimize-AES-XTS-aarch64.patch
-Patch59: openssl-1_1-Optimize-RSA-armv8.patch
+Patch57: openssl-1_1-Optimize-RSA-armv8.patch
+Patch58: openssl-1_1-Optimize-AES-GCM-uarchs.patch
+Patch59: openssl-1_1-Optimize-AES-XTS-aarch64.patch
 
 License: OpenSSL
 URL: http://www.openssl.org/
@@ -183,6 +183,9 @@ cp %{SOURCE13} test/
 %patch53 -p1 -b .crng-test
 %patch55 -p1 -b .arm-update
 %patch56 -p1 -b .s390x-ecc
+%patch57 -p1 -b .opt-rsa
+%patch58 -p1 -b .opt-aes-gcm
+%patch59 -p1 -b .opt-aem-xts
 %patch60 -p1 -b .krb5-kdf
 %patch61 -p1 -b .edk2-build
 %patch62 -p1 -b .fips-curves
