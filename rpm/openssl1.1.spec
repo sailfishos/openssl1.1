@@ -12,28 +12,22 @@
 # 1.1.0 soversion = 1.1 (same as upstream although presence of some symbols
 #                        depends on build configuration options)
 
-# HACK: Enable this build condition to keep old version for upgrading
-#       Adjust %{old_version} and %{old_soversion} accordingly!
-%bcond_with keep_oldversion_hack
-
 %define soversion 1.1
-%define old_version 1.0.2o+git5
-%define old_soversion 10
-
 %define nofips 1
+%define rname openssl
 
 # Number of threads to spawn when testing some threading fixes.
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
-Name: openssl
-Version: 1.1.1v
+Name: %{rname}%{soversion}
+Version: 1.1.1w
 # Do not forget to bump SHLIB_VERSION on version upgrades
-Release: 1
+Release: 0
 
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source: openssl-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 Source1: hobble-openssl
 Source2: Makefile.certificate
 Source6: make-dummy-cert
@@ -97,7 +91,7 @@ BuildRequires: util-linux
 
 
 Requires: coreutils, make
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs = %{version}-%{release}
 
 %description
 The OpenSSL toolkit provides support for secure communications between
@@ -118,9 +112,9 @@ support cryptographic algorithms and protocols.
 
 %package devel
 Summary: Files for development of applications which will use OpenSSL
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: zlib-devel%{?_isa}
-Requires: pkgconfig
+Requires: %{name}-libs = %{version}-%{release}
+Requires: zlib-devel
+Provides: openssl-devel
 
 %description devel
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel
@@ -129,7 +123,7 @@ support various cryptographic algorithms and protocols.
 
 %package static
 Summary:  Libraries for static linking of applications which will use OpenSSL
-Requires: %{name}-devel%{?_isa} = %{version}-%{release}
+Requires: %{name}-devel = %{version}-%{release}
 
 %description static
 OpenSSL is a toolkit for supporting cryptography. The openssl-static
@@ -140,7 +134,7 @@ protocols.
 %package perl
 Summary: Perl scripts provided with OpenSSL
 Requires: perl
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 
 %description perl
 OpenSSL is a toolkit for supporting cryptography. The openssl-perl
@@ -148,7 +142,7 @@ package provides Perl scripts for converting certificates and keys
 from other formats to the formats used by the OpenSSL toolkit.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%setup -q -n %{name}-%{version}/openssl
 
 # The hobble_openssl is called here redundantly, just to be sure.
 # The tarball has already the sources removed.
@@ -157,43 +151,43 @@ sh %{SOURCE1} > /dev/null
 cp %{SOURCE12} crypto/ec/
 cp %{SOURCE13} test/
 
-%patch1 -p1 -b .build   %{?_rawbuild}
-%patch2 -p1 -b .defaults
-%patch3 -p1 -b .no-html  %{?_rawbuild}
-%patch4 -p1 -b .man-rename
+%patch -P 1 -p1 -b .build
+%patch -P 2 -p1 -b .defaults
+%patch -P 3 -p1 -b .no-html
+%patch -P 4 -p1 -b .man-rename
 
-%patch31 -p1 -b .conf-paths
-%patch32 -p1 -b .version-add-engines
-%patch33 -p1 -b .dgst
-%patch36 -p1 -b .no-brainpool
-%patch37 -p1 -b .curves
-%patch38 -p1 -b .no-weak-verify
-%patch40 -p1 -b .disable-ssl3
-%patch41 -p1 -b .system-cipherlist
-%patch42 -p1 -b .fips
-%patch44 -p1 -b .version-override
-%patch45 -p1 -b .weak-ciphers
-%patch46 -p1 -b .seclevel
-%patch47 -p1 -b .ts-sha256-default
-%patch48 -p1 -b .fips-post-rand
-%patch49 -p1 -b .evp-kdf
-%patch50 -p1 -b .ssh-kdf
-%patch51 -p1 -b .intel-cet
-%patch52 -p1 -b .s390x-update
-%patch53 -p1 -b .crng-test
-%patch55 -p1 -b .arm-update
-%patch56 -p1 -b .s390x-ecc
-%patch57 -p1 -b .opt-rsa
-%patch58 -p1 -b .opt-aes-gcm
-%patch59 -p1 -b .opt-aem-xts
-%patch60 -p1 -b .krb5-kdf
-%patch61 -p1 -b .edk2-build
-%patch62 -p1 -b .fips-curves
-%patch65 -p1 -b .drbg-selftest
-%patch66 -p1 -b .fips-dh
-%patch67 -p1 -b .kdf-selftest
-%patch69 -p1 -b .alpn-cb
-%patch70 -p1 -b .rewire-fips-drbg
+%patch -P 31 -p1 -b .conf-paths
+%patch -P 32 -p1 -b .version-add-engines
+%patch -P 33 -p1 -b .dgst
+%patch -P 36 -p1 -b .no-brainpool
+%patch -P 37 -p1 -b .curves
+%patch -P 38 -p1 -b .no-weak-verify
+%patch -P 40 -p1 -b .disable-ssl3
+%patch -P 41 -p1 -b .system-cipherlist
+%patch -P 42 -p1 -b .fips
+%patch -P 44 -p1 -b .version-override
+%patch -P 45 -p1 -b .weak-ciphers
+%patch -P 46 -p1 -b .seclevel
+%patch -P 47 -p1 -b .ts-sha256-default
+%patch -P 48 -p1 -b .fips-post-rand
+%patch -P 49 -p1 -b .evp-kdf
+%patch -P 50 -p1 -b .ssh-kdf
+%patch -P 51 -p1 -b .intel-cet
+%patch -P 52 -p1 -b .s390x-update
+%patch -P 53 -p1 -b .crng-test
+%patch -P 55 -p1 -b .arm-update
+%patch -P 56 -p1 -b .s390x-ecc
+%patch -P 57 -p1 -b .opt-rsa
+%patch -P 58 -p1 -b .opt-aes-gcm
+%patch -P 59 -p1 -b .opt-aem-xts
+%patch -P 60 -p1 -b .krb5-kdf
+%patch -P 61 -p1 -b .edk2-build
+%patch -P 62 -p1 -b .fips-curves
+%patch -P 65 -p1 -b .drbg-selftest
+%patch -P 66 -p1 -b .fips-dh
+%patch -P 67 -p1 -b .kdf-selftest
+%patch -P 69 -p1 -b .alpn-cb
+%patch -P 70 -p1 -b .rewire-fips-drbg
 
 %build
 # Figure out which flags we want to use.
@@ -302,7 +296,6 @@ done
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir},%{_libdir},%{_mandir},%{_libdir}/openssl}
 # We don't need to install docs now because we don't package it.
 %{__make} DESTDIR=%{?buildroot} INSTALL="%{__install} -p" install_sw install_ssldirs
-mv $RPM_BUILD_ROOT%{_libdir}/engines-%{soversion} $RPM_BUILD_ROOT%{_libdir}/openssl
 rename so.%{soversion} so.%{version} $RPM_BUILD_ROOT%{_libdir}/*.so.%{soversion}
 for lib in $RPM_BUILD_ROOT%{_libdir}/*.so.%{version} ; do
 	
@@ -392,24 +385,13 @@ install -m644 %{SOURCE9} \
 LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH
 
-%if %{with keep_oldversion_hack}
-# HACK: include older .so so we can update everything properly
-cp -a %{_libdir}/libssl.so.%{old_version} $RPM_BUILD_ROOT/%{_libdir}/.
-cp -a %{_libdir}/libssl.so.%{old_soversion} $RPM_BUILD_ROOT/%{_libdir}/.
-mkdir $RPM_BUILD_ROOT/%{_lib}
-cp -a /%{_lib}/libcrypto.so.%{old_version} $RPM_BUILD_ROOT/%{_lib}/.
-cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
-%endif
-
 %files
-%defattr(-,root,root)
-%attr(0755,root,root) %{_bindir}/c_rehash
-%{!?_licensedir:%global license %%doc}
+%{_bindir}/c_rehash
 %license LICENSE
 %doc FAQ NEWS README README.FIPS
 %{_bindir}/make-dummy-cert
 %{_bindir}/renew-dummy-cert
-%attr(0755,root,root) %{_bindir}/openssl
+%{_bindir}/openssl
 # docs are disabled
 # BEGIN
 #%%{_mandir}/man1*/*
@@ -421,47 +403,36 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 #%exclude %%{_mandir}/man1*/tsget*
 #%exclude %%{_mandir}/man1*/openssl-tsget*
 # END
-%files libs
-%defattr(-,root,root)
-%{!?_licensedir:%global license %%doc}
-%license LICENSE
 %dir %{_sysconfdir}/pki/tls
 %dir %{_sysconfdir}/pki/tls/certs
 %dir %{_sysconfdir}/pki/tls/misc
 %dir %{_sysconfdir}/pki/tls/private
 %config %{_sysconfdir}/pki/tls/openssl.cnf
 %config %{_sysconfdir}/pki/tls/ct_log_list.cnf
-%attr(0755,root,root) %{_libdir}/libcrypto.so.%{version}
-%attr(0755,root,root) %{_libdir}/libssl.so.%{version}
+
+%files libs
+%license LICENSE
+%{_libdir}/libcrypto.so.%{version}
+%{_libdir}/libssl.so.%{version}
 %{_libdir}/libcrypto.so.%{soversion}
 %{_libdir}/libssl.so.%{soversion}
 
-%if %{with keep_oldversion_hack}
-# HACK: keep old libs
-%{_libdir}/libssl.so.%{old_version}
-%{_libdir}/libssl.so.%{old_soversion}
-/%{_lib}/libcrypto.so.%{old_version}
-/%{_lib}/libcrypto.so.%{old_soversion}
-%endif
-
 #%attr(0644,root,root) %%{_libdir}/.libcrypto.so.*.hmac
 #%attr(0644,root,root) %%{_libdir}/.libssl.so.*.hmac
-%attr(0755,root,root) %{_libdir}/%{name}
+%{_libdir}/engines-%{soversion}
 
 %files devel
-%defattr(-,root,root)
 %doc CHANGES doc/dir-locals.example.el doc/openssl-c-indent.el
 %{_prefix}/include/openssl
-%attr(0755,root,root) %{_libdir}/*.so
+%{_libdir}/*.so
 #%%{_mandir}/man3*/*  docs are disabled
-%attr(0644,root,root) %{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/*.pc
 
 %files static
-%attr(0644,root,root) %{_libdir}/*.a
+%{_libdir}/*.a
 
 %files perl
-%defattr(-,root,root)
-%attr(0755,root,root) %{_bindir}/c_rehash
+%{_bindir}/c_rehash
 %{_sysconfdir}/pki/tls/misc/*.pl
 %{_sysconfdir}/pki/tls/misc/tsget
 # docs are disabled
