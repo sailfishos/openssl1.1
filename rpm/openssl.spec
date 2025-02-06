@@ -96,7 +96,7 @@ BuildRequires: diffutils
 BuildRequires: util-linux
 
 
-Requires: coreutils, make
+Requires: coreutils
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
@@ -403,7 +403,6 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 
 %files
 %defattr(-,root,root)
-%attr(0755,root,root) %{_bindir}/c_rehash
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc FAQ NEWS README README.FIPS
