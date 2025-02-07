@@ -26,7 +26,7 @@
 %define thread_test_threads %{?threads:%{threads}}%{!?threads:1}
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 1.1.1v
+Version: 1.1.1w
 # Do not forget to bump SHLIB_VERSION on version upgrades
 Release: 1
 
@@ -402,13 +402,12 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 %endif
 
 %files
-%defattr(-,root,root)
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc FAQ NEWS README README.FIPS
 %{_bindir}/make-dummy-cert
 %{_bindir}/renew-dummy-cert
-%attr(0755,root,root) %{_bindir}/openssl
+%{_bindir}/openssl
 # docs are disabled
 # BEGIN
 #%%{_mandir}/man1*/*
@@ -421,7 +420,6 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 #%exclude %%{_mandir}/man1*/openssl-tsget*
 # END
 %files libs
-%defattr(-,root,root)
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %dir %{_sysconfdir}/pki/tls
@@ -430,8 +428,8 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 %dir %{_sysconfdir}/pki/tls/private
 %config %{_sysconfdir}/pki/tls/openssl.cnf
 %config %{_sysconfdir}/pki/tls/ct_log_list.cnf
-%attr(0755,root,root) %{_libdir}/libcrypto.so.%{version}
-%attr(0755,root,root) %{_libdir}/libssl.so.%{version}
+%{_libdir}/libcrypto.so.%{version}
+%{_libdir}/libssl.so.%{version}
 %{_libdir}/libcrypto.so.%{soversion}
 %{_libdir}/libssl.so.%{soversion}
 
@@ -443,24 +441,22 @@ cp -a /%{_lib}/libcrypto.so.%{old_soversion} $RPM_BUILD_ROOT/%{_lib}/.
 /%{_lib}/libcrypto.so.%{old_soversion}
 %endif
 
-#%attr(0644,root,root) %%{_libdir}/.libcrypto.so.*.hmac
-#%attr(0644,root,root) %%{_libdir}/.libssl.so.*.hmac
-%attr(0755,root,root) %{_libdir}/%{name}
+#%%{_libdir}/.libcrypto.so.*.hmac
+#%%{_libdir}/.libssl.so.*.hmac
+%{_libdir}/%{name}
 
 %files devel
-%defattr(-,root,root)
 %doc CHANGES doc/dir-locals.example.el doc/openssl-c-indent.el
 %{_prefix}/include/openssl
-%attr(0755,root,root) %{_libdir}/*.so
+%{_libdir}/*.so
 #%%{_mandir}/man3*/*  docs are disabled
-%attr(0644,root,root) %{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/*.pc
 
 %files static
-%attr(0644,root,root) %{_libdir}/*.a
+%{_libdir}/*.a
 
 %files perl
-%defattr(-,root,root)
-%attr(0755,root,root) %{_bindir}/c_rehash
+%{_bindir}/c_rehash
 %{_sysconfdir}/pki/tls/misc/*.pl
 %{_sysconfdir}/pki/tls/misc/tsget
 # docs are disabled
